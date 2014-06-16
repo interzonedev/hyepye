@@ -1,0 +1,9 @@
+DROP DATABASE IF EXISTS hyepye_main;
+CREATE DATABASE hyepye_main;
+
+DROP DATABASE IF EXISTS hyepye_test;
+CREATE DATABASE hyepye_test;
+
+CREATE ROLE hyepyeuser WITH LOGIN ENCRYPTED PASSWORD 'hyepyepass';
+GRANT ALL PRIVILEGES ON DATABASE hyepye_main TO hyepyeuser;
+GRANT ALL PRIVILEGES ON DATABASE hyepye_test TO hyepyeuser;
