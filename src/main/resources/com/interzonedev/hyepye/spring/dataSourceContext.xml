@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:property-placeholder location="classpath:com/interzonedev/hyepye/properties/database.properties" />
+
+    <!-- Environment/vendor specific settings. -->
+    <bean id="dbUri" class="java.net.URI">
+        <constructor-arg value="${DATABASE_URL}" />
+    </bean>
+    <bean id="dbDriverClassName" class="java.lang.String">
+        <constructor-arg value="${database.driverClassName}" />
+    </bean>
+    <bean id="dbScheme" class="java.lang.String">
+        <constructor-arg value="${database.scheme}" />
+    </bean>
+
+    <!-- General JDBC settings -->
+    <bean id="dbUrl" class="java.lang.String">
+        <constructor-arg value="#{ 'jdbc:' + @dbScheme + @dbUri.getHost() + @dbUri.getPath() }" />
+    </bean>
+    <bean id="dbUsername" class="java.lang.String">
+        <constructor-arg value="#{ @dbUri.getUserInfo().split(':')[0] }" />
+    </bean>
+    <bean id="dbPassword" class="java.lang.String">
+        <constructor-arg value="#{ @dbUri.getUserInfo().split(':')[1] }" />
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" lazy-init="true">
+        <property name="driverClass" ref="dbDriverClassName" />
+        <property name="jdbcUrl" ref="dbUrl" />
+        <property name="user" ref="dbUsername" />
+        <property name="password" ref="dbPassword" />
+        <property name="automaticTestTable" value="AUTO_TEST_TABLE" />
+        <!-- tests idle connections after this number of seconds -->
+        <property name="idleConnectionTestPeriod" value="3600" />
+    </bean>
+
+</beans>
