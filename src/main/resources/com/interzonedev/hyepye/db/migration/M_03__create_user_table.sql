@@ -1,12 +1,10 @@
 -- Create the hp_user table, primary key sequence, update timestamp set trigger and constraints.
 
-DROP TABLE IF EXISTS hp_user;
-
 DROP SEQUENCE IF EXISTS hp_user_seq;
 
-DROP TRIGGER IF EXISTS t_set_hp_user_time_updated ON hp_user;
-
 CREATE SEQUENCE hp_user_seq;
+
+DROP TABLE IF EXISTS hp_user;
 
 CREATE TABLE hp_user (
     hp_user_id INTEGER NOT NULL PRIMARY KEY DEFAULT nextval('hp_user_seq'),
@@ -21,6 +19,8 @@ CREATE TABLE hp_user (
     time_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     time_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+DROP TRIGGER IF EXISTS t_set_hp_user_time_updated ON hp_user;
 
 CREATE TRIGGER t_set_hp_user_time_updated
     BEFORE UPDATE
