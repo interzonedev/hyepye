@@ -1,0 +1,11 @@
+# PSQL - Local Main
+psql -d hyepye_main -U hyepyeuser -W
+
+# PSQL - Local Test
+psql -d hyepye_test -U hyepyeuser -W
+
+# PSQL - Remote
+heroku pg:psql --app interzonedev-hyepye jade 
+
+# Run Tasks - Remote
+heroku run "sh target/bin/migrate history"
