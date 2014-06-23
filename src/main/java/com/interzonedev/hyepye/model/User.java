@@ -233,6 +233,8 @@ public class User implements Serializable {
 
         /**
          * Creates a new {@link User} from the values set on this {@link Builder}.
+         * 
+         * @return Returns a new {@link User} from the values set on this {@link Builder}.
          */
         public User build() {
             return new User(this);
