@@ -6,5 +6,5 @@ target/
 *.jpage
 .idea/
 *.iml
-model/
+datamodel/
 
