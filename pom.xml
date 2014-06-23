@@ -146,11 +146,11 @@
                             <programs>
                                 <program>
                                     <mainClass>com.interzonedev.hyepye.process.Webapp</mainClass>
-                                    <name>webapp</name>
+                                    <id>webapp</id>
                                 </program>
                                 <program>
                                     <mainClass>com.interzonedev.hyepye.process.Migrate</mainClass>
-                                    <name>migrate</name>
+                                    <id>migrate</id>
                                 </program>
                             </programs>
                         </configuration>
