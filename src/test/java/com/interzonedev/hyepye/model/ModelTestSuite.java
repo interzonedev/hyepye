@@ -11,6 +11,6 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author mmarkarian
  */
 @RunWith(Suite.class)
-@SuiteClasses({ UserTest.class, VerbTest.class })
+@SuiteClasses({ ConjugationTest.class, UserTest.class, VerbTest.class })
 public class ModelTestSuite {
 }
