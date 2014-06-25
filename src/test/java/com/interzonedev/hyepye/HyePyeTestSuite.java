@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.interzonedev.hyepye.model.ModelTestSuite;
 
 /**
- * This is a convenience class for running all the tests for the entire Hyepye proejct at once by an IDE. This should
+ * This is a convenience class for running all the tests for the entire Hye Pye proejct at once by an IDE. This should
  * not be run by the Maven build.
  * 
  * @author mmarkarian

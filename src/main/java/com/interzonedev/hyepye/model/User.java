@@ -1,7 +1,10 @@
 package com.interzonedev.hyepye.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
@@ -44,9 +47,7 @@ public class User implements Serializable {
     @Size(max = 255)
     private final String lastName;
 
-    @NotEmpty
-    @Size(max = 50)
-    private final String role;
+    private final List<Role> roles;
 
     private final boolean active;
 
@@ -67,7 +68,7 @@ public class User implements Serializable {
         this.email = builder.email;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
-        this.role = builder.role;
+        this.roles = Collections.unmodifiableList(builder.roles);
         this.active = builder.active;
         this.timeCreated = builder.timeCreated;
         this.timeUpdated = builder.timeUpdated;
@@ -121,8 +122,8 @@ public class User implements Serializable {
         return lastName;
     }
 
-    public String getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
     public boolean isActive() {
@@ -154,7 +155,7 @@ public class User implements Serializable {
                 && Objects.equal(getPasswordHash(), that.getPasswordHash())
                 && Objects.equal(getPasswordSeed(), that.getPasswordSeed())
                 && Objects.equal(getEmail(), that.getEmail()) && Objects.equal(getFirstName(), that.getFirstName())
-                && Objects.equal(getLastName(), that.getLastName()) && Objects.equal(getRole(), that.getRole())
+                && Objects.equal(getLastName(), that.getLastName()) && Objects.equal(getRoles(), that.getRoles())
                 && Objects.equal(isActive(), that.isActive()) && Objects.equal(getTimeCreated(), that.getTimeCreated())
                 && Objects.equal(getTimeUpdated(), that.getTimeUpdated());
 
@@ -163,7 +164,7 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(getId(), getUsername(), getPasswordHash(), getPasswordSeed(), getEmail(),
-                getFirstName(), getLastName(), getRole(), isActive(), getTimeCreated(), getTimeUpdated());
+                getFirstName(), getLastName(), getRoles(), isActive(), getTimeCreated(), getTimeUpdated());
     }
 
     @Override
@@ -171,7 +172,7 @@ public class User implements Serializable {
         return Objects.toStringHelper(this).add("hashCode", Integer.toHexString(hashCode())).add("id", getId())
                 .add("username", getUsername()).add("passwordHash", getPasswordHash())
                 .add("passwordSeed", getPasswordSeed()).add("email", getEmail()).add("firstName", getFirstName())
-                .add("lastName", getLastName()).add("role", getRole()).add("active", isActive())
+                .add("lastName", getLastName()).add("roles", getRoles()).add("active", isActive())
                 .add("timeCreated", getTimeCreated()).add("timeUpdated", getTimeUpdated()).toString();
     }
 
@@ -196,7 +197,7 @@ public class User implements Serializable {
 
         private String lastName;
 
-        private String role;
+        private List<Role> roles = new ArrayList<Role>();
 
         private boolean active;
 
@@ -223,7 +224,7 @@ public class User implements Serializable {
             this.email = template.getEmail();
             this.firstName = template.getFirstName();
             this.lastName = template.getLastName();
-            this.role = template.getRole();
+            this.roles = template.getRoles();
             this.active = template.isActive();
             this.timeCreated = template.getTimeCreated();
             this.timeUpdated = template.getTimeUpdated();
@@ -273,8 +274,13 @@ public class User implements Serializable {
             return this;
         }
 
-        public Builder setRole(String role) {
-            this.role = role;
+        public Builder setRoles(List<Role> roles) {
+            this.roles = roles;
+            return this;
+        }
+
+        public Builder addRole(Role role) {
+            this.roles.add(role);
             return this;
         }
 

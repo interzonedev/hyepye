@@ -1,6 +1,8 @@
 package com.interzonedev.hyepye.model;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -156,15 +158,32 @@ public class UserTest {
     }
 
     @Test
-    public void testRole() {
-        String baseRole = "foo";
-        String otherRole = "bar";
+    public void testRoles() {
+        List<Role> baseRoles = Arrays.asList(new Role[] { Role.ADMIN });
+        List<Role> otherRoles = Arrays.asList(new Role[] { Role.APPROVER });
 
-        User base = User.newBuilder().setRole(baseRole).build();
-        User same = User.newBuilder().setRole(baseRole).build();
-        User different = User.newBuilder().setRole(otherRole).build();
+        User base = User.newBuilder().setRoles(baseRoles).build();
+        User same = User.newBuilder().setRoles(baseRoles).build();
+        User different = User.newBuilder().setRoles(otherRoles).build();
 
-        Assert.assertEquals(baseRole, base.getRole());
+        Assert.assertEquals(baseRoles, base.getRoles());
+        Assert.assertEquals(base, same);
+        Assert.assertEquals(base.hashCode(), same.hashCode());
+
+        Assert.assertNotEquals(base, different);
+        Assert.assertNotEquals(base.hashCode(), different.hashCode());
+    }
+
+    @Test
+    public void testAddRole() {
+        Role baseRole = Role.ADMIN;
+        Role otherRole = Role.APPROVER;
+
+        User base = User.newBuilder().addRole(baseRole).build();
+        User same = User.newBuilder().addRole(baseRole).build();
+        User different = User.newBuilder().addRole(otherRole).build();
+
+        Assert.assertTrue(base.getRoles().contains(baseRole));
         Assert.assertEquals(base, same);
         Assert.assertEquals(base.hashCode(), same.hashCode());
 
@@ -227,7 +246,7 @@ public class UserTest {
     public void testBuildFromTemplate() {
         User base = User.newBuilder().setId(1L).setUsername("username").setPasswordHash("passwordHash")
                 .setPasswordSeed("passwordSeed").setEmail("email").setFirstName("firstName").setLastName("lastName")
-                .setRole("role").setActive(true).setTimeCreated(new Date(1L)).setTimeUpdated(new Date(2L)).build();
+                .addRole(Role.ADMIN).setActive(true).setTimeCreated(new Date(1L)).setTimeUpdated(new Date(2L)).build();
         User same = User.newBuilder(base).build();
 
         Assert.assertEquals(base, same);
