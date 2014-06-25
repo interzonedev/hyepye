@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -20,7 +19,6 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = -8164945372635497639L;
 
-    @NotNull
     @Min(1L)
     private final Long id;
 

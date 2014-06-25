@@ -14,6 +14,20 @@ import org.junit.Test;
 public class UserTest {
 
     @Test
+    public void testNullNotEqual() {
+        User user = User.newBuilder().build();
+
+        Assert.assertNotEquals(user, null);
+    }
+
+    @Test
+    public void testIdentityEqual() {
+        User user = User.newBuilder().build();
+
+        Assert.assertEquals(user, user);
+    }
+
+    @Test
     public void testDefault() {
         User base = User.newBuilder().build();
         User same = User.newBuilder().build();
