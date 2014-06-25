@@ -195,7 +195,7 @@ public class Verb implements Serializable {
         private Long modifiedBy;
 
         /**
-         * Default constructor. Allows for building a {@link User} starting with default values.
+         * Default constructor. Allows for building a {@link Verb} starting with default values.
          */
         private Builder() {
         }
@@ -227,45 +227,56 @@ public class Verb implements Serializable {
             return new Verb(this);
         }
 
-        public void setId(Long id) {
+        public Builder setId(Long id) {
             this.id = id;
+            return this;
         }
 
-        public void setArmenian(String armenian) {
+        public Builder setArmenian(String armenian) {
             this.armenian = armenian;
+            return this;
         }
 
-        public void setEnglish(String english) {
+        public Builder setEnglish(String english) {
             this.english = english;
+            return this;
         }
 
-        public void setConjugationGroup(String conjugationGroup) {
+        public Builder setConjugationGroup(String conjugationGroup) {
             this.conjugationGroup = conjugationGroup;
+            return this;
         }
 
-        public void setIrregular(boolean irregular) {
+        public Builder setIrregular(boolean irregular) {
             this.irregular = irregular;
+            return this;
         }
 
-        public void setStatus(String status) {
+        public Builder setStatus(String status) {
             this.status = status;
+            return this;
         }
 
-        public void setTimeCreated(Date timeCreated) {
+        public Builder setTimeCreated(Date timeCreated) {
             this.timeCreated = timeCreated;
+            return this;
         }
 
-        public void setTimeUpdated(Date timeUpdated) {
+        public Builder setTimeUpdated(Date timeUpdated) {
             this.timeUpdated = timeUpdated;
+            return this;
         }
 
-        public void setCreatedBy(Long createdBy) {
+        public Builder setCreatedBy(Long createdBy) {
             this.createdBy = createdBy;
+            return this;
         }
 
-        public void setModifiedBy(Long modifiedBy) {
+        public Builder setModifiedBy(Long modifiedBy) {
             this.modifiedBy = modifiedBy;
+            return this;
         }
 
     }
+
 }
