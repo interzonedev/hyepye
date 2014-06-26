@@ -123,8 +123,8 @@ public class VerbTest {
 
     @Test
     public void testStatus() {
-        String baseStatus = "foo";
-        String otherStatus = "bar";
+        Status baseStatus = Status.APPROVED;
+        Status otherStatus = Status.SUBMITTED;
 
         Verb base = Verb.newBuilder().setStatus(baseStatus).build();
         Verb same = Verb.newBuilder().setStatus(baseStatus).build();
@@ -210,7 +210,7 @@ public class VerbTest {
     public void testBuildFromTemplate() {
 
         Verb base = Verb.newBuilder().setId(1L).setArmenian("armenian").setEnglish("english")
-                .setConjugationGroup("conjugationGroup").setIrregular(true).setStatus("status")
+                .setConjugationGroup("conjugationGroup").setIrregular(true).setStatus(Status.APPROVED)
                 .setTimeCreated(new Date(1L)).setTimeUpdated(new Date(2L)).setCreatedBy(1L).setModifiedBy(2L).build();
         Verb same = Verb.newBuilder(base).build();
 

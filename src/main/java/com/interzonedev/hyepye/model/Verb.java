@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -36,9 +37,8 @@ public class Verb implements Serializable {
 
     private final boolean irregular;
 
-    @NotEmpty
-    @Size(max = 50)
-    private final String status;
+    @NotNull
+    private final Status status;
 
     private final Date timeCreated;
 
@@ -108,7 +108,7 @@ public class Verb implements Serializable {
         return irregular;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -184,7 +184,7 @@ public class Verb implements Serializable {
 
         private boolean irregular;
 
-        private String status;
+        private Status status;
 
         private Date timeCreated;
 
@@ -252,7 +252,7 @@ public class Verb implements Serializable {
             return this;
         }
 
-        public Builder setStatus(String status) {
+        public Builder setStatus(Status status) {
             this.status = status;
             return this;
         }
