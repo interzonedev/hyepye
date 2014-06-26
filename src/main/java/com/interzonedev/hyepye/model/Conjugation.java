@@ -55,9 +55,8 @@ public class Conjugation implements Serializable {
     @Size(max = 255)
     private final String thirdPersonPlural;
 
-    @NotEmpty
-    @Size(max = 50)
-    private final String status;
+    @NotNull
+    private final Status status;
 
     private final Date timeCreated;
 
@@ -147,7 +146,7 @@ public class Conjugation implements Serializable {
         return thirdPersonPlural;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -238,7 +237,7 @@ public class Conjugation implements Serializable {
 
         private String thirdPersonPlural;
 
-        private String status;
+        private Status status;
 
         private Date timeCreated;
 
@@ -332,7 +331,7 @@ public class Conjugation implements Serializable {
             return this;
         }
 
-        public Builder setStatus(String status) {
+        public Builder setStatus(Status status) {
             this.status = status;
             return this;
         }

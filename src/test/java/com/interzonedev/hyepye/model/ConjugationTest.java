@@ -191,8 +191,8 @@ public class ConjugationTest {
 
     @Test
     public void testStatus() {
-        String baseStatus = "foo";
-        String otherStatus = "bar";
+        Status baseStatus = Status.APPROVED;
+        Status otherStatus = Status.SUBMITTED;
 
         Conjugation base = Conjugation.newBuilder().setStatus(baseStatus).build();
         Conjugation same = Conjugation.newBuilder().setStatus(baseStatus).build();
@@ -280,7 +280,7 @@ public class ConjugationTest {
                 .setFirstPersonSingular("firstPersonSingular").setSecondPersonSingular("secondPersonSingular")
                 .setThirdPersonSingular("thirdPersonSingular").setFirstPersonPlural("firstPersonPlural")
                 .setSecondPersonPlural("secondPersonPlural").setThirdPersonPlural("thirdPersonPlural")
-                .setStatus("status").setTimeCreated(new Date(1L)).setTimeUpdated(new Date(2L)).setCreatedBy(1L)
+                .setStatus(Status.APPROVED).setTimeCreated(new Date(1L)).setTimeUpdated(new Date(2L)).setCreatedBy(1L)
                 .setModifiedBy(2L).build();
         Conjugation same = Conjugation.newBuilder(base).build();
 
