@@ -1,7 +1,7 @@
 package com.interzonedev.hyepye.model;
 
 /**
- * Enumeration that identifies {@link Verb} statuses.
+ * Enumeration that identifies {@link Verb} and {@link Conjugation} statuses.
  * 
  * @author mmarkarian
  */

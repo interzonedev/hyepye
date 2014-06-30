@@ -31,9 +31,8 @@ public class Verb implements Serializable {
     @Size(max = 255)
     private final String english;
 
-    @NotEmpty
-    @Size(max = 5)
-    private final String conjugationGroup;
+    @NotNull
+    private final ConjugationGroup conjugationGroup;
 
     private final boolean irregular;
 
@@ -100,7 +99,7 @@ public class Verb implements Serializable {
         return english;
     }
 
-    public String getConjugationGroup() {
+    public ConjugationGroup getConjugationGroup() {
         return conjugationGroup;
     }
 
@@ -180,7 +179,7 @@ public class Verb implements Serializable {
 
         private String english;
 
-        private String conjugationGroup;
+        private ConjugationGroup conjugationGroup;
 
         private boolean irregular;
 
@@ -242,7 +241,7 @@ public class Verb implements Serializable {
             return this;
         }
 
-        public Builder setConjugationGroup(String conjugationGroup) {
+        public Builder setConjugationGroup(ConjugationGroup conjugationGroup) {
             this.conjugationGroup = conjugationGroup;
             return this;
         }

@@ -89,8 +89,8 @@ public class VerbTest {
 
     @Test
     public void testConjugationGroup() {
-        String baseConjugationGroup = "foo";
-        String otherConjugationGroup = "bar";
+        ConjugationGroup baseConjugationGroup = ConjugationGroup.ONE;
+        ConjugationGroup otherConjugationGroup = ConjugationGroup.TWO;
 
         Verb base = Verb.newBuilder().setConjugationGroup(baseConjugationGroup).build();
         Verb same = Verb.newBuilder().setConjugationGroup(baseConjugationGroup).build();
@@ -210,7 +210,7 @@ public class VerbTest {
     public void testBuildFromTemplate() {
 
         Verb base = Verb.newBuilder().setId(1L).setArmenian("armenian").setEnglish("english")
-                .setConjugationGroup("conjugationGroup").setIrregular(true).setStatus(Status.APPROVED)
+                .setConjugationGroup(ConjugationGroup.ONE).setIrregular(true).setStatus(Status.APPROVED)
                 .setTimeCreated(new Date(1L)).setTimeUpdated(new Date(2L)).setCreatedBy(1L).setModifiedBy(2L).build();
         Verb same = Verb.newBuilder(base).build();
 
