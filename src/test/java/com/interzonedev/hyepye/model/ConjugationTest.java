@@ -21,6 +21,14 @@ public class ConjugationTest {
     }
 
     @Test
+    public void testOtherClass() {
+        Conjugation base = Conjugation.newBuilder().build();
+        String other = "foo";
+
+        Assert.assertNotEquals(base, other);
+    }
+
+    @Test
     public void testIdentityEqual() {
         Conjugation conjugation = Conjugation.newBuilder().build();
 

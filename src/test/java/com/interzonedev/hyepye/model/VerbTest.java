@@ -21,6 +21,14 @@ public class VerbTest {
     }
 
     @Test
+    public void testOtherClass() {
+        Verb base = Verb.newBuilder().build();
+        String other = "foo";
+
+        Assert.assertNotEquals(base, other);
+    }
+
+    @Test
     public void testIdentityEqual() {
         Verb verb = Verb.newBuilder().build();
 

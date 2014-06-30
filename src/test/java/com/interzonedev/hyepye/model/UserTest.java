@@ -21,6 +21,14 @@ public class UserTest {
     }
 
     @Test
+    public void testOtherClass() {
+        User base = User.newBuilder().build();
+        String other = "foo";
+
+        Assert.assertNotEquals(base, other);
+    }
+
+    @Test
     public void testIdentityEqual() {
         User user = User.newBuilder().build();
 
