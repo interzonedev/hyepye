@@ -38,4 +38,10 @@ public enum Role {
         return null;
     }
 
+    public static void main(String[] args) {
+        System.out.println("ADMIN = " + ADMIN);
+        System.out.println("ADMIN.toString() = " + ADMIN.toString());
+        System.out.println("ADMIN.getRoleName() = " + ADMIN.getRoleName());
+    }
+
 }
