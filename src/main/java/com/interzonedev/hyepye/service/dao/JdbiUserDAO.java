@@ -50,6 +50,16 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
     /*
      * (non-Javadoc)
      * 
+     * @see com.interzonedev.hyepye.service.dao.UserDAO#getUserByEmail(java.lang.String)
+     */
+    @Override
+    @SqlQuery("SELECT hp_user_id, username, password_hash, password_seed, email, first_name, last_name, role, active, "
+            + "time_created, time_updated FROM hp_user WHERE email = :email")
+    public User getUserByEmail(@Bind("email") String email);
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.interzonedev.hyepye.service.dao.UserDAO#createUser(com.interzonedev.hyepye.model.User)
      */
     @Override

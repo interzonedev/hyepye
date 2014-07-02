@@ -37,6 +37,15 @@ public interface UserDAO {
     public User getUserByName(String name);
 
     /**
+     * Gets the {@link User} with the specified email.
+     * 
+     * @param email The email of the {@link User} to retrieve.
+     * 
+     * @return Returns the {@link User} with the specified email.
+     */
+    public User getUserByEmail(String email);
+
+    /**
      * Creates a new {@link User} by persisting the specified {@link User}.
      * 
      * @param user The {@link User} to create.
