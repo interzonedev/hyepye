@@ -150,4 +150,22 @@ public class HyePyeResponseTest {
         Assert.assertNotEquals(base.hashCode(), different.hashCode());
     }
 
+    @Test
+    public void testBuildFromTemplate() {
+        Throwable processingError = new RuntimeException("foo");
+        ValidationException validationError = new ValidationException("bar");
+        User user = User.newBuilder().setId(1L).build();
+        Conjugation conjugation = Conjugation.newBuilder().setId(1L).build();
+        Verb verb = Verb.newBuilder().setId(1L).build();
+        Vocabulary vocabulary = Vocabulary.newBuilder().setId(1L).build();
+
+        HyePyeResponse base = HyePyeResponse.newBuilder().setProcessingError(processingError)
+                .setValidationError(validationError).setUser(user).setConjugation(conjugation).setVerb(verb)
+                .setVocabulary(vocabulary).build();
+        HyePyeResponse same = HyePyeResponse.newBuilder(base).build();
+
+        Assert.assertEquals(base, same);
+        Assert.assertEquals(base.hashCode(), same.hashCode());
+    }
+
 }
