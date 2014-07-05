@@ -30,6 +30,8 @@ public class HyePyeResponse implements Serializable {
 
     private final Conjugation conjugation;
 
+    private final List<Conjugation> conjugations;
+
     private final Verb verb;
 
     private final Vocabulary vocabulary;
@@ -49,6 +51,11 @@ public class HyePyeResponse implements Serializable {
             this.users = Collections.unmodifiableList(builder.users);
         }
         this.conjugation = builder.conjugation;
+        if (null == builder.conjugations) {
+            this.conjugations = Collections.emptyList();
+        } else {
+            this.conjugations = Collections.unmodifiableList(builder.conjugations);
+        }
         this.verb = builder.verb;
         this.vocabulary = builder.vocabulary;
     }
@@ -93,6 +100,10 @@ public class HyePyeResponse implements Serializable {
         return conjugation;
     }
 
+    public List<Conjugation> getConjugations() {
+        return conjugations;
+    }
+
     public Verb getVerb() {
         return verb;
     }
@@ -117,7 +128,8 @@ public class HyePyeResponse implements Serializable {
         return Objects.equal(getProcessingError(), that.getProcessingError())
                 && Objects.equal(getValidationError(), that.getValidationError())
                 && Objects.equal(getUser(), that.getUser()) && Objects.equal(getUsers(), that.getUsers())
-                && Objects.equal(getConjugation(), that.getConjugation()) && Objects.equal(getVerb(), that.getVerb())
+                && Objects.equal(getConjugation(), that.getConjugation())
+                && Objects.equal(getConjugations(), that.getConjugations()) && Objects.equal(getVerb(), that.getVerb())
                 && Objects.equal(getVocabulary(), that.getVocabulary());
 
     }
@@ -125,7 +137,7 @@ public class HyePyeResponse implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(getProcessingError(), getValidationError(), getUser(), getUsers(), getConjugation(),
-                getVerb(), getVocabulary());
+                getConjugations(), getVerb(), getVocabulary());
     }
 
     @Override
@@ -133,7 +145,8 @@ public class HyePyeResponse implements Serializable {
         return Objects.toStringHelper(this).add("hashCode", Integer.toHexString(hashCode()))
                 .add("processingError", getProcessingError()).add("validationError", getValidationError())
                 .add("user", getUser()).add("users", getUsers()).add("conjugation", getConjugation())
-                .add("verb", getVerb()).add("vocabulary", getVocabulary()).toString();
+                .add("conjugations", getConjugations()).add("verb", getVerb()).add("vocabulary", getVocabulary())
+                .toString();
     }
 
     /**
@@ -153,6 +166,8 @@ public class HyePyeResponse implements Serializable {
         private List<User> users;
 
         private Conjugation conjugation;
+
+        private List<Conjugation> conjugations;
 
         private Verb verb;
 
@@ -177,6 +192,7 @@ public class HyePyeResponse implements Serializable {
             this.user = template.getUser();
             this.users = template.getUsers();
             this.conjugation = template.getConjugation();
+            this.conjugations = template.getConjugations();
             this.verb = template.getVerb();
             this.vocabulary = template.getVocabulary();
         }
@@ -212,6 +228,11 @@ public class HyePyeResponse implements Serializable {
 
         public Builder setConjugation(Conjugation conjugation) {
             this.conjugation = conjugation;
+            return this;
+        }
+
+        public Builder setConjugations(List<Conjugation> conjugations) {
+            this.conjugations = conjugations;
             return this;
         }
 

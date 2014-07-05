@@ -142,6 +142,28 @@ public class HyePyeResponseTest {
     }
 
     @Test
+    public void testConjugations() {
+        List<Conjugation> baseConjugations = Arrays.asList(new Conjugation[] {
+                Conjugation.newBuilder().setId(1L).build(), Conjugation.newBuilder().setId(2L).build() });
+        List<Conjugation> otherConjugations = Arrays.asList(new Conjugation[] {
+                Conjugation.newBuilder().setId(3L).build(), Conjugation.newBuilder().setId(4L).build() });
+
+        HyePyeResponse base = HyePyeResponse.newBuilder().setConjugations(baseConjugations).build();
+        HyePyeResponse same = HyePyeResponse.newBuilder().setConjugations(baseConjugations).build();
+        HyePyeResponse different = HyePyeResponse.newBuilder().setConjugations(otherConjugations).build();
+        HyePyeResponse defaultVals = HyePyeResponse.newBuilder().build();
+
+        Assert.assertEquals(baseConjugations, base.getConjugations());
+        Assert.assertEquals(base, same);
+        Assert.assertEquals(base.hashCode(), same.hashCode());
+
+        Assert.assertNotEquals(base, different);
+        Assert.assertNotEquals(base.hashCode(), different.hashCode());
+
+        Assert.assertTrue(defaultVals.getConjugations().isEmpty());
+    }
+
+    @Test
     public void testVerb() {
         Verb baseVerb = Verb.newBuilder().setId(1L).build();
         Verb otherVerb = Verb.newBuilder().setId(2L).build();
@@ -180,13 +202,17 @@ public class HyePyeResponseTest {
         Throwable processingError = new RuntimeException("foo");
         ValidationException validationError = new ValidationException("bar");
         User user = User.newBuilder().setId(1L).build();
+        List<User> users = Arrays.asList(new User[] { User.newBuilder().setId(1L).build(),
+                User.newBuilder().setId(2L).build() });
         Conjugation conjugation = Conjugation.newBuilder().setId(1L).build();
+        List<Conjugation> conjugations = Arrays.asList(new Conjugation[] { Conjugation.newBuilder().setId(1L).build(),
+                Conjugation.newBuilder().setId(2L).build() });
         Verb verb = Verb.newBuilder().setId(1L).build();
         Vocabulary vocabulary = Vocabulary.newBuilder().setId(1L).build();
 
         HyePyeResponse base = HyePyeResponse.newBuilder().setProcessingError(processingError)
-                .setValidationError(validationError).setUser(user).setConjugation(conjugation).setVerb(verb)
-                .setVocabulary(vocabulary).build();
+                .setValidationError(validationError).setUser(user).setUsers(users).setConjugation(conjugation)
+                .setConjugations(conjugations).setVerb(verb).setVocabulary(vocabulary).build();
         HyePyeResponse same = HyePyeResponse.newBuilder(base).build();
 
         Assert.assertEquals(base, same);
