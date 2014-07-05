@@ -53,8 +53,8 @@ public class HyePyeResponseTest {
 
     @Test
     public void testProcessingError() {
-        Throwable baseProcessingError = new RuntimeException("foo");
-        Throwable otherProcessingError = new RuntimeException("bar");
+        Exception baseProcessingError = new RuntimeException("foo");
+        Exception otherProcessingError = new RuntimeException("bar");
 
         HyePyeResponse base = HyePyeResponse.newBuilder().setProcessingError(baseProcessingError).build();
         HyePyeResponse same = HyePyeResponse.newBuilder().setProcessingError(baseProcessingError).build();
@@ -243,7 +243,7 @@ public class HyePyeResponseTest {
 
     @Test
     public void testBuildFromTemplate() {
-        Throwable processingError = new RuntimeException("foo");
+        Exception processingError = new RuntimeException("foo");
         ValidationException validationError = new ValidationException("bar");
         User user = User.newBuilder().setId(1L).build();
         List<User> users = Arrays.asList(new User[] { User.newBuilder().setId(1L).build(),

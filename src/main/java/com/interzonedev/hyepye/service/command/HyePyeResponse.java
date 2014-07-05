@@ -20,7 +20,7 @@ public class HyePyeResponse implements Serializable {
 
     private static final long serialVersionUID = 7125535053959188152L;
 
-    private final Throwable processingError;
+    private final Exception processingError;
 
     private final ValidationException validationError;
 
@@ -94,7 +94,7 @@ public class HyePyeResponse implements Serializable {
         return new Builder(template);
     }
 
-    public Throwable getProcessingError() {
+    public Exception getProcessingError() {
         return processingError;
     }
 
@@ -180,7 +180,7 @@ public class HyePyeResponse implements Serializable {
      */
     public static class Builder {
 
-        private Throwable processingError;
+        private Exception processingError;
 
         private ValidationException validationError;
 
@@ -235,7 +235,7 @@ public class HyePyeResponse implements Serializable {
             return new HyePyeResponse(this);
         }
 
-        public Builder setProcessingError(Throwable processingError) {
+        public Builder setProcessingError(Exception processingError) {
             this.processingError = processingError;
             return this;
         }
