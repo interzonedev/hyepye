@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.interzonedev.hyepye.model.ModelTestSuite;
+import com.interzonedev.hyepye.service.command.CommandTestSuite;
 
 /**
  * This is a convenience class for running all the tests for the entire Hye Pye application at once by an IDE. This
@@ -13,6 +14,6 @@ import com.interzonedev.hyepye.model.ModelTestSuite;
  * @author mmarkarian
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ModelTestSuite.class })
+@SuiteClasses({ ModelTestSuite.class, CommandTestSuite.class })
 public class HyePyeTestSuite {
 }
