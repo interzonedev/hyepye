@@ -181,6 +181,28 @@ public class HyePyeResponseTest {
     }
 
     @Test
+    public void testVerbs() {
+        List<Verb> baseVerbs = Arrays.asList(new Verb[] { Verb.newBuilder().setId(1L).build(),
+                Verb.newBuilder().setId(2L).build() });
+        List<Verb> otherVerbs = Arrays.asList(new Verb[] { Verb.newBuilder().setId(3L).build(),
+                Verb.newBuilder().setId(4L).build() });
+
+        HyePyeResponse base = HyePyeResponse.newBuilder().setVerbs(baseVerbs).build();
+        HyePyeResponse same = HyePyeResponse.newBuilder().setVerbs(baseVerbs).build();
+        HyePyeResponse different = HyePyeResponse.newBuilder().setVerbs(otherVerbs).build();
+        HyePyeResponse defaultVals = HyePyeResponse.newBuilder().build();
+
+        Assert.assertEquals(baseVerbs, base.getVerbs());
+        Assert.assertEquals(base, same);
+        Assert.assertEquals(base.hashCode(), same.hashCode());
+
+        Assert.assertNotEquals(base, different);
+        Assert.assertNotEquals(base.hashCode(), different.hashCode());
+
+        Assert.assertTrue(defaultVals.getVerbs().isEmpty());
+    }
+
+    @Test
     public void testVocabulary() {
         Vocabulary baseVocabulary = Vocabulary.newBuilder().setId(1L).build();
         Vocabulary otherVocabulary = Vocabulary.newBuilder().setId(2L).build();
@@ -208,11 +230,13 @@ public class HyePyeResponseTest {
         List<Conjugation> conjugations = Arrays.asList(new Conjugation[] { Conjugation.newBuilder().setId(1L).build(),
                 Conjugation.newBuilder().setId(2L).build() });
         Verb verb = Verb.newBuilder().setId(1L).build();
+        List<Verb> verbs = Arrays.asList(new Verb[] { Verb.newBuilder().setId(1L).build(),
+                Verb.newBuilder().setId(2L).build() });
         Vocabulary vocabulary = Vocabulary.newBuilder().setId(1L).build();
 
         HyePyeResponse base = HyePyeResponse.newBuilder().setProcessingError(processingError)
                 .setValidationError(validationError).setUser(user).setUsers(users).setConjugation(conjugation)
-                .setConjugations(conjugations).setVerb(verb).setVocabulary(vocabulary).build();
+                .setConjugations(conjugations).setVerb(verb).setVerbs(verbs).setVocabulary(vocabulary).build();
         HyePyeResponse same = HyePyeResponse.newBuilder(base).build();
 
         Assert.assertEquals(base, same);
