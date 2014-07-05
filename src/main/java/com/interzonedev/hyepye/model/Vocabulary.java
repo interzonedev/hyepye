@@ -152,7 +152,7 @@ public class Vocabulary implements Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("hashCode", Integer.toHexString(hashCode())).add("id", getId())
+        return Objects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode())).add("id", getId())
                 .add("armenian", getArmenian()).add("english", getEnglish()).add("vocabularyType", getVocabularyType())
                 .add("status", getStatus()).add("timeCreated", getTimeCreated()).add("timeUpdated", getTimeUpdated())
                 .add("createdBy", getCreatedBy()).add("modifiedBy", getModifiedBy()).toString();

@@ -168,7 +168,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("hashCode", Integer.toHexString(hashCode())).add("id", getId())
+        return Objects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode())).add("id", getId())
                 .add("username", getUsername()).add("passwordHash", getPasswordHash())
                 .add("passwordSeed", getPasswordSeed()).add("email", getEmail()).add("firstName", getFirstName())
                 .add("lastName", getLastName()).add("role", getRole()).add("active", isActive())

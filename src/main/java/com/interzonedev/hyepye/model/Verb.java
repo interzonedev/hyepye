@@ -159,7 +159,7 @@ public class Verb implements Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("hashCode", Integer.toHexString(hashCode())).add("id", getId())
+        return Objects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode())).add("id", getId())
                 .add("armenian", getArmenian()).add("english", getEnglish())
                 .add("conjugationGroup", getConjugationGroup()).add("irregular", isIrregular())
                 .add("status", getStatus()).add("timeCreated", getTimeCreated()).add("timeUpdated", getTimeUpdated())

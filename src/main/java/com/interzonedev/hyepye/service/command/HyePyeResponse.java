@@ -165,7 +165,7 @@ public class HyePyeResponse implements Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("hashCode", Integer.toHexString(hashCode()))
+        return Objects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode()))
                 .add("processingError", getProcessingError()).add("validationError", getValidationError())
                 .add("user", getUser()).add("users", getUsers()).add("conjugation", getConjugation())
                 .add("conjugations", getConjugations()).add("verb", getVerb()).add("verbs", getVerbs())

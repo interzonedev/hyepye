@@ -202,7 +202,7 @@ public class Conjugation implements Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("hashCode", Integer.toHexString(hashCode())).add("id", getId())
+        return Objects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode())).add("id", getId())
                 .add("verbId", getVerbId()).add("tense", getTense())
                 .add("firstPersonSingular", getFirstPersonSingular())
                 .add("secondPersonSingular", getSecondPersonSingular())
