@@ -38,6 +38,8 @@ public class HyePyeResponse implements Serializable {
 
     private final Vocabulary vocabulary;
 
+    private final List<Vocabulary> vocabularies;
+
     /**
      * Creates a new {@link HyePyeResponse} from the values set on the specified {@link Builder}.
      * 
@@ -65,6 +67,11 @@ public class HyePyeResponse implements Serializable {
             this.verbs = Collections.unmodifiableList(builder.verbs);
         }
         this.vocabulary = builder.vocabulary;
+        if (null == builder.vocabularies) {
+            this.vocabularies = Collections.emptyList();
+        } else {
+            this.vocabularies = Collections.unmodifiableList(builder.vocabularies);
+        }
     }
 
     /**
@@ -123,6 +130,10 @@ public class HyePyeResponse implements Serializable {
         return vocabulary;
     }
 
+    public List<Vocabulary> getVocabularies() {
+        return vocabularies;
+    }
+
     @Override
     public boolean equals(Object obj) {
 
@@ -141,14 +152,15 @@ public class HyePyeResponse implements Serializable {
                 && Objects.equal(getUser(), that.getUser()) && Objects.equal(getUsers(), that.getUsers())
                 && Objects.equal(getConjugation(), that.getConjugation())
                 && Objects.equal(getConjugations(), that.getConjugations()) && Objects.equal(getVerb(), that.getVerb())
-                && Objects.equal(getVerbs(), that.getVerbs()) && Objects.equal(getVocabulary(), that.getVocabulary());
+                && Objects.equal(getVerbs(), that.getVerbs()) && Objects.equal(getVocabulary(), that.getVocabulary())
+                && Objects.equal(getVocabularies(), that.getVocabularies());
 
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(getProcessingError(), getValidationError(), getUser(), getUsers(), getConjugation(),
-                getConjugations(), getVerb(), getVerbs(), getVocabulary());
+                getConjugations(), getVerb(), getVerbs(), getVocabulary(), getVocabularies());
     }
 
     @Override
@@ -157,7 +169,7 @@ public class HyePyeResponse implements Serializable {
                 .add("processingError", getProcessingError()).add("validationError", getValidationError())
                 .add("user", getUser()).add("users", getUsers()).add("conjugation", getConjugation())
                 .add("conjugations", getConjugations()).add("verb", getVerb()).add("verbs", getVerbs())
-                .add("vocabulary", getVocabulary()).toString();
+                .add("vocabulary", getVocabulary()).add("vocabularies", getVocabularies()).toString();
     }
 
     /**
@@ -186,6 +198,8 @@ public class HyePyeResponse implements Serializable {
 
         private Vocabulary vocabulary;
 
+        private List<Vocabulary> vocabularies;
+
         /**
          * Default constructor. Allows for building a {@link HyePyeResponse} starting with default values.
          */
@@ -209,6 +223,7 @@ public class HyePyeResponse implements Serializable {
             this.verb = template.getVerb();
             this.verbs = template.getVerbs();
             this.vocabulary = template.getVocabulary();
+            this.vocabularies = template.getVocabularies();
         }
 
         /**
@@ -262,6 +277,11 @@ public class HyePyeResponse implements Serializable {
 
         public Builder setVocabulary(Vocabulary vocabulary) {
             this.vocabulary = vocabulary;
+            return this;
+        }
+
+        public Builder setVocabularies(List<Vocabulary> vocabularies) {
+            this.vocabularies = vocabularies;
             return this;
         }
 

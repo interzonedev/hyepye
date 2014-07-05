@@ -220,6 +220,28 @@ public class HyePyeResponseTest {
     }
 
     @Test
+    public void testVocabularies() {
+        List<Vocabulary> baseVocabularies = Arrays.asList(new Vocabulary[] { Vocabulary.newBuilder().setId(1L).build(),
+                Vocabulary.newBuilder().setId(2L).build() });
+        List<Vocabulary> otherVocabularies = Arrays.asList(new Vocabulary[] {
+                Vocabulary.newBuilder().setId(3L).build(), Vocabulary.newBuilder().setId(4L).build() });
+
+        HyePyeResponse base = HyePyeResponse.newBuilder().setVocabularies(baseVocabularies).build();
+        HyePyeResponse same = HyePyeResponse.newBuilder().setVocabularies(baseVocabularies).build();
+        HyePyeResponse different = HyePyeResponse.newBuilder().setVocabularies(otherVocabularies).build();
+        HyePyeResponse defaultVals = HyePyeResponse.newBuilder().build();
+
+        Assert.assertEquals(baseVocabularies, base.getVocabularies());
+        Assert.assertEquals(base, same);
+        Assert.assertEquals(base.hashCode(), same.hashCode());
+
+        Assert.assertNotEquals(base, different);
+        Assert.assertNotEquals(base.hashCode(), different.hashCode());
+
+        Assert.assertTrue(defaultVals.getVocabularies().isEmpty());
+    }
+
+    @Test
     public void testBuildFromTemplate() {
         Throwable processingError = new RuntimeException("foo");
         ValidationException validationError = new ValidationException("bar");
@@ -233,10 +255,13 @@ public class HyePyeResponseTest {
         List<Verb> verbs = Arrays.asList(new Verb[] { Verb.newBuilder().setId(1L).build(),
                 Verb.newBuilder().setId(2L).build() });
         Vocabulary vocabulary = Vocabulary.newBuilder().setId(1L).build();
+        List<Vocabulary> vocabularies = Arrays.asList(new Vocabulary[] { Vocabulary.newBuilder().setId(1L).build(),
+                Vocabulary.newBuilder().setId(2L).build() });
 
         HyePyeResponse base = HyePyeResponse.newBuilder().setProcessingError(processingError)
                 .setValidationError(validationError).setUser(user).setUsers(users).setConjugation(conjugation)
-                .setConjugations(conjugations).setVerb(verb).setVerbs(verbs).setVocabulary(vocabulary).build();
+                .setConjugations(conjugations).setVerb(verb).setVerbs(verbs).setVocabulary(vocabulary)
+                .setVocabularies(vocabularies).build();
         HyePyeResponse same = HyePyeResponse.newBuilder(base).build();
 
         Assert.assertEquals(base, same);
