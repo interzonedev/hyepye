@@ -1,6 +1,8 @@
 package com.interzonedev.hyepye.service.command;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 
 import com.google.common.base.Objects;
 import com.interzonedev.hyepye.model.Conjugation;
@@ -24,6 +26,8 @@ public class HyePyeResponse implements Serializable {
 
     private final User user;
 
+    private final List<User> users;
+
     private final Conjugation conjugation;
 
     private final Verb verb;
@@ -39,6 +43,11 @@ public class HyePyeResponse implements Serializable {
         this.processingError = builder.processingError;
         this.validationError = builder.validationError;
         this.user = builder.user;
+        if (null == builder.users) {
+            this.users = Collections.emptyList();
+        } else {
+            this.users = Collections.unmodifiableList(builder.users);
+        }
         this.conjugation = builder.conjugation;
         this.verb = builder.verb;
         this.vocabulary = builder.vocabulary;
@@ -76,6 +85,10 @@ public class HyePyeResponse implements Serializable {
         return user;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
     public Conjugation getConjugation() {
         return conjugation;
     }
@@ -103,23 +116,24 @@ public class HyePyeResponse implements Serializable {
 
         return Objects.equal(getProcessingError(), that.getProcessingError())
                 && Objects.equal(getValidationError(), that.getValidationError())
-                && Objects.equal(getUser(), that.getUser()) && Objects.equal(getConjugation(), that.getConjugation())
-                && Objects.equal(getVerb(), that.getVerb()) && Objects.equal(getVocabulary(), that.getVocabulary());
+                && Objects.equal(getUser(), that.getUser()) && Objects.equal(getUsers(), that.getUsers())
+                && Objects.equal(getConjugation(), that.getConjugation()) && Objects.equal(getVerb(), that.getVerb())
+                && Objects.equal(getVocabulary(), that.getVocabulary());
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getProcessingError(), getValidationError(), getUser(), getConjugation(), getVerb(),
-                getVocabulary());
+        return Objects.hashCode(getProcessingError(), getValidationError(), getUser(), getUsers(), getConjugation(),
+                getVerb(), getVocabulary());
     }
 
     @Override
     public String toString() {
         return Objects.toStringHelper(this).add("hashCode", Integer.toHexString(hashCode()))
                 .add("processingError", getProcessingError()).add("validationError", getValidationError())
-                .add("user", getUser()).add("conjugation", getConjugation()).add("verb", getVerb())
-                .add("vocabulary", getVocabulary()).toString();
+                .add("user", getUser()).add("users", getUsers()).add("conjugation", getConjugation())
+                .add("verb", getVerb()).add("vocabulary", getVocabulary()).toString();
     }
 
     /**
@@ -135,6 +149,8 @@ public class HyePyeResponse implements Serializable {
         private ValidationException validationError;
 
         private User user;
+
+        private List<User> users;
 
         private Conjugation conjugation;
 
@@ -159,6 +175,7 @@ public class HyePyeResponse implements Serializable {
             this.processingError = template.getProcessingError();
             this.validationError = template.getValidationError();
             this.user = template.getUser();
+            this.users = template.getUsers();
             this.conjugation = template.getConjugation();
             this.verb = template.getVerb();
             this.vocabulary = template.getVocabulary();
@@ -185,6 +202,11 @@ public class HyePyeResponse implements Serializable {
 
         public Builder setUser(User user) {
             this.user = user;
+            return this;
+        }
+
+        public Builder setUsers(List<User> users) {
+            this.users = users;
             return this;
         }
 

@@ -1,5 +1,8 @@
 package com.interzonedev.hyepye.service.command;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -97,6 +100,28 @@ public class HyePyeResponseTest {
 
         Assert.assertNotEquals(base, different);
         Assert.assertNotEquals(base.hashCode(), different.hashCode());
+    }
+
+    @Test
+    public void testUsers() {
+        List<User> baseUsers = Arrays.asList(new User[] { User.newBuilder().setId(1L).build(),
+                User.newBuilder().setId(2L).build() });
+        List<User> otherUsers = Arrays.asList(new User[] { User.newBuilder().setId(3L).build(),
+                User.newBuilder().setId(4L).build() });
+
+        HyePyeResponse base = HyePyeResponse.newBuilder().setUsers(baseUsers).build();
+        HyePyeResponse same = HyePyeResponse.newBuilder().setUsers(baseUsers).build();
+        HyePyeResponse different = HyePyeResponse.newBuilder().setUsers(otherUsers).build();
+        HyePyeResponse defaultVals = HyePyeResponse.newBuilder().build();
+
+        Assert.assertEquals(baseUsers, base.getUsers());
+        Assert.assertEquals(base, same);
+        Assert.assertEquals(base.hashCode(), same.hashCode());
+
+        Assert.assertNotEquals(base, different);
+        Assert.assertNotEquals(base.hashCode(), different.hashCode());
+
+        Assert.assertTrue(defaultVals.getUsers().isEmpty());
     }
 
     @Test
