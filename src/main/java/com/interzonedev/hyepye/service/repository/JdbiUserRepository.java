@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Strings;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.ValidationException;
-import com.interzonedev.hyepye.service.dao.JdbiUserDAO;
+import com.interzonedev.hyepye.service.dao.user.JdbiUserDAO;
 
 @Named("userRepository")
 public class JdbiUserRepository implements UserRepository {

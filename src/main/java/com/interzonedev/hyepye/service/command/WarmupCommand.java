@@ -10,7 +10,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.interzonedev.commandr.CommandConfiguration;
-import com.interzonedev.hyepye.service.dao.JdbiUserDAO;
+import com.interzonedev.hyepye.service.dao.user.JdbiUserDAO;
 
 /**
  * Command that performs a simple database query via JDBI to "warm up" the stack from the command framework down to the

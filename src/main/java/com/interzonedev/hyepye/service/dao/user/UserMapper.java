@@ -1,4 +1,4 @@
-package com.interzonedev.hyepye.service.dao;
+package com.interzonedev.hyepye.service.dao.user;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

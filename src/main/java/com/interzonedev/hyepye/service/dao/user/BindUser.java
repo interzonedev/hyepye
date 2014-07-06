@@ -1,4 +1,4 @@
-package com.interzonedev.hyepye.service.dao;
+package com.interzonedev.hyepye.service.dao.user;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
