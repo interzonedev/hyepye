@@ -1,4 +1,4 @@
-package com.interzonedev.hyepye.service.command;
+package com.interzonedev.hyepye.service.command.user;
 
 import javax.inject.Inject;
 

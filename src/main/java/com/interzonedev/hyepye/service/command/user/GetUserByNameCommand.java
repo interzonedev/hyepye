@@ -1,4 +1,4 @@
-package com.interzonedev.hyepye.service.command;
+package com.interzonedev.hyepye.service.command.user;
 
 import javax.inject.Named;
 
@@ -8,6 +8,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
+import com.interzonedev.hyepye.service.command.HyePyeResponse;
 
 @Named("service.getUserByNameCommand")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
