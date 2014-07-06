@@ -1,4 +1,4 @@
-package com.interzonedev.hyepye.service.repository;
+package com.interzonedev.hyepye.service.repository.user;
 
 import java.util.List;
 import java.util.Set;
@@ -19,6 +19,8 @@ import com.google.common.base.Strings;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.dao.user.JdbiUserDAO;
+import com.interzonedev.hyepye.service.repository.DuplicateModelException;
+import com.interzonedev.hyepye.service.repository.InvalidModelException;
 
 @Named("userRepository")
 public class JdbiUserRepository implements UserRepository {

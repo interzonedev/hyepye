@@ -1,4 +1,4 @@
-package com.interzonedev.hyepye.service.repository;
+package com.interzonedev.hyepye.service.repository.user;
 
 import java.util.List;
 
