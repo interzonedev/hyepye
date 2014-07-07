@@ -10,32 +10,34 @@
     <context:property-placeholder location="classpath:com/interzonedev/hyepye/properties/database.properties" />
 
     <!-- Environment/vendor specific settings. -->
-    <bean id="dbUri" class="java.net.URI">
+    <bean id="hyepye.service.dbUri" class="java.net.URI">
         <constructor-arg value="${DATABASE_URL}" />
     </bean>
-    <bean id="dbDriverClassName" class="java.lang.String">
+    <bean id="hyepye.service.dbDriverClassName" class="java.lang.String">
         <constructor-arg value="${database.driverClassName}" />
     </bean>
-    <bean id="dbScheme" class="java.lang.String">
+    <bean id="hyepye.service.dbScheme" class="java.lang.String">
         <constructor-arg value="${database.scheme}" />
     </bean>
 
     <!-- General JDBC settings -->
-    <bean id="dbUrl" class="java.lang.String">
-        <constructor-arg value="#{ 'jdbc:' + @dbScheme + @dbUri.getHost() + @dbUri.getPath() }" />
+    <bean id="hyepye.service.dbUrl" class="java.lang.String">
+        <constructor-arg
+            value="#{ 'jdbc:' + @'hyepye.service.dbScheme' + @'hyepye.service.dbUri'.getHost() + @'hyepye.service.dbUri'.getPath() }" />
     </bean>
-    <bean id="dbUsername" class="java.lang.String">
-        <constructor-arg value="#{ @dbUri.getUserInfo().split(':')[0] }" />
+    <bean id="hyepye.service.dbUsername" class="java.lang.String">
+        <constructor-arg value="#{ @'hyepye.service.dbUri'.getUserInfo().split(':')[0] }" />
     </bean>
-    <bean id="dbPassword" class="java.lang.String">
-        <constructor-arg value="#{ @dbUri.getUserInfo().split(':')[1] }" />
+    <bean id="hyepye.service.dbPassword" class="java.lang.String">
+        <constructor-arg value="#{ @'hyepye.service.dbUri'.getUserInfo().split(':')[1] }" />
     </bean>
 
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" lazy-init="true">
-        <property name="driverClass" ref="dbDriverClassName" />
-        <property name="jdbcUrl" ref="dbUrl" />
-        <property name="user" ref="dbUsername" />
-        <property name="password" ref="dbPassword" />
+    <bean id="hyepye.service.dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
+        lazy-init="true">
+        <property name="driverClass" ref="hyepye.service.dbDriverClassName" />
+        <property name="jdbcUrl" ref="hyepye.service.dbUrl" />
+        <property name="user" ref="hyepye.service.dbUsername" />
+        <property name="password" ref="hyepye.service.dbPassword" />
         <property name="automaticTestTable" value="AUTO_TEST_TABLE" />
         <!-- tests idle connections after this number of seconds -->
         <property name="idleConnectionTestPeriod" value="3600" />

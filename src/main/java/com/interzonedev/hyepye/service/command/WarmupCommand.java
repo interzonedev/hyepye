@@ -19,14 +19,14 @@ import com.interzonedev.hyepye.service.dao.user.JdbiUserDAO;
  * 
  * @author mmarkarian
  */
-@Named("service.warmupCommand")
+@Named("hyepye.service.warmupCommand")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class WarmupCommand extends AbstractHyePyeCommand {
 
     private static final Logger log = LoggerFactory.getLogger(WarmupCommand.class);
 
     @Inject
-    @Named("dbi")
+    @Named("hyepye.service.dbi")
     private DBI dbi;
 
     /**
@@ -34,7 +34,8 @@ public class WarmupCommand extends AbstractHyePyeCommand {
      * within the limits of executing this command.
      */
     public WarmupCommand() {
-        super(CommandConfiguration.newBuilder().setCommandKey("Warmup").setThreadTimeoutMillis(3000).build());
+        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.Warmup").setThreadTimeoutMillis(3000)
+                .build());
     }
 
     /**

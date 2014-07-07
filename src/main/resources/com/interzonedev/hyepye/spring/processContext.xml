@@ -6,8 +6,8 @@
 
     <import resource="dataSourceContext.xml" />
 
-    <bean id="migrationServiceFlyway" class="com.interzonedev.herokusupport.data.migration.flyway.MigrationServiceFlyway">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="hyepye.service.migrationServiceFlyway" class="com.interzonedev.herokusupport.data.migration.flyway.MigrationServiceFlyway">
+        <property name="dataSource" ref="hyepye.service.dataSource" />
         <property name="locations">
             <array>
                 <value>com/interzonedev/hyepye/db/migration</value>

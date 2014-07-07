@@ -22,7 +22,7 @@ import com.interzonedev.hyepye.service.dao.user.JdbiUserDAO;
 import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 import com.interzonedev.hyepye.service.repository.InvalidModelException;
 
-@Named("userRepository")
+@Named("hyepye.service.userRepository")
 public class JdbiUserRepository implements UserRepository {
 
     private static final Logger log = LoggerFactory.getLogger(JdbiUserRepository.class);
@@ -32,7 +32,8 @@ public class JdbiUserRepository implements UserRepository {
     private final Validator jsr303Validator;
 
     @Inject
-    public JdbiUserRepository(@Named("dbi") DBI dbi, @Named("jsr303Validator") Validator jsr303Validator) {
+    public JdbiUserRepository(@Named("hyepye.service.dbi") DBI dbi,
+            @Named("hyepye.service.jsr303Validator") Validator jsr303Validator) {
         this.dbi = dbi;
         this.jsr303Validator = jsr303Validator;
     }

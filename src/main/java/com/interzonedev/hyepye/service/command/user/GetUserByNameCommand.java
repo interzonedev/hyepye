@@ -11,15 +11,15 @@ import com.interzonedev.commandr.CommandConfiguration;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 
-@Named("service.getUserByNameCommand")
+@Named("hyepye.service.getUserByNameCommand")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class GetUserByNameCommand extends AbstractHyePyeCommand {
 
     private static final Logger log = LoggerFactory.getLogger(GetUserByNameCommand.class);
 
     public GetUserByNameCommand() {
-        super(CommandConfiguration.newBuilder().setCommandKey("getUserByNameCommand").setThreadTimeoutMillis(500)
-                .build());
+        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.getUserByNameCommand")
+                .setThreadTimeoutMillis(500).build());
     }
 
     @Override

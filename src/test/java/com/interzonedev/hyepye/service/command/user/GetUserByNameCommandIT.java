@@ -19,7 +19,7 @@ public class GetUserByNameCommandIT extends HyepyeAbstractIT {
     @Test
     public void testFoo() {
         GetUserByNameCommand getUserByNameCommand = (GetUserByNameCommand) applicationContext
-                .getBean("service.getUserByNameCommand");
+                .getBean("hyepye.service.getUserByNameCommand");
         log.debug("getUserByNameCommand = " + getUserByNameCommand);
     }
 

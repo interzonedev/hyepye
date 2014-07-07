@@ -28,7 +28,7 @@ public class Migrate extends AbstractProcess {
         log.info("process: Running migration task " + migrationTask);
 
         MigrationService migrationServiceFlyway = (MigrationService) SpringContextUtils.getBean(CONTEXT_FILE_LOCATIONS,
-                "migrationServiceFlyway");
+                "hyepye.service.migrationServiceFlyway");
 
         try {
             MigrationResult migrationResult = herokuSupportClient

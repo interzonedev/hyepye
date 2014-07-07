@@ -32,7 +32,7 @@ public class ApplicationWarmup {
 
         log.info("warmup: Start");
 
-        ((WarmupCommand) applicationContext.getBean("service.warmupCommand")).execute();
+        ((WarmupCommand) applicationContext.getBean("hyepye.service.warmupCommand")).execute();
 
         log.info("warmup: End");
 

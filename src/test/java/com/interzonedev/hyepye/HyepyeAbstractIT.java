@@ -13,11 +13,11 @@ import com.interzonedev.zankou.dataset.dbunit.DbUnitDataSetTester;
 public abstract class HyepyeAbstractIT extends AbstractIntegrationTest {
 
     @Inject
-    @Named("dataSource")
+    @Named("hyepye.service.dataSource")
     protected DataSource dataSource;
 
     @Inject
-    @Named("dbUnitDataSetTester")
+    @Named("hyepye.common.dbUnitDataSetTester")
     protected DbUnitDataSetTester dbUnitDataSetTester;
 
 }

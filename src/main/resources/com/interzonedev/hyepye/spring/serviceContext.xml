@@ -11,13 +11,13 @@
 
     <context:component-scan base-package="com.interzonedev.hyepye.service" />
 
-    <bean id="dbi" class="org.skife.jdbi.v2.DBI">
-        <constructor-arg ref="dataSource" />
+    <bean id="hyepye.service.dbi" class="org.skife.jdbi.v2.DBI">
+        <constructor-arg ref="hyepye.service.dataSource" />
         <!--<property name="timingCollector" ref="jdbiTimingCollector" /> -->
     </bean>
 
-    <bean id="jsr303Validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+    <bean id="hyepye.service.jsr303Validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
-    <bean id="metricRegistry" class="com.codahale.metrics.MetricRegistry" />
+    <bean id="hyepye.common.metricRegistry" class="com.codahale.metrics.MetricRegistry" />
 
 </beans>
