@@ -37,7 +37,7 @@ public abstract class AbstractHyePyeCommand extends AbstractIZCommand<HyePyeResp
     public static final String SERVICE_COMMAND_GROUP_KEY = "HyePyeService";
 
     @Inject
-    @Named("hyepye.common.metricRegistry")
+    @Named("com.interzonedev.metrikos.metricRegistry")
     private MetricRegistry metricRegistry;
 
     protected AbstractHyePyeCommand(CommandConfiguration commandConfiguration) {

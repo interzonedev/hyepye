@@ -14,6 +14,7 @@
     <logger name="org.springframework.beans.factory.annotation" level="WARN" />
     <logger name="com.netflix.config" level="INFO" />
     <logger name="com.netflix.hystrix" level="INFO" />
+    <logger name="org.hibernate.validator" level="INFO" />
 
     <logger name="com.interzonedev.hyepye" level="DEBUG" />
 

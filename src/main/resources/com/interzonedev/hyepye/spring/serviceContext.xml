@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/tx
-		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <import resource="classpath:com/interzonedev/metrikos/applicationContext-metrikos.xml" />
 
     <context:component-scan base-package="com.interzonedev.hyepye.service" />
 
     <bean id="hyepye.service.dbi" class="org.skife.jdbi.v2.DBI">
         <constructor-arg ref="hyepye.service.dataSource" />
-        <!--<property name="timingCollector" ref="jdbiTimingCollector" /> -->
+        <property name="timingCollector" ref="com.interzonedev.metrikos.jdbiTimingCollector" />
     </bean>
 
     <bean id="hyepye.service.jsr303Validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
-    <bean id="hyepye.common.metricRegistry" class="com.codahale.metrics.MetricRegistry" />
+    <!-- Create a JDBC health check bean for the metrebar schema. -->
+    <bean id="hyepye.service.jdbcHealthCheck" class="com.interzonedev.metrikos.JDBCHealthCheck">
+        <constructor-arg index="0" ref="com.interzonedev.metrikos.healthCheckRegistry" />
+        <constructor-arg index="1" value="HyePye" />
+        <constructor-arg index="2">
+            <util:constant static-field="com.interzonedev.metrikos.DBType.POSTGRESQL" />
+        </constructor-arg>
+        <constructor-arg index="3" ref="hyepye.service.dataSource" />
+        <constructor-arg index="4" value="hyepye.service.dataSource" />
+    </bean>
+
+    <bean id="hyepye.service.jmxReporterBean" class="com.interzonedev.metrikos.JmxReporterBean">
+        <constructor-arg ref="com.interzonedev.metrikos.metricRegistry" />
+    </bean>
 
 </beans>

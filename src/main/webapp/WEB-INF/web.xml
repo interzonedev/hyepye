@@ -13,9 +13,31 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:com/interzonedev/hyepye/spring/applicationContext.xml</param-value>
     </context-param>
+    <context-param>
+        <param-name>com.interzonedev.metrikos.metricRegistryBeanName</param-name>
+        <param-value>com.interzonedev.metrikos.metricRegistry</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.interzonedev.metrikos.healthCheckRegistryBeanName</param-name>
+        <param-value>com.interzonedev.metrikos.healthCheckRegistry</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.codahale.metrics.servlets.MetricsServlet.rateUnit</param-name>
+        <param-value>SECONDS</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.codahale.metrics.servlets.MetricsServlet.durationUnit</param-name>
+        <param-value>MILLISECONDS</param-value>
+    </context-param>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.interzonedev.metrikos.MetricsContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.interzonedev.metrikos.HealthCheckContextListener</listener-class>
     </listener>
 
     <servlet>
@@ -28,9 +50,29 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>hyepye-codaHaleMetricsServlet</servlet-name>
+        <servlet-class>com.codahale.metrics.servlets.MetricsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>hyepye-codaHaleHealthCheckServlet</servlet-name>
+        <servlet-class>com.codahale.metrics.servlets.HealthCheckServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>hyepye-springServlet</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>hyepye-codaHaleMetricsServlet</servlet-name>
+        <url-pattern>/metrics/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>hyepye-codaHaleHealthCheckServlet</servlet-name>
+        <url-pattern>/healthcheck/*</url-pattern>
     </servlet-mapping>
 
     <jsp-config>
