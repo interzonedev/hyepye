@@ -60,6 +60,11 @@
         <servlet-class>com.codahale.metrics.servlets.HealthCheckServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>hyepye-hystrixMetricsStreamServlet</servlet-name>
+        <servlet-class>com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>hyepye-springServlet</servlet-name>
         <url-pattern>/</url-pattern>
@@ -73,6 +78,11 @@
     <servlet-mapping>
         <servlet-name>hyepye-codaHaleHealthCheckServlet</servlet-name>
         <url-pattern>/healthcheck/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>hyepye-hystrixMetricsStreamServlet</servlet-name>
+        <url-pattern>/hystrix.stream/*</url-pattern>
     </servlet-mapping>
 
     <jsp-config>
