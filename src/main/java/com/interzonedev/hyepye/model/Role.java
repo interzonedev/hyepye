@@ -7,7 +7,7 @@ package com.interzonedev.hyepye.model;
  */
 public enum Role {
 
-    ADMIN("admin"), APPROVER("approver");
+    ADMIN("admin"), APPROVER("approver"), USER("user");
 
     private final String roleName;
 
