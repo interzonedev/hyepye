@@ -16,6 +16,7 @@
     <logger name="com.netflix.hystrix" level="INFO" />
     <logger name="org.hibernate.validator" level="INFO" />
     <logger name="org.dbunit" level="INFO" />
+    <logger name="com.interzonedev.zankou" level="INFO" />
 
     <logger name="com.interzonedev.hyepye" level="DEBUG" />
 
