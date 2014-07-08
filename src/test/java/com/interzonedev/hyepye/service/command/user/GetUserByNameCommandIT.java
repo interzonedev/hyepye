@@ -26,7 +26,7 @@ public class GetUserByNameCommandIT extends HyepyeAbstractIT {
     private ApplicationContext applicationContext;
 
     /**
-     * The validation error message should be set on the response for a null username.
+     * The validation error should be set on the response for a null username.
      */
     @Test
     public void testGetUserByNameNullName() {
@@ -47,7 +47,7 @@ public class GetUserByNameCommandIT extends HyepyeAbstractIT {
     }
 
     /**
-     * The validation error message should be set on the response for an empty username.
+     * The validation error should be set on the response for an empty username.
      */
     @Test
     public void testGetUserByNameEmptyName() {
@@ -67,6 +67,9 @@ public class GetUserByNameCommandIT extends HyepyeAbstractIT {
 
     }
 
+    /**
+     * The user should be set on the response for a valid username.
+     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetUserByNameValid() {
@@ -91,6 +94,9 @@ public class GetUserByNameCommandIT extends HyepyeAbstractIT {
 
     }
 
+    /**
+     * The user should not be set on the response for a non-existent username.
+     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetUserByNameNonExistent() {
