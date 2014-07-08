@@ -25,6 +25,48 @@ public class GetUserByNameCommandIT extends HyepyeAbstractIT {
     @Inject
     private ApplicationContext applicationContext;
 
+    /**
+     * The validation error message should be set on the response for a null username.
+     */
+    @Test
+    public void testGetUserByNameNullName() {
+
+        log.debug("testGetUserByNameNullName: Start");
+
+        GetUserByNameCommand getUserByNameCommand = (GetUserByNameCommand) applicationContext.getBean(
+                "hyepye.service.getUserByNameCommand", (String) null);
+
+        HyePyeResponse hyePyeResponse = getUserByNameCommand.execute();
+
+        Assert.assertNotNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getUser());
+
+        log.debug("testGetUserByNameNullName: End");
+
+    }
+
+    /**
+     * The validation error message should be set on the response for an empty username.
+     */
+    @Test
+    public void testGetUserByNameEmptyName() {
+
+        log.debug("testGetUserByNameEmptyName: Start");
+
+        GetUserByNameCommand getUserByNameCommand = (GetUserByNameCommand) applicationContext.getBean(
+                "hyepye.service.getUserByNameCommand", "");
+
+        HyePyeResponse hyePyeResponse = getUserByNameCommand.execute();
+
+        Assert.assertNotNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getUser());
+
+        log.debug("testGetUserByNameEmptyName: End");
+
+    }
+
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetUserByNameValid() {
@@ -46,6 +88,27 @@ public class GetUserByNameCommandIT extends HyepyeAbstractIT {
         Assert.assertEquals(username, user.getUsername());
 
         log.debug("testGetUserByNameValid: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testGetUserByNameNonExistent() {
+
+        log.debug("testGetUserByNameNonExistent: Start");
+
+        String username = "this_user_does_not_exist";
+
+        GetUserByNameCommand getUserByNameCommand = (GetUserByNameCommand) applicationContext.getBean(
+                "hyepye.service.getUserByNameCommand", username);
+
+        HyePyeResponse hyePyeResponse = getUserByNameCommand.execute();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getUser());
+
+        log.debug("testGetUserByNameNonExistent: End");
 
     }
 
