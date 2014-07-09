@@ -1,12 +1,9 @@
 package com.interzonedev.hyepye.service.command.user;
 
-import javax.inject.Inject;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 
 import com.interzonedev.hyepye.HyepyeAbstractIT;
 import com.interzonedev.hyepye.model.User;
@@ -21,9 +18,6 @@ import com.interzonedev.zankou.dataset.DataSet;
 public class GetUserByNameCommandIT extends HyepyeAbstractIT {
 
     private static final Logger log = LoggerFactory.getLogger(GetUserByNameCommandIT.class);
-
-    @Inject
-    private ApplicationContext applicationContext;
 
     /**
      * The validation error should be set on the response for a null username.

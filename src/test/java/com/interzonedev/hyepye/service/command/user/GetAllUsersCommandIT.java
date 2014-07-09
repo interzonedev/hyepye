@@ -1,12 +1,9 @@
 package com.interzonedev.hyepye.service.command.user;
 
-import javax.inject.Inject;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 
 import com.interzonedev.hyepye.HyepyeAbstractIT;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
@@ -21,11 +18,8 @@ public class GetAllUsersCommandIT extends HyepyeAbstractIT {
 
     private static final Logger log = LoggerFactory.getLogger(GetAllUsersCommandIT.class);
 
-    @Inject
-    private ApplicationContext applicationContext;
-
     /**
-     * An empty users table should return an empty users collection on the response.
+     * An empty hp_user table should return an empty users collection on the response.
      */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/user/empty.xml", dataSourceBeanId = "hyepye.service.dataSource")
@@ -47,7 +41,7 @@ public class GetAllUsersCommandIT extends HyepyeAbstractIT {
     }
 
     /**
-     * A non-empty users table should return a non-empty users collection on the response.
+     * A non-empty hp_user table should return a non-empty users collection on the response.
      */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
