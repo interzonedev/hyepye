@@ -20,7 +20,6 @@ import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.dao.user.JdbiUserDAO;
 import com.interzonedev.hyepye.service.repository.DuplicateModelException;
-import com.interzonedev.hyepye.service.repository.InvalidModelException;
 
 /**
  * JDBI specific API for retrieving and persisting {@link User}s.
@@ -124,15 +123,7 @@ public class JdbiUserRepository implements UserRepository {
 
                 JdbiUserDAO userDAO = handle.attach(JdbiUserDAO.class);
 
-                User userWithSameUsername = userDAO.getUserByName(user.getUsername());
-                if (null != userWithSameUsername) {
-                    throw new DuplicateModelException("A user with the same name already exists.");
-                }
-
-                User userWithSameEmail = userDAO.getUserByEmail(user.getEmail());
-                if (null != userWithSameEmail) {
-                    throw new DuplicateModelException("A user with the same email already exists.");
-                }
+                validateDuplicateUsers(user, userDAO);
 
                 long id = userDAO.createUser(user);
 
@@ -168,15 +159,7 @@ public class JdbiUserRepository implements UserRepository {
 
                 JdbiUserDAO userDAO = handle.attach(JdbiUserDAO.class);
 
-                User userWithSameUsername = userDAO.getUserByName(user.getUsername());
-                if (null != userWithSameUsername) {
-                    throw new DuplicateModelException("A user with the same name already exists.");
-                }
-
-                User userWithSameEmail = userDAO.getUserByEmail(user.getEmail());
-                if (null != userWithSameEmail) {
-                    throw new DuplicateModelException("A user with the same email already exists.");
-                }
+                validateDuplicateUsers(user, userDAO);
 
                 int numUpdatedRows = userDAO.updateUser(user);
 
@@ -260,7 +243,31 @@ public class JdbiUserRepository implements UserRepository {
         Set<ConstraintViolation<User>> errors = jsr303Validator.validate(user);
 
         if (!errors.isEmpty()) {
-            throw new InvalidModelException(errors);
+            throw new InvalidUserException(errors);
+        }
+
+    }
+
+    /**
+     * Checks whether or not the specified {@link User} violates any uniqueness constraints of the hp_user table.
+     * 
+     * @param user The {@link User} to validate.
+     * @param userDAO The {@link JdbiUserDAO} instance attached to the currently active transaction on the hp_user
+     *            table.
+     * 
+     * @throws DuplicateModelException Thrown if the specified {@link User} violates any uniqueness constraints of the
+     *             hp_user table.
+     */
+    private void validateDuplicateUsers(User user, JdbiUserDAO userDAO) throws DuplicateModelException {
+
+        User userWithSameUsername = userDAO.getUserByName(user.getUsername());
+        if (null != userWithSameUsername) {
+            throw new DuplicateModelException("A user with the same name already exists.");
+        }
+
+        User userWithSameEmail = userDAO.getUserByEmail(user.getEmail());
+        if (null != userWithSameEmail) {
+            throw new DuplicateModelException("A user with the same email already exists.");
         }
 
     }
