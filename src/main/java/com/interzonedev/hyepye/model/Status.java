@@ -7,7 +7,7 @@ package com.interzonedev.hyepye.model;
  */
 public enum Status {
 
-    SUBMITTED("submitted"), APPROVED("approved");
+    SUBMITTED("submitted"), APPROVED("approved"), REJECTED("rejected");
 
     private final String statusName;
 
