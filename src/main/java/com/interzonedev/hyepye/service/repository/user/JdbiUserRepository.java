@@ -22,6 +22,11 @@ import com.interzonedev.hyepye.service.dao.user.JdbiUserDAO;
 import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 import com.interzonedev.hyepye.service.repository.InvalidModelException;
 
+/**
+ * JDBI specific API for retrieving and persisting {@link User}s.
+ * 
+ * @author mmarkarian
+ */
 @Named("hyepye.service.userRepository")
 public class JdbiUserRepository implements UserRepository {
 
