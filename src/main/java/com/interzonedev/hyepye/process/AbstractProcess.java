@@ -10,10 +10,10 @@ public abstract class AbstractProcess {
 
     protected static final String[] CONTEXT_FILE_LOCATIONS = { "com/interzonedev/hyepye/spring/processContext.xml" };
 
-    protected Logger log = (Logger) LoggerFactory.getLogger(getClass());
+    protected final Logger log = (Logger) LoggerFactory.getLogger(getClass());
 
-    protected HerokuSupportClient herokuSupportClient = new DefaultHerokuSupportClient();
+    protected final HerokuSupportClient herokuSupportClient = new DefaultHerokuSupportClient();
 
-    abstract void process(String[] args) throws Exception;
+    protected abstract void process(String[] args) throws Exception;
 
 }
