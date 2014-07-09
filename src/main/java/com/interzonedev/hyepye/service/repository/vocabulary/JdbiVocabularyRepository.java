@@ -1,19 +1,26 @@
 package com.interzonedev.hyepye.service.repository.vocabulary;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.skife.jdbi.v2.DBI;
+import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.TransactionCallback;
+import org.skife.jdbi.v2.TransactionStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
+import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.dao.vocabulary.JdbiVocabularyDAO;
+import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 
 /**
  * JDBI specific API for retrieving and persisting {@link Vocabulary} instances.
@@ -133,8 +140,34 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      */
     @Override
     public Vocabulary createVocabulary(Vocabulary vocabulary, Long userId) throws ValidationException {
-        // TODO Auto-generated method stub
-        return null;
+
+        log.debug("createVocabulary: Start - vocabulary = " + vocabulary);
+
+        validateVocabulary(vocabulary, userId, true);
+
+        Vocabulary vocabularyOut = dbi.inTransaction(new TransactionCallback<Vocabulary>() {
+
+            @Override
+            public Vocabulary inTransaction(Handle handle, TransactionStatus status) throws Exception {
+
+                JdbiVocabularyDAO vocabularyDAO = handle.attach(JdbiVocabularyDAO.class);
+
+                validateDuplicateVocabularies(vocabulary, vocabularyDAO);
+
+                long id = vocabularyDAO.createVocabulary(vocabulary, userId);
+
+                Vocabulary createdVocabulary = vocabularyDAO.getVocabularyById(id);
+
+                return createdVocabulary;
+
+            }
+
+        });
+
+        log.debug("createVocabulary: Returning - vocabularyOut  = " + vocabularyOut);
+
+        return vocabularyOut;
+
     }
 
     /*
@@ -146,8 +179,38 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      */
     @Override
     public Vocabulary updateVocabulary(Vocabulary vocabulary, Long userId) throws ValidationException {
-        // TODO Auto-generated method stub
-        return null;
+
+        log.debug("updateVocabulary: Start - vocabulary = " + vocabulary);
+
+        validateVocabulary(vocabulary, userId, false);
+
+        Vocabulary vocabularyOut = dbi.inTransaction(new TransactionCallback<Vocabulary>() {
+
+            @Override
+            public Vocabulary inTransaction(Handle handle, TransactionStatus status) throws Exception {
+
+                JdbiVocabularyDAO vocabularyDAO = handle.attach(JdbiVocabularyDAO.class);
+
+                validateDuplicateVocabularies(vocabulary, vocabularyDAO);
+
+                int numUpdatedRows = vocabularyDAO.updateVocabulary(vocabulary, userId);
+
+                Vocabulary updatedVocabulary = null;
+
+                if (1 == numUpdatedRows) {
+                    updatedVocabulary = vocabularyDAO.getVocabularyById(vocabulary.getId());
+                }
+
+                return updatedVocabulary;
+
+            }
+
+        });
+
+        log.debug("updateVocabulary: Returning - vocabularyOut  = " + vocabularyOut);
+
+        return vocabularyOut;
+
     }
 
     /*
@@ -159,8 +222,91 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      */
     @Override
     public Vocabulary deactivateVocabulary(Long id, Long userId) throws ValidationException {
-        // TODO Auto-generated method stub
-        return null;
+
+        log.debug("deactivateVocabulary: id = " + id);
+
+        if (id <= 0L) {
+            throw new ValidationException("The vocabulary id must be a positive integer");
+        }
+
+        Vocabulary vocabularyOut = dbi.inTransaction(new TransactionCallback<Vocabulary>() {
+
+            @Override
+            public Vocabulary inTransaction(Handle handle, TransactionStatus status) throws Exception {
+
+                JdbiVocabularyDAO vocabularyDAO = handle.attach(JdbiVocabularyDAO.class);
+
+                Vocabulary vocabularyToDeactivate = vocabularyDAO.getVocabularyById(id);
+                if (null == vocabularyToDeactivate) {
+                    throw new ValidationException("The vocabulary to delete doesn't exist");
+                }
+
+                int numUpdatedRows = vocabularyDAO.deactivateVocabulary(id, userId);
+
+                Vocabulary deactivatedVocabulary = null;
+
+                if (1 == numUpdatedRows) {
+                    deactivatedVocabulary = vocabularyDAO.getVocabularyById(id);
+                }
+
+                return deactivatedVocabulary;
+
+            }
+
+        });
+
+        log.debug("deactivateVocabulary: Returning - vocabularyOut  = " + vocabularyOut);
+
+        return vocabularyOut;
+
+    }
+
+    /**
+     * Validates the specified {@link Vocabulary}. If creating the ID is allowed to be null.
+     * 
+     * @param vocabulary The {@link Vocabulary} to validate.
+     * @param userId The ID of the {@link User} performing the action.
+     * @param creating Whether or not the specified {@link Vocabulary} is being created.
+     * 
+     * @throws ValidationException Thrown if the specified {@link Vocabulary} or {@link User} ID is invalid.
+     */
+    private void validateVocabulary(Vocabulary vocabulary, Long userId, boolean creating) throws ValidationException {
+
+        if (null == vocabulary) {
+            throw new ValidationException("The vocabulary must be set");
+        }
+
+        if (userId <= 0L) {
+            throw new ValidationException("The user id must be a positive integer");
+        }
+
+        Set<ConstraintViolation<Vocabulary>> errors = jsr303Validator.validate(vocabulary);
+
+        if (!errors.isEmpty()) {
+            throw new InvalidVocabularyException(errors);
+        }
+
+    }
+
+    /**
+     * Checks whether or not the specified {@link Vocabulary} violates any uniqueness constraints of the vocabulary
+     * table.
+     * 
+     * @param vocabulary The {@link Vocabulary} to validate.
+     * @param vocabularyDAO The {@link JdbiVocabularyDAO} instance attached to the currently active transaction on the
+     *            vocabulary table.
+     * 
+     * @throws DuplicateModelException Thrown if the specified {@link Vocabulary} violates any uniqueness constraints of
+     *             the vocabulary table.
+     */
+    private void validateDuplicateVocabularies(Vocabulary vocabulary, JdbiVocabularyDAO vocabularyDAO)
+            throws DuplicateModelException {
+
+        Vocabulary vocabularyWithSameArmenian = vocabularyDAO.getVocabularyByArmenian(vocabulary.getArmenian());
+        if (null != vocabularyWithSameArmenian) {
+            throw new DuplicateModelException("A vocabulary with the same Armenian defintion already exists.");
+        }
+
     }
 
     private JdbiVocabularyDAO getVocabularyDAO() {

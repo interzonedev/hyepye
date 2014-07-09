@@ -29,6 +29,15 @@ public interface VocabularyDAO {
     public Vocabulary getVocabularyById(Long id);
 
     /**
+     * Gets the {@link Vocabulary} with the specified Armenian definition.
+     * 
+     * @param armenian The Armenian definition of the {@link Vocabulary} to retrieve.
+     * 
+     * @return Returns the {@link Vocabulary} with the specified Armenian definition.
+     */
+    public Vocabulary getVocabularyByArmenian(String armenian);
+
+    /**
      * Gets a {@link List} of all {@link Vocabulary} instances with an English definition containing the specified text
      * fragment.
      * 

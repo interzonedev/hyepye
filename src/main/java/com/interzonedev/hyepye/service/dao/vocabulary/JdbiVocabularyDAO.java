@@ -40,6 +40,16 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
     /*
      * (non-Javadoc)
      * 
+     * @see com.interzonedev.hyepye.service.dao.vocabulary.VocabularyDAO#getVocabularyByArmenian(java.lang.String)
+     */
+    @Override
+    @SqlQuery("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created, time_updated, "
+            + "created_by, modified_by FROM vocabulary WHERE armenian = :armenian")
+    public Vocabulary getVocabularyByArmenian(@Bind("armenian") String armenian);
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see
      * com.interzonedev.hyepye.service.dao.vocabulary.VocabularyDAO#getVocabularyWithEnglishContaining(java.lang.String)
      */
