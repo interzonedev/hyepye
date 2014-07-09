@@ -33,7 +33,7 @@ public class VocabularyMapper implements ResultSetMapper<Vocabulary> {
 
         Vocabulary.Builder vocabulary = Vocabulary.newBuilder();
 
-        vocabulary.setId(rs.getLong("hp_vocabulary_id"));
+        vocabulary.setId(rs.getLong("vocabulary_id"));
         vocabulary.setArmenian(rs.getString("armenian"));
         vocabulary.setEnglish(rs.getString("english"));
         vocabulary.setVocabularyType(VocabularyType.fromVocabularyTypeName(rs.getString("vocabulary_type")));
