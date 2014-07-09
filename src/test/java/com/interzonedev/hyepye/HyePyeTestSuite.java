@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.interzonedev.hyepye.model.ModelTestSuite;
 import com.interzonedev.hyepye.service.command.CommandTestSuite;
 import com.interzonedev.hyepye.service.command.user.UserCommandTestSuite;
+import com.interzonedev.hyepye.service.command.vocabulary.VocabularyCommandTestSuite;
 
 /**
  * This is a convenience class for running all the tests for the entire Hye Pye application at once by an IDE. This
@@ -15,6 +16,7 @@ import com.interzonedev.hyepye.service.command.user.UserCommandTestSuite;
  * @author mmarkarian
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ModelTestSuite.class, CommandTestSuite.class, UserCommandTestSuite.class })
+@SuiteClasses({ ModelTestSuite.class, CommandTestSuite.class, UserCommandTestSuite.class,
+        VocabularyCommandTestSuite.class })
 public class HyePyeTestSuite {
 }

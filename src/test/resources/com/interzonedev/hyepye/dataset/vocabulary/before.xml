@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<dataset>
+
+    <hp_user hp_user_id="1" username="gernb" password_hash="2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+        password_seed="1234567890" email="gern@blanston.com" first_name="Gern" last_name="Blanston" role="admin" active="TRUE"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" />
+
+    <vocabulary vocabulary_id="1" armenian="բարեւ" english="hello" vocabulary_type="noun" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="2" armenian="կապիկ" english="monkey" vocabulary_type="noun" status="submitted"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="3" armenian="մատիտ" english="pencil" vocabulary_type="noun" status="rejected"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+</dataset>
