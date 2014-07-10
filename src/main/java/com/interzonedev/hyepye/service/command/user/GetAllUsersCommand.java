@@ -33,7 +33,7 @@ public class GetAllUsersCommand extends AbstractHyePyeCommand {
     private UserRepository userRepository;
 
     /**
-     * Creates an instance of this command.
+     * Creates an instance of this command with a specific command key and timeout.
      */
     public GetAllUsersCommand() {
         super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.getAllUsersCommand")

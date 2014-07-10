@@ -33,7 +33,7 @@ public class GetUserByIdCommand extends AbstractHyePyeCommand {
     private UserRepository userRepository;
 
     /**
-     * Creates an instance of this command.
+     * Creates an instance of this command with a specific command key and timeout.
      * 
      * @param id The ID of the {@link User} to retrieve.
      */
@@ -54,7 +54,7 @@ public class GetUserByIdCommand extends AbstractHyePyeCommand {
     @Override
     protected HyePyeResponse doCommand() throws Exception {
 
-        log.debug("doCommand: Start");
+        log.debug("doCommand: Start - id = " + id);
 
         HyePyeResponse.Builder hyePyeResponse = HyePyeResponse.newBuilder();
 

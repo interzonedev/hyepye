@@ -33,7 +33,7 @@ public class GetUserByNameCommand extends AbstractHyePyeCommand {
     private UserRepository userRepository;
 
     /**
-     * Creates an instance of this command.
+     * Creates an instance of this command with a specific command key and timeout.
      * 
      * @param name The name of the {@link User} to retrieve.
      */
@@ -54,7 +54,7 @@ public class GetUserByNameCommand extends AbstractHyePyeCommand {
     @Override
     protected HyePyeResponse doCommand() throws Exception {
 
-        log.debug("doCommand: Start");
+        log.debug("doCommand: Start - name = " + name);
 
         HyePyeResponse.Builder hyePyeResponse = HyePyeResponse.newBuilder();
 
