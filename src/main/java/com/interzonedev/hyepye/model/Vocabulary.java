@@ -7,7 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.google.common.base.Objects;
 
@@ -23,11 +23,11 @@ public class Vocabulary implements Serializable {
     @Min(1L)
     private final Long id;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String armenian;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String english;
 

@@ -18,7 +18,7 @@ public abstract class HyepyeAbstractIT extends AbstractIntegrationTest {
 
     @Inject
     @Named("hyepye.service.dataSource")
-    protected DataSource dataSource;
+    protected DataSource hyepyeDataSource;
 
     @Inject
     @Named("hyepye.common.dbUnitDataSetTester")

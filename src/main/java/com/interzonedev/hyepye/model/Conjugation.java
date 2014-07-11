@@ -7,7 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.google.common.base.Objects;
 
@@ -27,31 +27,31 @@ public class Conjugation implements Serializable {
     @Min(1L)
     private final Long verbId;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 50)
     private final String tense;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String firstPersonSingular;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String secondPersonSingular;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String thirdPersonSingular;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String firstPersonPlural;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String secondPersonPlural;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String thirdPersonPlural;
 

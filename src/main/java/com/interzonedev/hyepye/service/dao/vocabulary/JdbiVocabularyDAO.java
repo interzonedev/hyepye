@@ -3,7 +3,9 @@ package com.interzonedev.hyepye.service.dao.vocabulary;
 import java.util.List;
 
 import org.skife.jdbi.v2.sqlobject.Bind;
+import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
+import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import org.skife.jdbi.v2.sqlobject.mixins.Transactional;
 
@@ -77,9 +79,9 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
      * Vocabulary, java.lang.Long)
      */
     @Override
-    @SqlQuery("INSERT INTO vocabulary "
-            + "(armenian, english, vocabulary_type, status, time_created, time_updated, created_by, modified_by) "
+    @SqlUpdate("INSERT INTO vocabulary (armenian, english, vocabulary_type, status, created_by, modified_by) "
             + "VALUES (:armenian, :english, :vocabularyType, :status, :userId, :userId)")
+    @GetGeneratedKeys
     public long createVocabulary(@BindVocabulary Vocabulary vocabulary, @Bind("userId") Long userId);
 
     /*
@@ -89,7 +91,7 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
      * Vocabulary, java.lang.Long)
      */
     @Override
-    @SqlQuery("UPDATE vocabulary SET armenian = :armenian, english = : english, vocabulary_type = :vocabularyType, "
+    @SqlUpdate("UPDATE vocabulary SET armenian = :armenian, english = : english, vocabulary_type = :vocabularyType, "
             + "status = : status, modified_by = :userId" + "WHERE id = :id")
     public int updateVocabulary(@BindVocabulary Vocabulary vocabulary, @Bind("userId") Long userId);
 
@@ -100,7 +102,7 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
      * java.lang.Long)
      */
     @Override
-    @SqlQuery("UPDATE vocabulary SET active = FALSE, modified_by = :userId WHERE id = :id")
+    @SqlUpdate("UPDATE vocabulary SET active = FALSE, modified_by = :userId WHERE id = :id")
     public int deactivateVocabulary(@Bind("id") Long id, @Bind("userId") Long userId);
 
 }

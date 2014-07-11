@@ -7,7 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.google.common.base.Objects;
 
@@ -23,19 +23,19 @@ public class User implements Serializable {
     @Min(1L)
     private final Long id;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String username;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 64)
     private final String passwordHash;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 10)
     private final String passwordSeed;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private final String email;
 

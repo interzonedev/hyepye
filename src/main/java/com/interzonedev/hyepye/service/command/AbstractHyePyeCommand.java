@@ -42,7 +42,7 @@ public abstract class AbstractHyePyeCommand extends AbstractIZCommand<HyePyeResp
 
     protected AbstractHyePyeCommand(CommandConfiguration commandConfiguration) {
         super(CommandConfiguration.newBuilder(commandConfiguration).setCommandGroupKey(SERVICE_COMMAND_GROUP_KEY)
-                .setExecutionIsolationStrategy(ExecutionIsolationStrategy.THREAD).build());
+                .setExecutionIsolationStrategy(ExecutionIsolationStrategy.SEMAPHORE).build());
     }
 
     /**
