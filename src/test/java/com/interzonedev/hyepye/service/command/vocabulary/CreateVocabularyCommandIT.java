@@ -1,5 +1,6 @@
 package com.interzonedev.hyepye.service.command.vocabulary;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -12,10 +13,10 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 import com.interzonedev.hyepye.HyepyeAbstractIT;
-import com.interzonedev.hyepye.TestHelper;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyType;
+import com.interzonedev.hyepye.service.TestHelper;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 import com.interzonedev.hyepye.service.repository.vocabulary.InvalidVocabularyException;
@@ -347,6 +348,8 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         log.debug("testCreateVocabularyValid: Start");
 
+        Date now = new Date();
+
         Vocabulary.Builder vocabularyIn = Vocabulary.newBuilder();
         vocabularyIn.setArmenian(TEST_ARMENIAN);
         vocabularyIn.setEnglish(TEST_ENGLISH);
@@ -358,11 +361,20 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
+        Vocabulary vocabularyOut = hyePyeResponse.getVocabulary();
+
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNotNull(hyePyeResponse.getVocabulary());
 
-        // TODO - Test the properties of the newly created vocabulary.
+        Assert.assertTrue(vocabularyOut.getId() > 0L);
+        Assert.assertEquals(TEST_ARMENIAN, vocabularyOut.getArmenian());
+        Assert.assertEquals(TEST_ENGLISH, vocabularyOut.getEnglish());
+        Assert.assertEquals(TEST_VOCABULARY_TYPE, vocabularyOut.getVocabularyType());
+        Assert.assertEquals(TEST_STATUS, vocabularyOut.getStatus());
+        Assert.assertTrue(dbUnitDataSetTester.compareDatesToTheSecond(vocabularyOut.getTimeCreated(), now) >= 0);
+        Assert.assertTrue(dbUnitDataSetTester.compareDatesToTheSecond(vocabularyOut.getTimeUpdated(), now) >= 0);
+        Assert.assertEquals(TEST_USER_ID, vocabularyOut.getCreatedBy());
+        Assert.assertEquals(TEST_USER_ID, vocabularyOut.getModifiedBy());
 
         dbUnitDataSetTester.compareDataSetsIgnoreColumns(hyepyeDataSource,
                 "com/interzonedev/hyepye/dataset/vocabulary/afterCreate.xml", "vocabulary",

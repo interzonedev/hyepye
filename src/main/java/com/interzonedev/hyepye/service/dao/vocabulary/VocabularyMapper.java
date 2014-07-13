@@ -38,8 +38,8 @@ public class VocabularyMapper implements ResultSetMapper<Vocabulary> {
         vocabulary.setEnglish(rs.getString("english"));
         vocabulary.setVocabularyType(VocabularyType.fromVocabularyTypeName(rs.getString("vocabulary_type")));
         vocabulary.setStatus(Status.fromStatusName(rs.getString("status")));
-        vocabulary.setTimeCreated(rs.getDate("time_created"));
-        vocabulary.setTimeUpdated(rs.getDate("time_updated"));
+        vocabulary.setTimeCreated(rs.getTimestamp("time_created"));
+        vocabulary.setTimeUpdated(rs.getTimestamp("time_updated"));
         vocabulary.setCreatedBy(rs.getLong("created_by"));
         vocabulary.setModifiedBy(rs.getLong("modified_by"));
 
