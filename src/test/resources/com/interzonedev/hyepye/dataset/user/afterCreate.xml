@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<dataset>
+
+    <hp_user hp_user_id="1" username="gernb" password_hash="2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+        password_seed="1234567890" email="gern@blanston.com" first_name="Gern" last_name="Blanston" role="admin" active="TRUE"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" />
+
+    <hp_user hp_user_id="2" username="uncfest" password_hash="82e35a63ceba37e9646434c5dd412ea577147f1e4a41ccde1614253187e3dbf9"
+        password_seed="0987654321" email="uncle@fester.com" first_name="Uncle" last_name="Fester" role="approver"
+        active="TRUE" time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" />
+
+    <hp_user hp_user_id="3" username="cousit" password_hash="92edb3ce9c6fa04c52538e8cefbc363305edcd8c5a379078bfb6de2ec1820422"
+        password_seed="1234554321" email="cousin@it.com" first_name="Cousin" last_name="It" role="user" active="FALSE"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" />
+
+    <hp_user username="testyt" password_hash="4bc75035d73f6083683e040fc31f28e0ec6d1cbce5cb0a5e2611eb89bceb6c16"
+        password_seed="0123456789" email="testy.testerson@test.com" first_name="Testy" last_name="Testerson" role="approver"
+        active="TRUE" />
+
+</dataset>

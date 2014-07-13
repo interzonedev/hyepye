@@ -3,7 +3,9 @@ package com.interzonedev.hyepye.service.dao.user;
 import java.util.List;
 
 import org.skife.jdbi.v2.sqlobject.Bind;
+import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
+import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import org.skife.jdbi.v2.sqlobject.mixins.Transactional;
 
@@ -63,8 +65,9 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#createUser(com.interzonedev.hyepye.model.User)
      */
     @Override
-    @SqlQuery("INSERT INTO hp_user (username, password_hash, password_seed, email, first_name, last_name, role, active) "
+    @SqlUpdate("INSERT INTO hp_user (username, password_hash, password_seed, email, first_name, last_name, role, active) "
             + "VALUES (:username, :passwordHash, :passwordSeed, :email, :firstName, :lastName, :role, :active)")
+    @GetGeneratedKeys
     public long createUser(@BindUser User user);
 
     /*
@@ -73,7 +76,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#updateUser(com.interzonedev.hyepye.model.User)
      */
     @Override
-    @SqlQuery("UPDATE hp_user SET username = :username, password_hash = :passwordHash, password_seed = :passwordSeed, "
+    @SqlUpdate("UPDATE hp_user SET username = :username, password_hash = :passwordHash, password_seed = :passwordSeed, "
             + "email = :email, first_name = :firstName, last_name = :lastName, role = :role, active = :active "
             + "WHERE id = :id")
     public int updateUser(@BindUser User user);
@@ -84,7 +87,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#deactivateUser(java.lang.Long)
      */
     @Override
-    @SqlQuery("UPDATE hp_user SET active = FALSE WHERE id = :id")
+    @SqlUpdate("UPDATE hp_user SET active = FALSE WHERE id = :id")
     public int deactivateUser(@Bind("id") Long id);
 
 }

@@ -365,7 +365,6 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
-
         Assert.assertTrue(vocabularyOut.getId() > 0L);
         Assert.assertEquals(TEST_ARMENIAN, vocabularyOut.getArmenian());
         Assert.assertEquals(TEST_ENGLISH, vocabularyOut.getEnglish());

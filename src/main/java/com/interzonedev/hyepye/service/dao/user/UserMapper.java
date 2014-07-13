@@ -49,8 +49,8 @@ public class UserMapper implements ResultSetMapper<User> {
 
         user.setRole(Role.fromRoleName(rs.getString("role")));
         user.setActive(rs.getBoolean("active"));
-        user.setTimeCreated(rs.getDate("time_created"));
-        user.setTimeUpdated(rs.getDate("time_updated"));
+        user.setTimeCreated(rs.getTimestamp("time_created"));
+        user.setTimeUpdated(rs.getTimestamp("time_updated"));
 
         return user.build();
 
