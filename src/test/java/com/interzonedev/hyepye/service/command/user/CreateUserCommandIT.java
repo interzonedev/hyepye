@@ -30,8 +30,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
     private static final Logger log = LoggerFactory.getLogger(CreateUserCommandIT.class);
 
     private static final String TEST_USERNAME = "testyt";
-    private static final String TEST_PASSWORD_HASH = "4bc75035d73f6083683e040fc31f28e0ec6d1cbce5cb0a5e2611eb89bceb6c16";
-    private static final String TEST_PASSWORD_SEED = "0123456789";
+    private static final String TEST_PLAINTEXT_PASSWORD = "testpass";
     private static final String TEST_EMAIL = "testy.testerson@test.com";
     private static final String TEST_FIRST_NAME = "Testy";
     private static final String TEST_LAST_NAME = "Testerson";
@@ -44,7 +43,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         log.debug("testCreateUserNullUser: Start");
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", (User) null);
+                "hyepye.service.createUserCommand", (User) null, TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -57,14 +56,12 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
     }
 
     @Test
-    public void testCreateUserNullUsername() {
+    public void testCreateUserNullPlaintextPassword() {
 
-        log.debug("testCreateUserNullUsername: Start");
+        log.debug("testCreateUserNullPlaintextPassword: Start");
 
         User.Builder userIn = User.newBuilder();
-        userIn.setUsername(null);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
+        userIn.setUsername(TEST_USERNAME);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -72,7 +69,59 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), null);
+
+        HyePyeResponse hyePyeResponse = createUserCommand.execute();
+
+        Assert.assertNotNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getUser());
+
+        log.debug("testCreateUserNullPlaintextPassword: End");
+
+    }
+
+    @Test
+    public void testCreateUserNullPlaintextEmpty() {
+
+        log.debug("testCreateUserNullPlaintextEmpty: Start");
+
+        User.Builder userIn = User.newBuilder();
+        userIn.setUsername(TEST_USERNAME);
+        userIn.setEmail(TEST_EMAIL);
+        userIn.setFirstName(TEST_FIRST_NAME);
+        userIn.setLastName(TEST_LAST_NAME);
+        userIn.setRole(TEST_ROLE);
+        userIn.setActive(TEST_ACTIVE);
+
+        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
+                "hyepye.service.createUserCommand", userIn.build(), "");
+
+        HyePyeResponse hyePyeResponse = createUserCommand.execute();
+
+        Assert.assertNotNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getUser());
+
+        log.debug("testCreateUserNullPlaintextEmpty: End");
+
+    }
+
+    @Test
+    public void testCreateUserNullUsername() {
+
+        log.debug("testCreateUserNullUsername: Start");
+
+        User.Builder userIn = User.newBuilder();
+        userIn.setUsername(null);
+        userIn.setEmail(TEST_EMAIL);
+        userIn.setFirstName(TEST_FIRST_NAME);
+        userIn.setLastName(TEST_LAST_NAME);
+        userIn.setRole(TEST_ROLE);
+        userIn.setActive(TEST_ACTIVE);
+
+        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -96,8 +145,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername("  ");
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -105,7 +152,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -129,8 +176,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(Strings.repeat("a", 256));
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -138,7 +183,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -156,212 +201,14 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
     }
 
     @Test
-    public void testCreateUserNullPasswordHash() {
-
-        log.debug("testCreateUserNullPasswordHash: Start");
-
-        User.Builder userIn = User.newBuilder();
-        userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(null);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
-        userIn.setEmail(TEST_EMAIL);
-        userIn.setFirstName(TEST_FIRST_NAME);
-        userIn.setLastName(TEST_LAST_NAME);
-        userIn.setRole(TEST_ROLE);
-        userIn.setActive(TEST_ACTIVE);
-
-        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
-
-        HyePyeResponse hyePyeResponse = createUserCommand.execute();
-
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
-
-        Assert.assertEquals(1, errors.size());
-        Assert.assertEquals("passwordHash", errorPropertyName);
-        Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNull(hyePyeResponse.getUser());
-
-        log.debug("testCreateUserNullPasswordHash: End");
-
-    }
-
-    @Test
-    public void testCreateUserBlankPasswordHash() {
-
-        log.debug("testCreateUserBlankPasswordHash: Start");
-
-        User.Builder userIn = User.newBuilder();
-        userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash("  ");
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
-        userIn.setEmail(TEST_EMAIL);
-        userIn.setFirstName(TEST_FIRST_NAME);
-        userIn.setLastName(TEST_LAST_NAME);
-        userIn.setRole(TEST_ROLE);
-        userIn.setActive(TEST_ACTIVE);
-
-        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
-
-        HyePyeResponse hyePyeResponse = createUserCommand.execute();
-
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
-
-        Assert.assertEquals(1, errors.size());
-        Assert.assertEquals("passwordHash", errorPropertyName);
-        Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNull(hyePyeResponse.getUser());
-
-        log.debug("testCreateUserBlankPasswordHash: End");
-
-    }
-
-    @Test
-    public void testCreateUserPasswordHashTooLong() {
-
-        log.debug("testCreateUserPasswordHashTooLong: Start");
-
-        User.Builder userIn = User.newBuilder();
-        userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(Strings.repeat("a", 65));
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
-        userIn.setEmail(TEST_EMAIL);
-        userIn.setFirstName(TEST_FIRST_NAME);
-        userIn.setLastName(TEST_LAST_NAME);
-        userIn.setRole(TEST_ROLE);
-        userIn.setActive(TEST_ACTIVE);
-
-        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
-
-        HyePyeResponse hyePyeResponse = createUserCommand.execute();
-
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
-
-        Assert.assertEquals(1, errors.size());
-        Assert.assertEquals("passwordHash", errorPropertyName);
-        Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNull(hyePyeResponse.getUser());
-
-        log.debug("testCreateUserPasswordHashTooLong: End");
-
-    }
-
-    @Test
-    public void testCreateUserNullPasswordSeed() {
-
-        log.debug("testCreateUserNullPasswordSeed: Start");
-
-        User.Builder userIn = User.newBuilder();
-        userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(null);
-        userIn.setEmail(TEST_EMAIL);
-        userIn.setFirstName(TEST_FIRST_NAME);
-        userIn.setLastName(TEST_LAST_NAME);
-        userIn.setRole(TEST_ROLE);
-        userIn.setActive(TEST_ACTIVE);
-
-        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
-
-        HyePyeResponse hyePyeResponse = createUserCommand.execute();
-
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
-
-        Assert.assertEquals(1, errors.size());
-        Assert.assertEquals("passwordSeed", errorPropertyName);
-        Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNull(hyePyeResponse.getUser());
-
-        log.debug("testCreateUserNullPasswordSeed: End");
-
-    }
-
-    @Test
-    public void testCreateUserEmptyPasswordSeed() {
-
-        log.debug("testCreateUserEmptyPasswordSeed: Start");
-
-        User.Builder userIn = User.newBuilder();
-        userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed("  ");
-        userIn.setEmail(TEST_EMAIL);
-        userIn.setFirstName(TEST_FIRST_NAME);
-        userIn.setLastName(TEST_LAST_NAME);
-        userIn.setRole(TEST_ROLE);
-        userIn.setActive(TEST_ACTIVE);
-
-        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
-
-        HyePyeResponse hyePyeResponse = createUserCommand.execute();
-
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
-
-        Assert.assertEquals(1, errors.size());
-        Assert.assertEquals("passwordSeed", errorPropertyName);
-        Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNull(hyePyeResponse.getUser());
-
-        log.debug("testCreateUserEmptyPasswordSeed: End");
-
-    }
-
-    @Test
-    public void testCreateUserPasswordSeedTooLong() {
-
-        log.debug("testCreateUserPasswordSeedTooLong: Start");
-
-        User.Builder userIn = User.newBuilder();
-        userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(Strings.repeat("a", 11));
-        userIn.setEmail(TEST_EMAIL);
-        userIn.setFirstName(TEST_FIRST_NAME);
-        userIn.setLastName(TEST_LAST_NAME);
-        userIn.setRole(TEST_ROLE);
-        userIn.setActive(TEST_ACTIVE);
-
-        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
-
-        HyePyeResponse hyePyeResponse = createUserCommand.execute();
-
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
-
-        Assert.assertEquals(1, errors.size());
-        Assert.assertEquals("passwordSeed", errorPropertyName);
-        Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNull(hyePyeResponse.getUser());
-
-        log.debug("testCreateUserPasswordSeedTooLong: End");
-
-    }
-
-    @Test
     public void testCreateUserNullEmail() {
 
         log.debug("testCreateUserNullEmail: Start");
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
+        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
+        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(null);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -369,7 +216,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -393,8 +240,8 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
+        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
+        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail("  ");
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -402,7 +249,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -426,8 +273,8 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
+        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
+        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(Strings.repeat("a", 256));
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -435,7 +282,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -459,8 +306,8 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
+        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
+        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(Strings.repeat("a", 256));
         userIn.setLastName(TEST_LAST_NAME);
@@ -468,7 +315,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -492,8 +339,8 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
+        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
+        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(Strings.repeat("a", 256));
@@ -501,7 +348,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -525,8 +372,8 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
+        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
+        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -534,7 +381,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -561,8 +408,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -570,7 +415,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -580,8 +425,8 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertTrue(userOut.getId() > 0L);
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
-        Assert.assertEquals(TEST_PASSWORD_HASH, userOut.getPasswordHash());
-        Assert.assertEquals(TEST_PASSWORD_SEED, userOut.getPasswordSeed());
+        Assert.assertEquals(64, userOut.getPasswordHash().length());
+        Assert.assertEquals(10, userOut.getPasswordSeed().length());
         Assert.assertEquals(TEST_EMAIL, userOut.getEmail());
         Assert.assertEquals(TEST_FIRST_NAME, userOut.getFirstName());
         Assert.assertEquals(TEST_LAST_NAME, userOut.getLastName());
@@ -607,8 +452,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(null);
         userIn.setLastName(null);
@@ -616,7 +459,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         userIn.setActive(TEST_ACTIVE);
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", userIn.build());
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 
@@ -626,8 +469,8 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertTrue(userOut.getId() > 0L);
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
-        Assert.assertEquals(TEST_PASSWORD_HASH, userOut.getPasswordHash());
-        Assert.assertEquals(TEST_PASSWORD_SEED, userOut.getPasswordSeed());
+        Assert.assertEquals(64, userOut.getPasswordHash().length());
+        Assert.assertEquals(10, userOut.getPasswordSeed().length());
         Assert.assertEquals(TEST_EMAIL, userOut.getEmail());
         Assert.assertNull(userOut.getFirstName());
         Assert.assertNull(userOut.getLastName());
@@ -637,7 +480,8 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertTrue(dbUnitDataSetTester.compareDatesToTheSecond(userOut.getTimeUpdated(), now) >= 0);
 
         dbUnitDataSetTester.compareDataSetsIgnoreColumns(hyepyeDataSource,
-                "com/interzonedev/hyepye/dataset/user/afterCreateNullables.xml", "hp_user", TestHelper.USER_IGNORE_COLUMN_NAMES);
+                "com/interzonedev/hyepye/dataset/user/afterCreateNullables.xml", "hp_user",
+                TestHelper.USER_IGNORE_COLUMN_NAMES);
 
         log.debug("testCreateUserValidNullables: End");
 

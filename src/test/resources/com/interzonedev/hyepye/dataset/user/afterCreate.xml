@@ -14,8 +14,7 @@
         password_seed="1234554321" email="cousin@it.com" first_name="Cousin" last_name="It" role="user" active="FALSE"
         time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" />
 
-    <hp_user username="testyt" password_hash="4bc75035d73f6083683e040fc31f28e0ec6d1cbce5cb0a5e2611eb89bceb6c16"
-        password_seed="0123456789" email="testy.testerson@test.com" first_name="Testy" last_name="Testerson" role="approver"
+    <hp_user username="testyt" email="testy.testerson@test.com" first_name="Testy" last_name="Testerson" role="approver"
         active="TRUE" />
 
 </dataset>

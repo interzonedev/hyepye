@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
+import com.google.common.base.Strings;
 import com.interzonedev.commandr.CommandConfiguration;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.ValidationException;
@@ -26,7 +27,13 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
 
     private static final Logger log = LoggerFactory.getLogger(CreateUserCommand.class);
 
-    private final User userToCreate;
+    @Inject
+    @Named("hyepye.service.passwordHelper")
+    private PasswordHelper passwordHelper;
+
+    private final User userToCreateTemplate;
+
+    private final String plainTextPassword;
 
     @Inject
     @Named("hyepye.service.userRepository")
@@ -35,12 +42,14 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
     /**
      * Creates an instance of this command with a specific command key and timeout.
      * 
-     * @param userToCreate The {@link User} that contains the properties of the new {@link User} to create.
+     * @param userToCreateTemplate The {@link User} that contains the properties of the new {@link User} to create.
+     * @param plainTextPassword The plain text password for the new {@link User} to create.
      */
-    public CreateUserCommand(User userToCreate) {
+    public CreateUserCommand(User userToCreateTemplate, String plainTextPassword) {
         super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.createUserCommand")
                 .setThreadTimeoutMillis(500).build());
-        this.userToCreate = userToCreate;
+        this.userToCreateTemplate = userToCreateTemplate;
+        this.plainTextPassword = plainTextPassword;
     }
 
     /**
@@ -54,11 +63,26 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
     @Override
     protected HyePyeResponse doCommand() throws Exception {
 
-        log.debug("doCommand: Start - userToCreate = " + userToCreate);
+        log.debug("doCommand: Start - userToCreate = " + userToCreateTemplate);
 
         HyePyeResponse.Builder hyePyeResponse = HyePyeResponse.newBuilder();
 
-        User user = userRepository.createUser(userToCreate);
+        if (null == userToCreateTemplate) {
+            throw new ValidationException("The user must be set");
+        }
+        if (Strings.isNullOrEmpty(plainTextPassword)) {
+            throw new ValidationException("The plain text password must be set");
+        }
+
+        User.Builder userToCreate = User.newBuilder(userToCreateTemplate);
+
+        String passwordSeed = passwordHelper.generatePasswordSeed();
+        String passwordHash = passwordHelper.generatePasswordHash(plainTextPassword, passwordSeed);
+
+        userToCreate.setPasswordHash(passwordHash);
+        userToCreate.setPasswordSeed(passwordSeed);
+
+        User user = userRepository.createUser(userToCreate.build());
 
         log.debug("doCommand: Created - user = " + user);
 
