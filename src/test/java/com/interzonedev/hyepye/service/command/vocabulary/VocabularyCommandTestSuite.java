@@ -12,6 +12,6 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author mmarkarian
  */
 @RunWith(Suite.class)
-@SuiteClasses({ CreateVocabularyCommandIT.class, GetAllVocabulariesCommandIT.class })
+@SuiteClasses({ CreateVocabularyCommandIT.class, GetAllVocabulariesCommandIT.class, GetVocabularyByIdCommandIT.class })
 public class VocabularyCommandTestSuite {
 }
