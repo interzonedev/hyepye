@@ -99,7 +99,7 @@ public class DeactivateUserCommandIT extends HyepyeAbstractIT {
 
         dbUnitDataSetTester.compareDataSetsIgnoreColumns(hyepyeDataSource,
                 "com/interzonedev/hyepye/dataset/user/afterDeactivate.xml", "hp_user",
-                TestHelper.USER_IGNORE_COLUMN_NAMES);
+                TestHelper.COMMON_IGNORE_COLUMN_NAMES);
 
         log.debug("testDeactivateUserValid: End");
 
