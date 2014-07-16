@@ -2,9 +2,8 @@
 
 <dataset>
 
-    <hp_user hp_user_id="1" username="gernb" password_hash="630a91d5017beba9b2a06029aa9330e25ac0cd8ab12d30916c0ea357155cc507"
-        password_seed="1234567890" email="gern@blanston.com" first_name="Gern" last_name="Blanston" role="admin" active="TRUE"
-        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" />
+    <hp_user hp_user_id="1" username="testyt" password_hash="630a91d5017beba9b2a06029aa9330e25ac0cd8ab12d30916c0ea357155cc507"
+        password_seed="1234567890" email="testy.testerson@test.com" role="approver" active="TRUE" />
 
     <hp_user hp_user_id="2" username="uncfest" password_hash="82e35a63ceba37e9646434c5dd412ea577147f1e4a41ccde1614253187e3dbf9"
         password_seed="0987654321" email="uncle@fester.com" first_name="Uncle" last_name="Fester" role="approver"

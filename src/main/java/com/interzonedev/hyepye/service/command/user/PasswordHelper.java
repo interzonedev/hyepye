@@ -44,4 +44,12 @@ public class PasswordHelper {
 
     }
 
+    public static void main(String[] args) {
+        PasswordHelper passwordHelper = new PasswordHelper();
+        String passwordHash1 = passwordHelper.generatePasswordHash("testpass", "1234567890");
+        String passwordHash2 = passwordHelper.generatePasswordHash("newtestpass", "1234567890");
+        System.out.println("passwordHash1 = " + passwordHash1);
+        System.out.println("passwordHash2 = " + passwordHash2);
+    }
+
 }

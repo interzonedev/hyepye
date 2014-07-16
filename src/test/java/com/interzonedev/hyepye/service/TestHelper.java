@@ -42,6 +42,14 @@ public class TestHelper {
             .newArrayList(Iterables.concat(
                     Arrays.asList(new String[] { "hp_user_id", "password_hash", "password_seed" }),
                     EXPANDED_COMMON_IGNORE_COLUMN_NAMES)));
+    
+    /**
+     * Column names to ignore in comparing DbUnit datasets for tests on the hp_user table.
+     */
+    public static final List<String> EXPANDED_USER_IGNORE_COLUMN_NAMES = Collections.unmodifiableList(Lists
+            .newArrayList(Iterables.concat(
+                    Arrays.asList(new String[] { "first_name", "last_name"}),
+                    USER_IGNORE_COLUMN_NAMES)));
 
     /**
      * Column names to ignore in comparing DbUnit datasets for tests on the vocabulary table.

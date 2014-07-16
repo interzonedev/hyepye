@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Path.Node;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,6 +16,7 @@ import com.interzonedev.hyepye.model.Role;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.TestHelper;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
+import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 import com.interzonedev.hyepye.service.repository.user.InvalidUserException;
 import com.interzonedev.zankou.dataset.DataSet;
 
@@ -127,7 +127,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("username", errorPropertyName);
@@ -158,7 +158,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("username", errorPropertyName);
@@ -189,7 +189,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("username", errorPropertyName);
@@ -222,7 +222,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("email", errorPropertyName);
@@ -255,7 +255,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("email", errorPropertyName);
@@ -288,7 +288,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("email", errorPropertyName);
@@ -321,7 +321,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("firstName", errorPropertyName);
@@ -354,7 +354,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("lastName", errorPropertyName);
@@ -387,7 +387,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("role", errorPropertyName);
@@ -395,6 +395,70 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getUser());
 
         log.debug("testCreateUserNullRole: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testCreateUserDuplicateUsername() {
+
+        log.debug("testCreateUserDuplicateUsername: Start");
+
+        User.Builder userIn = User.newBuilder();
+        userIn.setUsername("gernb");
+        userIn.setEmail(TEST_EMAIL);
+        userIn.setFirstName(TEST_FIRST_NAME);
+        userIn.setLastName(TEST_LAST_NAME);
+        userIn.setRole(TEST_ROLE);
+        userIn.setActive(TEST_ACTIVE);
+
+        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
+
+        HyePyeResponse hyePyeResponse = createUserCommand.execute();
+
+        DuplicateModelException dme = (DuplicateModelException) hyePyeResponse.getValidationError();
+
+        Assert.assertNotNull(dme);
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getUser());
+
+        dbUnitDataSetTester.compareDataSetsIgnoreColumns(hyepyeDataSource,
+                "com/interzonedev/hyepye/dataset/user/before.xml", "hp_user", TestHelper.USER_IGNORE_COLUMN_NAMES);
+
+        log.debug("testCreateUserDuplicateUsername: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testCreateUserDuplicateEmail() {
+
+        log.debug("testCreateUserDuplicateEmail: Start");
+
+        User.Builder userIn = User.newBuilder();
+        userIn.setUsername(TEST_USERNAME);
+        userIn.setEmail("gern@blanston.com");
+        userIn.setFirstName(TEST_FIRST_NAME);
+        userIn.setLastName(TEST_LAST_NAME);
+        userIn.setRole(TEST_ROLE);
+        userIn.setActive(TEST_ACTIVE);
+
+        CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
+                "hyepye.service.createUserCommand", userIn.build(), TEST_PLAINTEXT_PASSWORD);
+
+        HyePyeResponse hyePyeResponse = createUserCommand.execute();
+
+        DuplicateModelException dme = (DuplicateModelException) hyePyeResponse.getValidationError();
+
+        Assert.assertNotNull(dme);
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getUser());
+
+        dbUnitDataSetTester.compareDataSetsIgnoreColumns(hyepyeDataSource,
+                "com/interzonedev/hyepye/dataset/user/before.xml", "hp_user", TestHelper.USER_IGNORE_COLUMN_NAMES);
+
+        log.debug("testCreateUserDuplicateEmail: End");
 
     }
 
@@ -485,17 +549,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testCreateUserValidNullables: End");
 
-    }
-
-    protected String getSinglePropertyNameFromErrors(Set<ConstraintViolation<User>> errors) {
-        String errorPropertyName = null;
-        ConstraintViolation<User> constraintViolation = errors.stream().findFirst().get();
-
-        for (Node node : constraintViolation.getPropertyPath()) {
-            errorPropertyName = node.getName();
-        }
-
-        return errorPropertyName;
     }
 
 }

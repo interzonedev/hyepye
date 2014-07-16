@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Path.Node;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -97,7 +96,7 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("armenian", errorPropertyName);
@@ -126,7 +125,7 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("armenian", errorPropertyName);
@@ -155,7 +154,7 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("armenian", errorPropertyName);
@@ -184,7 +183,7 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("english", errorPropertyName);
@@ -213,7 +212,7 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("english", errorPropertyName);
@@ -242,7 +241,7 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("english", errorPropertyName);
@@ -271,7 +270,7 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("vocabularyType", errorPropertyName);
@@ -300,7 +299,7 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
         Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
+        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals("status", errorPropertyName);
@@ -381,17 +380,6 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         log.debug("testCreateVocabularyValid: End");
 
-    }
-
-    protected String getSinglePropertyNameFromErrors(Set<ConstraintViolation<Vocabulary>> errors) {
-        String errorPropertyName = null;
-        ConstraintViolation<Vocabulary> constraintViolation = errors.stream().findFirst().get();
-
-        for (Node node : constraintViolation.getPropertyPath()) {
-            errorPropertyName = node.getName();
-        }
-
-        return errorPropertyName;
     }
 
 }
