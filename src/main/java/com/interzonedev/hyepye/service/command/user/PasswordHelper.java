@@ -7,6 +7,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 /**
  * Password generation utilities.
  * 
+ * TODO - Move this functionality to the User model?
+ * 
  * @author mmarkarian
  */
 @Named("hyepye.service.passwordHelper")
@@ -42,14 +44,6 @@ public class PasswordHelper {
 
         return DigestUtils.sha256Hex(passwordSb.toString());
 
-    }
-
-    public static void main(String[] args) {
-        PasswordHelper passwordHelper = new PasswordHelper();
-        String passwordHash1 = passwordHelper.generatePasswordHash("testpass", "1234567890");
-        String passwordHash2 = passwordHelper.generatePasswordHash("newtestpass", "1234567890");
-        System.out.println("passwordHash1 = " + passwordHash1);
-        System.out.println("passwordHash2 = " + passwordHash2);
     }
 
 }
