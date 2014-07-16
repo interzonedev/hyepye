@@ -62,6 +62,30 @@ public class GetUserByNameCommandIT extends HyepyeAbstractIT {
     }
 
     /**
+     * The user should not be set on the response for a non-existent username.
+     */
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testGetUserByNameNonExistent() {
+
+        log.debug("testGetUserByNameNonExistent: Start");
+
+        String username = "this_user_does_not_exist";
+
+        GetUserByNameCommand getUserByNameCommand = (GetUserByNameCommand) applicationContext.getBean(
+                "hyepye.service.getUserByNameCommand", username);
+
+        HyePyeResponse hyePyeResponse = getUserByNameCommand.execute();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getUser());
+
+        log.debug("testGetUserByNameNonExistent: End");
+
+    }
+
+    /**
      * The user should be set on the response for a valid username.
      */
     @Test
@@ -85,30 +109,6 @@ public class GetUserByNameCommandIT extends HyepyeAbstractIT {
         Assert.assertEquals(username, user.getUsername());
 
         log.debug("testGetUserByNameValid: End");
-
-    }
-
-    /**
-     * The user should not be set on the response for a non-existent username.
-     */
-    @Test
-    @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
-    public void testGetUserByNameNonExistent() {
-
-        log.debug("testGetUserByNameNonExistent: Start");
-
-        String username = "this_user_does_not_exist";
-
-        GetUserByNameCommand getUserByNameCommand = (GetUserByNameCommand) applicationContext.getBean(
-                "hyepye.service.getUserByNameCommand", username);
-
-        HyePyeResponse hyePyeResponse = getUserByNameCommand.execute();
-
-        Assert.assertNull(hyePyeResponse.getValidationError());
-        Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNull(hyePyeResponse.getUser());
-
-        log.debug("testGetUserByNameNonExistent: End");
 
     }
 

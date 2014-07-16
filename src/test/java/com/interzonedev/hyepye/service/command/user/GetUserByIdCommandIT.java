@@ -41,6 +41,30 @@ public class GetUserByIdCommandIT extends HyepyeAbstractIT {
     }
 
     /**
+     * The user should not be set on the response for a non-existent ID.
+     */
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testGetUserByIdNonExistent() {
+
+        log.debug("testGetUserByIdNonExistent: Start");
+
+        Long userId = 100L;
+
+        GetUserByIdCommand getUserByIdCommand = (GetUserByIdCommand) applicationContext.getBean(
+                "hyepye.service.getUserByIdCommand", userId);
+
+        HyePyeResponse hyePyeResponse = getUserByIdCommand.execute();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getUser());
+
+        log.debug("testGetUserByIdNonExistent: End");
+
+    }
+
+    /**
      * The user should be set on the response for a valid ID.
      */
     @Test
@@ -64,30 +88,6 @@ public class GetUserByIdCommandIT extends HyepyeAbstractIT {
         Assert.assertEquals(userId, user.getId());
 
         log.debug("testGetUserByIdValid: End");
-
-    }
-
-    /**
-     * The user should not be set on the response for a non-existent ID.
-     */
-    @Test
-    @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
-    public void testGetUserByIdNonExistent() {
-
-        log.debug("testGetUserByIdNonExistent: Start");
-
-        Long userId = 100L;
-
-        GetUserByIdCommand getUserByIdCommand = (GetUserByIdCommand) applicationContext.getBean(
-                "hyepye.service.getUserByIdCommand", userId);
-
-        HyePyeResponse hyePyeResponse = getUserByIdCommand.execute();
-
-        Assert.assertNull(hyePyeResponse.getValidationError());
-        Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNull(hyePyeResponse.getUser());
-
-        log.debug("testGetUserByIdNonExistent: End");
 
     }
 

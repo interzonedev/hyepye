@@ -78,7 +78,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
     @Override
     @SqlUpdate("UPDATE hp_user SET username = :username, password_hash = :passwordHash, password_seed = :passwordSeed, "
             + "email = :email, first_name = :firstName, last_name = :lastName, role = :role, active = :active "
-            + "WHERE id = :id")
+            + "WHERE hp_user_id = :id")
     public int updateUser(@BindUser User user);
 
     /*
@@ -87,7 +87,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#deactivateUser(java.lang.Long)
      */
     @Override
-    @SqlUpdate("UPDATE hp_user SET active = FALSE WHERE id = :id")
+    @SqlUpdate("UPDATE hp_user SET active = FALSE WHERE hp_user_id = :id")
     public int deactivateUser(@Bind("id") Long id);
 
 }
