@@ -27,10 +27,6 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
 
     private static final Logger log = LoggerFactory.getLogger(CreateUserCommand.class);
 
-    @Inject
-    @Named("hyepye.service.passwordHelper")
-    private PasswordHelper passwordHelper;
-
     private final User userToCreateTemplate;
 
     private final String plainTextPassword;
@@ -38,6 +34,10 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
     @Inject
     @Named("hyepye.service.userRepository")
     private UserRepository userRepository;
+
+    @Inject
+    @Named("hyepye.service.passwordHelper")
+    private PasswordHelper passwordHelper;
 
     /**
      * Creates an instance of this command with a specific command key and timeout.
