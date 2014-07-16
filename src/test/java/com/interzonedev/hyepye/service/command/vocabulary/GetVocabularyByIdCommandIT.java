@@ -41,6 +41,30 @@ public class GetVocabularyByIdCommandIT extends HyepyeAbstractIT {
     }
 
     /**
+     * The vocabulary should not be set on the response for a non-existent ID.
+     */
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testGetVocabularyByIdNonExistent() {
+
+        log.debug("testGetVocabularyByIdNonExistent: Start");
+
+        Long vocabularyId = 100L;
+
+        GetVocabularyByIdCommand getVocabularyByIdCommand = (GetVocabularyByIdCommand) applicationContext.getBean(
+                "hyepye.service.getVocabularyByIdCommand", vocabularyId);
+
+        HyePyeResponse hyePyeResponse = getVocabularyByIdCommand.execute();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
+
+        log.debug("testGetVocabularyByIdNonExistent: End");
+
+    }
+
+    /**
      * The vocabulary should be set on the response for a valid ID.
      */
     @Test
@@ -64,30 +88,6 @@ public class GetVocabularyByIdCommandIT extends HyepyeAbstractIT {
         Assert.assertEquals(vocabularyId, vocabulary.getId());
 
         log.debug("testGetVocabularyByIdValid: End");
-
-    }
-
-    /**
-     * The vocabulary should not be set on the response for a non-existent ID.
-     */
-    @Test
-    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
-    public void testGetVocabularyByIdNonExistent() {
-
-        log.debug("testGetVocabularyByIdNonExistent: Start");
-
-        Long vocabularyId = 100L;
-
-        GetVocabularyByIdCommand getVocabularyByIdCommand = (GetVocabularyByIdCommand) applicationContext.getBean(
-                "hyepye.service.getVocabularyByIdCommand", vocabularyId);
-
-        HyePyeResponse hyePyeResponse = getVocabularyByIdCommand.execute();
-
-        Assert.assertNull(hyePyeResponse.getValidationError());
-        Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertNull(hyePyeResponse.getVocabulary());
-
-        log.debug("testGetVocabularyByIdNonExistent: End");
 
     }
 
