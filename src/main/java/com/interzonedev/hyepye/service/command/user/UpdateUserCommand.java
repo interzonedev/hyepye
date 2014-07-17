@@ -18,7 +18,7 @@ import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.repository.user.UserRepository;
 
 /**
- * Updates a new {@link User} except for the active properties.
+ * Updates a {@link User} except for the active properties.
  * 
  * @see DeactivateUserCommand to alter the active property.
  * 
@@ -128,11 +128,11 @@ public class UpdateUserCommand extends AbstractHyePyeCommand {
         userToUpdate.setLastName(userToUpdateTemplate.getLastName());
         userToUpdate.setRole(userToUpdateTemplate.getRole());
 
-        User user = userRepository.updateUser(userToUpdate.build());
+        User updatedUser = userRepository.updateUser(userToUpdate.build());
 
-        log.debug("doCommand: Created - user = " + user);
+        log.debug("doCommand: Updated - updatedUser = " + updatedUser);
 
-        hyePyeResponse.setUser(user);
+        hyePyeResponse.setUser(updatedUser);
 
         return hyePyeResponse.build();
 

@@ -30,7 +30,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
     private static final Logger log = LoggerFactory.getLogger(UpdateUserCommandIT.class);
 
-    private static final Long TEST_ID = 1L;
+    private static final Long TEST_USER_ID = 1L;
     private static final String TEST_USERNAME = "testyt";
     private static final String TEST_CURRENT_PLAINTEXT_PASSWORD = "testpass";
     private static final String TEST_NEW_PLAINTEXT_PASSWORD = "newtestpass";
@@ -84,7 +84,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
         log.debug("testUpdateUserCurrentPasswordMismatch: Start");
 
         User.Builder userIn = User.newBuilder();
-        userIn.setId(TEST_ID);
+        userIn.setId(TEST_USER_ID);
         userIn.setUsername(TEST_USERNAME);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(TEST_FIRST_NAME);
@@ -110,7 +110,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserNullUsername: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setUsername(null);
@@ -139,7 +139,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserBlankUsername: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setUsername("  ");
@@ -168,7 +168,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserUsernameTooLong: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setUsername(Strings.repeat("a", 256));
@@ -197,7 +197,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserNullEmail: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setEmail(null);
@@ -226,7 +226,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserBlankEmail: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setEmail("  ");
@@ -255,7 +255,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserEmailTooLong: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setEmail(Strings.repeat("a", 256));
@@ -284,7 +284,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserFirstNameTooLong: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setFirstName(Strings.repeat("a", 256));
@@ -313,7 +313,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserLastNameTooLong: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setLastName(Strings.repeat("a", 256));
@@ -342,7 +342,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserNullRole: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setRole(null);
@@ -371,7 +371,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserDuplicateUsername: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setUsername("gernb");
@@ -400,7 +400,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         log.debug("testUpdateUserDuplicateEmail: Start");
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setEmail("gern@blanston.com");
@@ -431,7 +431,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         Date now = new Date();
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setUsername(TEST_USERNAME);
@@ -450,7 +450,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertEquals(TEST_ID, userOut.getId());
+        Assert.assertEquals(TEST_USER_ID, userOut.getId());
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
         Assert.assertEquals(TEST_NEW_PASSWORD_HASH, userOut.getPasswordHash());
         Assert.assertEquals(testUser.getPasswordSeed(), userOut.getPasswordSeed());
@@ -478,7 +478,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         Date now = new Date();
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setUsername(TEST_USERNAME);
@@ -496,7 +496,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertEquals(TEST_ID, userOut.getId());
+        Assert.assertEquals(TEST_USER_ID, userOut.getId());
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
         Assert.assertEquals(testUser.getPasswordHash(), userOut.getPasswordHash());
         Assert.assertEquals(testUser.getPasswordSeed(), userOut.getPasswordSeed());
@@ -524,7 +524,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         Date now = new Date();
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setUsername(TEST_USERNAME);
@@ -543,7 +543,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertEquals(TEST_ID, userOut.getId());
+        Assert.assertEquals(TEST_USER_ID, userOut.getId());
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
         Assert.assertEquals(testUser.getPasswordHash(), userOut.getPasswordHash());
         Assert.assertEquals(testUser.getPasswordSeed(), userOut.getPasswordSeed());
@@ -571,7 +571,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         Date now = new Date();
 
-        User testUser = getTestUser(TEST_ID);
+        User testUser = getTestUser(TEST_USER_ID);
 
         User.Builder userIn = User.newBuilder(testUser);
         userIn.setUsername(TEST_USERNAME);
@@ -589,7 +589,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
-        Assert.assertEquals(TEST_ID, userOut.getId());
+        Assert.assertEquals(TEST_USER_ID, userOut.getId());
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
         Assert.assertEquals(testUser.getPasswordHash(), userOut.getPasswordHash());
         Assert.assertEquals(testUser.getPasswordSeed(), userOut.getPasswordSeed());
