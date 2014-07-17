@@ -10,8 +10,8 @@
         password_seed="0987654321" email="uncle@fester.com" first_name="Uncle" last_name="Fester" role="approver"
         active="TRUE" time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" />
 
-    <vocabulary vocabulary_id="1" armenian="բարեւ" english="hello" vocabulary_type="noun" status="approved"
-        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+    <vocabulary vocabulary_id="1" armenian="երեկ" english="yesterday" vocabulary_type="day" status="submitted"
+        time_created="2014-07-07 10:49:09" created_by="1" modified_by="2" />
 
     <vocabulary vocabulary_id="2" armenian="կապիկ" english="monkey" vocabulary_type="noun" status="submitted"
         time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
