@@ -22,16 +22,6 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
     /*
      * (non-Javadoc)
      * 
-     * @see com.interzonedev.hyepye.service.dao.vocabulary.VocabularyDAO#getAllVocabularies()
-     */
-    @Override
-    @SqlQuery("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created, time_updated, "
-            + "created_by, modified_by FROM vocabulary")
-    public List<Vocabulary> getAllVocabularies();
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see com.interzonedev.hyepye.service.dao.vocabulary.VocabularyDAO#getVocabularyById(java.lang.Long)
      */
     @Override

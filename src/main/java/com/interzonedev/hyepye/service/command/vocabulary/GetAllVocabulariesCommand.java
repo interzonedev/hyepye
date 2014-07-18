@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 
 import com.interzonedev.commandr.CommandConfiguration;
 import com.interzonedev.hyepye.model.Vocabulary;
+import com.interzonedev.hyepye.model.VocabularyProperty;
 import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
@@ -28,16 +29,43 @@ public class GetAllVocabulariesCommand extends AbstractHyePyeCommand {
 
     private static final Logger log = LoggerFactory.getLogger(GetAllVocabulariesCommand.class);
 
+    private final VocabularyProperty orderBy;
+
+    private final boolean ascending;
+
+    private final Long limit;
+
+    private final Long offset;
+
     @Inject
     @Named("hyepye.service.vocabularyRepository")
     private VocabularyRepository vocabularyRepository;
 
     /**
      * Creates an instance of this command with a specific command key and timeout.
+     * 
+     * @param orderBy The {@link VocabularyProperty} by which to order the results.
+     * @param ascending Whether or not the results are ordered in ascending order.
+     * @param limit The maximum number of results to return.
+     * @param offset The number of results to skip before returning results.
      */
-    public GetAllVocabulariesCommand() {
+    public GetAllVocabulariesCommand(VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) {
         super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.getAllVocabulariesCommand")
                 .setThreadTimeoutMillis(500).build());
+        this.orderBy = orderBy;
+        this.ascending = ascending;
+        this.limit = limit;
+        this.offset = offset;
+    }
+
+    /**
+     * Creates an instance of this command with a specific command key and timeout. Gets all posible results without
+     * limit.
+     * 
+     * @param orderBy The {@link VocabularyProperty} by which to order the results.
+     */
+    public GetAllVocabulariesCommand(VocabularyProperty orderBy) {
+        this(orderBy, true, Long.MAX_VALUE, 0L);
     }
 
     /**
@@ -55,7 +83,7 @@ public class GetAllVocabulariesCommand extends AbstractHyePyeCommand {
 
         HyePyeResponse.Builder hyePyeResponse = HyePyeResponse.newBuilder();
 
-        List<Vocabulary> vocabularies = vocabularyRepository.getAllVocabularies();
+        List<Vocabulary> vocabularies = vocabularyRepository.getAllVocabularies(orderBy, ascending, limit, offset);
 
         log.debug("doCommand: Retrieved - " + vocabularies);
 

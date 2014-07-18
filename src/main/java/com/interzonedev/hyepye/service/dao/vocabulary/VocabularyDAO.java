@@ -13,13 +13,6 @@ import com.interzonedev.hyepye.model.Vocabulary;
 public interface VocabularyDAO {
 
     /**
-     * Gets a {@link List} of all {@link Vocabulary} instances.
-     * 
-     * @return Returns a {@link List} of all {@link Vocabulary} instances.
-     */
-    public List<Vocabulary> getAllVocabularies();
-
-    /**
      * Gets the {@link Vocabulary} with the specified ID.
      * 
      * @param id The ID of the {@link Vocabulary} to retrieve.

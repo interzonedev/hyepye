@@ -1,5 +1,6 @@
 package com.interzonedev.hyepye.service.repository.vocabulary;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import javax.validation.Validator;
 
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.Query;
 import org.skife.jdbi.v2.TransactionCallback;
 import org.skife.jdbi.v2.TransactionStatus;
 import org.slf4j.Logger;
@@ -18,8 +20,10 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Strings;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
+import com.interzonedev.hyepye.model.VocabularyProperty;
 import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.dao.vocabulary.JdbiVocabularyDAO;
+import com.interzonedev.hyepye.service.dao.vocabulary.VocabularyMapper;
 import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 
 /**
@@ -36,6 +40,8 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
 
     private final Validator jsr303Validator;
 
+    private final VocabularyMapper vocabularyMapper = new VocabularyMapper();
+
     @Inject
     public JdbiVocabularyRepository(@Named("hyepye.service.dbi") DBI dbi,
             @Named("hyepye.service.jsr303Validator") Validator jsr303Validator) {
@@ -46,14 +52,55 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
     /*
      * (non-Javadoc)
      * 
-     * @see com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#getAllVocabularies()
+     * @see
+     * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#getAllVocabularies(com.interzonedev
+     * .hyepye.model.VocabularyProperty, boolean, java.lang.Long, java.lang.Long)
      */
     @Override
-    public List<Vocabulary> getAllVocabularies() {
+    public List<Vocabulary> getAllVocabularies(VocabularyProperty orderBy, boolean ascending, Long limit, Long offset)
+            throws ValidationException {
 
         log.debug("getAllVocabularies: Start");
 
-        List<Vocabulary> vocabularies = getVocabularyDAO().getAllVocabularies();
+        if (null == limit) {
+            limit = Long.MAX_VALUE;
+        }
+
+        if (null == offset) {
+            offset = 0L;
+        }
+
+        if (null == orderBy) {
+            throw new ValidationException("The order by must be set");
+        }
+
+        if (limit < 0L) {
+            throw new ValidationException("The result limit can not be negative");
+        }
+
+        if (offset < 0L) {
+            throw new ValidationException("The result offset can not be negative");
+        }
+
+        List<Vocabulary> vocabularies = new ArrayList<Vocabulary>();
+        try (Handle handle = dbi.open();) {
+            StringBuilder queryString = new StringBuilder();
+            queryString.append("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created,");
+            queryString.append(" time_updated, created_by, modified_by");
+            queryString.append(" FROM vocabulary");
+            queryString.append(" ORDER BY ").append(orderBy.getVocabularyColumnName());
+            if (ascending) {
+                queryString.append(" ASC");
+            } else {
+                queryString.append(" DESC");
+            }
+            queryString.append(" LIMIT ").append(limit);
+            queryString.append(" OFFSET ").append(offset);
+
+            Query<Vocabulary> query = handle.createQuery(queryString.toString()).map(vocabularyMapper);
+
+            vocabularies = query.list();
+        }
 
         log.debug("getAllVocabularies: Returning - vocabularies  = " + vocabularies);
 

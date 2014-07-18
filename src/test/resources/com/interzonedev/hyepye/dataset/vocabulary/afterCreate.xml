@@ -15,6 +15,27 @@
     <vocabulary vocabulary_id="3" armenian="մատիտ" english="pencil" vocabulary_type="noun" status="rejected"
         time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
 
+    <vocabulary vocabulary_id="4" armenian="Երկուշաբթի" english="Monday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="5" armenian="Երեքշաբթի" english="Tuesday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="6" armenian="Չորեքշաբթի" english="Wednesday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="7" armenian="Հինգշաբթի" english="Thursday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="8" armenian="Ուրբաթ" english="Friday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="9" armenian="Շաբաթ" english="Saturday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="10" armenian="Կիրակի" english="Sunday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
     <vocabulary armenian="երեկ" english="yesterday" vocabulary_type="noun" status="approved" created_by="1"
         modified_by="1" />
 

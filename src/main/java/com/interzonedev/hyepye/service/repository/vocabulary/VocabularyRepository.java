@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
+import com.interzonedev.hyepye.model.VocabularyProperty;
 import com.interzonedev.hyepye.service.ValidationException;
 
 /**
@@ -16,9 +17,17 @@ public interface VocabularyRepository {
     /**
      * Gets a {@link List} of all {@link Vocabulary} instances.
      * 
+     * @param orderBy The {@link VocabularyProperty} by which to order the results.
+     * @param ascending Whether or not the results are ordered in ascending order.
+     * @param limit The maximum number of results to return.
+     * @param offset The number of results to skip before returning results.
+     * 
      * @return Returns a {@link List} of all {@link Vocabulary} instances.
+     * 
+     * @throws ValidationException Thrown if the order by property is not set.
      */
-    public List<Vocabulary> getAllVocabularies();
+    public List<Vocabulary> getAllVocabularies(VocabularyProperty orderBy, boolean ascending, Long limit, Long offset)
+            throws ValidationException;
 
     /**
      * Gets the {@link Vocabulary} with the specified ID.
