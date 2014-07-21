@@ -18,12 +18,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
+import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyProperty;
+import com.interzonedev.hyepye.model.VocabularyType;
 import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.dao.vocabulary.JdbiVocabularyDAO;
 import com.interzonedev.hyepye.service.dao.vocabulary.VocabularyMapper;
+import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
 import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 
 /**
@@ -134,6 +137,93 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * (non-Javadoc)
      * 
      * @see
+     * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#searchArmenianVocabulary(java.lang
+     * .String, com.interzonedev.hyepye.service.repository.DefinitionSearchType,
+     * com.interzonedev.hyepye.model.VocabularyType, com.interzonedev.hyepye.model.Status, boolean, java.lang.Long,
+     * java.lang.Long)
+     */
+    @Override
+    public List<Vocabulary> searchArmenianVocabulary(String armenian, DefinitionSearchType definitionSearchType,
+            VocabularyType vocabularyType, Status status, boolean ascending, Long limit, Long offset)
+            throws ValidationException {
+
+        log.debug("searchArmenianVocabulary: Start");
+
+        if (Strings.isNullOrEmpty(armenian)) {
+            throw new ValidationException("The Armenian definition to search must be set");
+        }
+
+        if (null == definitionSearchType) {
+            throw new ValidationException("The definition search type by must be set");
+        }
+
+        if (null == limit) {
+            limit = Long.MAX_VALUE;
+        }
+
+        if (null == offset) {
+            offset = 0L;
+        }
+
+        if (limit < 0L) {
+            throw new ValidationException("The result limit can not be negative");
+        }
+
+        if (offset < 0L) {
+            throw new ValidationException("The result offset can not be negative");
+        }
+
+        List<Vocabulary> vocabularies = new ArrayList<Vocabulary>();
+        try (Handle handle = dbi.open();) {
+            StringBuilder queryString = new StringBuilder();
+            queryString.append("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created,");
+            queryString.append(" time_updated, created_by, modified_by");
+            queryString.append(" FROM vocabulary");
+            queryString.append(" WHERE armenian");
+            switch (definitionSearchType) {
+                case FULL_WORD:
+                    queryString.append(" = '").append(armenian).append("'");
+                    break;
+                case STARTS_WITH:
+                    queryString.append(" LIKE '").append(armenian).append("%'");
+                    break;
+                case CONTAINS:
+                    queryString.append(" LIKE '%").append(armenian).append("%'");
+                    break;
+                default:
+                    throw new ValidationException("Unsupported definition search type: " + definitionSearchType);
+            }
+            if (null != vocabularyType) {
+                queryString.append(" AND vocabulary_type = '").append(vocabularyType.getVocabularyTypeName())
+                        .append("'");
+            }
+            if (null != status) {
+                queryString.append(" AND status = '").append(status.getStatusName()).append("'");
+            }
+            queryString.append(" ORDER BY armenian");
+            if (ascending) {
+                queryString.append(" ASC");
+            } else {
+                queryString.append(" DESC");
+            }
+            queryString.append(" LIMIT ").append(limit);
+            queryString.append(" OFFSET ").append(offset);
+
+            Query<Vocabulary> query = handle.createQuery(queryString.toString()).map(vocabularyMapper);
+
+            vocabularies = query.list();
+        }
+
+        log.debug("searchArmenianVocabulary: Returning - vocabularies  = " + vocabularies);
+
+        return vocabularies;
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
      * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#getVocabularyWithEnglishContaining
      * (java.lang.String)
      */
@@ -143,7 +233,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
         log.debug("getVocabularyWithEnglishContaining: englishFragment = " + englishFragment);
 
         if (Strings.isNullOrEmpty(englishFragment)) {
-            throw new ValidationException("The English text fragment id must be set");
+            throw new ValidationException("The English text fragment must be set");
         }
 
         List<Vocabulary> vocabularies = getVocabularyDAO().getVocabularyWithEnglishContaining(englishFragment);
@@ -167,7 +257,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
         log.debug("getVocabularyWithArmenianContaining: armenianFragment = " + armenianFragment);
 
         if (Strings.isNullOrEmpty(armenianFragment)) {
-            throw new ValidationException("The Armenian text fragment id must be set");
+            throw new ValidationException("The Armenian text fragment must be set");
         }
 
         List<Vocabulary> vocabularies = getVocabularyDAO().getVocabularyWithArmenianContaining(armenianFragment);

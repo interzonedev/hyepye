@@ -13,6 +13,6 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ CreateVocabularyCommandIT.class, GetAllVocabulariesCommandIT.class, GetVocabularyByIdCommandIT.class,
-        UpdateVocabularyCommandIT.class })
+        SearchArmenianVocabularyCommandIT.class, UpdateVocabularyCommandIT.class })
 public class VocabularyCommandTestSuite {
 }

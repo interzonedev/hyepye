@@ -181,9 +181,9 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
      */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
-    public void testGetAllVocabulariesZeroNonOffset() {
+    public void testGetAllVocabulariesNonZeroOffset() {
 
-        log.debug("testGetAllVocabulariesZeroNonOffset: Start");
+        log.debug("testGetAllVocabulariesNonZeroOffset: Start");
 
         GetAllVocabulariesCommand getAllVocabulariesCommand = (GetAllVocabulariesCommand) applicationContext.getBean(
                 "hyepye.service.getAllVocabulariesCommand", VocabularyProperty.ARMENIAN, true, null, 6L);
@@ -194,7 +194,7 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(4, hyePyeResponse.getVocabularies().size());
 
-        log.debug("testGetAllVocabulariesZeroNonOffset: End");
+        log.debug("testGetAllVocabulariesNonZeroOffset: End");
 
     }
 
