@@ -18,6 +18,7 @@ import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
+import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 import com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository;
 
 /**
@@ -76,7 +77,8 @@ public class SearchArmenianVocabularyCommand extends AbstractHyePyeCommand {
     /**
      * Performs the work of this command.
      * 
-     * @return Returns a {@link HyePyeResponse} with the collection of {@link Vocabulary}s set.
+     * @return Returns a {@link HyePyeResponse} with the collection of {@link Vocabulary} instances set unless
+     *         {@link DefinitionSearchType#FULL_WORD} is specified in which case the {@link Vocabulary} property is set.
      * 
      * @throws ValidationException Thrown if this instance was created with invalid parameters.
      * @throws Exception Thrown if there was an error executing this command.
@@ -93,7 +95,15 @@ public class SearchArmenianVocabularyCommand extends AbstractHyePyeCommand {
 
         log.debug("doCommand: Retrieved - " + vocabularies);
 
-        hyePyeResponse.setVocabularies(vocabularies);
+        if (DefinitionSearchType.FULL_WORD.equals(definitionSearchType)) {
+            if (1 == vocabularies.size()) {
+                hyePyeResponse.setVocabulary(vocabularies.get(0));
+            } else {
+                throw new DuplicateModelException("There is more than one vocabulary with the same Armenian defintion.");
+            }
+        } else {
+            hyePyeResponse.setVocabularies(vocabularies);
+        }
 
         return hyePyeResponse.build();
 

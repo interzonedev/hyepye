@@ -211,6 +211,8 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
 
             Query<Vocabulary> query = handle.createQuery(queryString.toString()).map(vocabularyMapper);
 
+            log.debug("searchArmenianVocabulary: Executing search query - \"" + queryString + "\"");
+
             vocabularies = query.list();
         }
 

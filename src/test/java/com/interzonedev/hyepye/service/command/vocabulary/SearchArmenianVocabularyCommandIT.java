@@ -35,7 +35,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         log.debug("testSearchArmenianVocabularyNullArmenian: Start");
 
         SearchArmenianVocabularyCommand searchArmenianVocabularyCommand = (SearchArmenianVocabularyCommand) applicationContext
-                .getBean("hyepye.service.searchArmenianVocabularyCommand", null, DefinitionSearchType.FULL_WORD,
+                .getBean("hyepye.service.searchArmenianVocabularyCommand", null, DefinitionSearchType.CONTAINS,
                         VocabularyType.NOUN, Status.APPROVED, true, null, 0L);
 
         HyePyeResponse hyePyeResponse = searchArmenianVocabularyCommand.execute();
@@ -43,6 +43,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNotNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(0, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNullArmenian: End");
 
@@ -62,6 +63,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNotNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(0, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNullDefinitionSearchType: End");
 
@@ -81,6 +83,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNotNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(0, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNegativeLimit: End");
 
@@ -100,6 +103,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNotNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(0, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNegativeOffset: End");
 
@@ -122,6 +126,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(5, vocabularies.size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNullVocabularyType: End");
 
@@ -144,6 +149,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(1, vocabularies.size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNounVocabularyType: End");
 
@@ -166,6 +172,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(2, vocabularies.size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNullStatus: End");
 
@@ -188,6 +195,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(1, vocabularies.size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyApprovedStatus: End");
 
@@ -215,6 +223,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(limit.longValue(), (long) hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -246,6 +255,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(limit.longValue(), (long) hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -270,6 +280,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(0, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyZeroLimit: End");
 
@@ -292,6 +303,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(limit.longValue(), (long) hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNonZeroLimit: End");
 
@@ -312,6 +324,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(3, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNullLimit: End");
 
@@ -332,6 +345,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(3, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyZeroOffset: End");
 
@@ -352,6 +366,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(2, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNonZeroOffset: End");
 
@@ -372,6 +387,7 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(3, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabularyNullOffset: End");
 
@@ -392,9 +408,91 @@ public class SearchArmenianVocabularyCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(0, hyePyeResponse.getVocabularies().size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
 
         log.debug("testSearchArmenianVocabulary: End");
 
     }
 
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchArmenian.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchArmenianVocabularyArmenianContains() {
+
+        log.debug("testSearchArmenianVocabularyArmenianContains: Start");
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 12L, 11L, 13L });
+
+        SearchArmenianVocabularyCommand searchArmenianVocabularyCommand = (SearchArmenianVocabularyCommand) applicationContext
+                .getBean("hyepye.service.searchArmenianVocabularyCommand", TEST_ARMENIAN_CONTAINS,
+                        DefinitionSearchType.CONTAINS, VocabularyType.NUMBER, Status.APPROVED, true, null, 0L);
+
+        HyePyeResponse hyePyeResponse = searchArmenianVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(3, vocabularies.size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchArmenianVocabularyArmenianContains: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchArmenian.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchArmenianVocabularyArmenianStartsWith() {
+
+        log.debug("testSearchArmenianVocabularyArmenianStartsWith: Start");
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 12L, 13L });
+
+        SearchArmenianVocabularyCommand searchArmenianVocabularyCommand = (SearchArmenianVocabularyCommand) applicationContext
+                .getBean("hyepye.service.searchArmenianVocabularyCommand", TEST_ARMENIAN_STARTS_WITH,
+                        DefinitionSearchType.STARTS_WITH, VocabularyType.NUMBER, Status.APPROVED, true, null, 0L);
+
+        HyePyeResponse hyePyeResponse = searchArmenianVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(2, vocabularies.size());
+        Assert.assertNull(hyePyeResponse.getVocabulary());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchArmenianVocabularyArmenianStartsWith: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchArmenian.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchArmenianVocabularyArmenianFullWord() {
+
+        log.debug("testSearchArmenianVocabularyArmenianFullWord: Start");
+
+        SearchArmenianVocabularyCommand searchArmenianVocabularyCommand = (SearchArmenianVocabularyCommand) applicationContext
+                .getBean("hyepye.service.searchArmenianVocabularyCommand", TEST_ARMENIAN_FULL_WORD,
+                        DefinitionSearchType.FULL_WORD, VocabularyType.NUMBER, Status.APPROVED, true, null, 0L);
+
+        HyePyeResponse hyePyeResponse = searchArmenianVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+        Vocabulary vocabulary = hyePyeResponse.getVocabulary();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(0, vocabularies.size());
+        Assert.assertEquals(11L, vocabulary.getId().longValue());
+
+        log.debug("testSearchArmenianVocabularyArmenianFullWord: End");
+
+    }
 }
