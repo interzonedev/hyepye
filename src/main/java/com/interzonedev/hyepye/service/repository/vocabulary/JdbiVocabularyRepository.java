@@ -226,6 +226,96 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * (non-Javadoc)
      * 
      * @see
+     * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#searchEnglishVocabulary(java.lang.
+     * String, com.interzonedev.hyepye.service.repository.DefinitionSearchType,
+     * com.interzonedev.hyepye.model.VocabularyType, com.interzonedev.hyepye.model.Status, boolean, java.lang.Long,
+     * java.lang.Long)
+     */
+    @Override
+    public List<Vocabulary> searchEnglishVocabulary(String english, DefinitionSearchType definitionSearchType,
+            VocabularyType vocabularyType, Status status, boolean ascending, Long limit, Long offset)
+            throws ValidationException {
+
+        log.debug("searchEnglishVocabulary: Start");
+
+        if (Strings.isNullOrEmpty(english)) {
+            throw new ValidationException("The English definition to search must be set");
+        }
+
+        if (null == definitionSearchType) {
+            throw new ValidationException("The definition search type by must be set");
+        }
+
+        if (null == limit) {
+            limit = Long.MAX_VALUE;
+        }
+
+        if (null == offset) {
+            offset = 0L;
+        }
+
+        if (limit < 0L) {
+            throw new ValidationException("The result limit can not be negative");
+        }
+
+        if (offset < 0L) {
+            throw new ValidationException("The result offset can not be negative");
+        }
+
+        List<Vocabulary> vocabularies = new ArrayList<Vocabulary>();
+        try (Handle handle = dbi.open();) {
+            StringBuilder queryString = new StringBuilder();
+            queryString.append("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created,");
+            queryString.append(" time_updated, created_by, modified_by");
+            queryString.append(" FROM vocabulary");
+            queryString.append(" WHERE english");
+            switch (definitionSearchType) {
+                case FULL_WORD:
+                    queryString.append(" = '").append(english).append("'");
+                    break;
+                case STARTS_WITH:
+                    queryString.append(" LIKE '").append(english).append("%'");
+                    break;
+                case CONTAINS:
+                    queryString.append(" LIKE '%").append(english).append("%'");
+                    break;
+                default:
+                    throw new ValidationException("Unsupported definition search type: " + definitionSearchType);
+            }
+            if (null != vocabularyType) {
+                queryString.append(" AND vocabulary_type = '").append(vocabularyType.getVocabularyTypeName())
+                        .append("'");
+            }
+            if (null != status) {
+                queryString.append(" AND status = '").append(status.getStatusName()).append("'");
+            }
+            queryString.append(" ORDER BY english");
+            if (ascending) {
+                queryString.append(" ASC");
+            } else {
+                queryString.append(" DESC");
+            }
+            queryString.append(", armenian");
+            queryString.append(" LIMIT ").append(limit);
+            queryString.append(" OFFSET ").append(offset);
+
+            Query<Vocabulary> query = handle.createQuery(queryString.toString()).map(vocabularyMapper);
+
+            log.debug("searchEnglishVocabulary: Executing search query - \"" + queryString + "\"");
+
+            vocabularies = query.list();
+        }
+
+        log.debug("searchEnglishVocabulary: Returning - vocabularies  = " + vocabularies);
+
+        return vocabularies;
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
      * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#createVocabulary(com.interzonedev.
      * hyepye.model.Vocabulary, java.lang.Long)
      */
