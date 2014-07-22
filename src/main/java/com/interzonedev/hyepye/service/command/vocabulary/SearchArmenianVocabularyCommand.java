@@ -55,8 +55,10 @@ public class SearchArmenianVocabularyCommand extends AbstractHyePyeCommand {
      * 
      * @param armenian The Armenian definition (either whole or a fragment) against which to search.
      * @param definitionSearchType The type of search to perform.
-     * @param vocabularyType The {@link VocabularyType} of {@link Vocabulary} against which to search.
-     * @param status The {@link Status} of {@link Vocabulary} against which to search.
+     * @param vocabularyType The {@link VocabularyType} of {@link Vocabulary} against which to search. If null, searches
+     *            against all {@link VocabularyType}s.
+     * @param status The {@link Status} of {@link Vocabulary} against which to search. If null, searches against all
+     *            {@link Status}es.
      * @param ascending Whether or not the results are ordered in ascending order.
      * @param limit The maximum number of results to return.
      * @param offset The number of results to skip before returning results.
