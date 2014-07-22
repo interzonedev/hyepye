@@ -1,7 +1,5 @@
 package com.interzonedev.hyepye.service.dao.vocabulary;
 
-import java.util.List;
-
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
 
@@ -29,30 +27,6 @@ public interface VocabularyDAO {
      * @return Returns the {@link Vocabulary} with the specified Armenian definition.
      */
     public Vocabulary getVocabularyByArmenian(String armenian);
-
-    /**
-     * Gets a {@link List} of all {@link Vocabulary} instances with an English definition containing the specified text
-     * fragment.
-     * 
-     * @param englishFragment The fragment of text to be search against the English definitions of all
-     *            {@link Vocabulary} instances,
-     * 
-     * @return Returns a {@link List} of all {@link Vocabulary} instances with an English definition containing the
-     *         specified text fragment.
-     */
-    public List<Vocabulary> getVocabularyWithEnglishContaining(String englishFragment);
-
-    /**
-     * Gets a {@link List} of all {@link Vocabulary} instances with an Armenian definition containing the specified text
-     * fragment.
-     * 
-     * @param armenianFragment The fragment of text to be search against the Armenian definitions of all
-     *            {@link Vocabulary} instances,
-     * 
-     * @return Returns a {@link List} of all {@link Vocabulary} instances with an Armenian definition containing the
-     *         specified text fragment.
-     */
-    public List<Vocabulary> getVocabularyWithArmenianContaining(String armenianFragment);
 
     /**
      * Creates a new {@link Vocabulary} by persisting the specified {@link Vocabulary}.

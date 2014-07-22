@@ -64,38 +64,6 @@ public interface VocabularyRepository {
             throws ValidationException;
 
     /**
-     * TODO - Delete this?
-     * 
-     * Gets a {@link List} of all {@link Vocabulary} instances with an English definition containing the specified text
-     * fragment.
-     * 
-     * @param englishFragment The fragment of text to be search against the English definitions of all
-     *            {@link Vocabulary} instances,
-     * 
-     * @return Returns a {@link List} of all {@link Vocabulary} instances with an English definition containing the
-     *         specified text fragment.
-     * 
-     * @throws ValidationException Thrown if the English text fragment is not set.
-     */
-    public List<Vocabulary> getVocabularyWithEnglishContaining(String englishFragment) throws ValidationException;
-
-    /**
-     * TODO - Delete this?
-     * 
-     * Gets a {@link List} of all {@link Vocabulary} instances with an Armenian definition containing the specified text
-     * fragment.
-     * 
-     * @param armenianFragment The fragment of text to be search against the Armenian definitions of all
-     *            {@link Vocabulary} instances,
-     * 
-     * @return Returns a {@link List} of all {@link Vocabulary} instances with an Armenian definition containing the
-     *         specified text fragment.
-     * 
-     * @throws ValidationException Thrown if the Armenian text fragment is not set.
-     */
-    public List<Vocabulary> getVocabularyWithArmenianContaining(String armenianFragment) throws ValidationException;
-
-    /**
      * Creates a new {@link Vocabulary} by persisting the specified {@link Vocabulary}.
      * 
      * @param vocabulary The {@link Vocabulary} to create.

@@ -226,54 +226,6 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * (non-Javadoc)
      * 
      * @see
-     * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#getVocabularyWithEnglishContaining
-     * (java.lang.String)
-     */
-    @Override
-    public List<Vocabulary> getVocabularyWithEnglishContaining(String englishFragment) throws ValidationException {
-
-        log.debug("getVocabularyWithEnglishContaining: englishFragment = " + englishFragment);
-
-        if (Strings.isNullOrEmpty(englishFragment)) {
-            throw new ValidationException("The English text fragment must be set");
-        }
-
-        List<Vocabulary> vocabularies = getVocabularyDAO().getVocabularyWithEnglishContaining(englishFragment);
-
-        log.debug("getVocabularyWithEnglishContaining: Returning - vocabularies  = " + vocabularies);
-
-        return vocabularies;
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#getVocabularyWithArmenianContaining
-     * (java.lang.String)
-     */
-    @Override
-    public List<Vocabulary> getVocabularyWithArmenianContaining(String armenianFragment) throws ValidationException {
-
-        log.debug("getVocabularyWithArmenianContaining: armenianFragment = " + armenianFragment);
-
-        if (Strings.isNullOrEmpty(armenianFragment)) {
-            throw new ValidationException("The Armenian text fragment must be set");
-        }
-
-        List<Vocabulary> vocabularies = getVocabularyDAO().getVocabularyWithArmenianContaining(armenianFragment);
-
-        log.debug("getVocabularyWithArmenianContaining: Returning - vocabularies  = " + vocabularies);
-
-        return vocabularies;
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
      * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#createVocabulary(com.interzonedev.
      * hyepye.model.Vocabulary, java.lang.Long)
      */
