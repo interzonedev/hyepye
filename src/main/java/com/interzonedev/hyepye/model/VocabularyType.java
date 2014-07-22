@@ -7,7 +7,8 @@ package com.interzonedev.hyepye.model;
  */
 public enum VocabularyType {
 
-    NOUN("noun"), PHRASE("phrase"), DAY("day"), MONTH("month"), NUMBER("number"), MATHEMATICS("mathematics");
+    NOUN("noun"), PHRASE("phrase"), DAY("day"), MONTH("month"), NUMBER("number"), MATHEMATICS("mathematics"), COLOR(
+            "color");
 
     private final String vocabularyTypeName;
 
