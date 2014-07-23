@@ -18,9 +18,6 @@ public class GetAllUsersCommandIT extends HyepyeAbstractIT {
 
     private static final Logger log = LoggerFactory.getLogger(GetAllUsersCommandIT.class);
 
-    /**
-     * An empty hp_user table should return an empty users collection on the response.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/user/empty.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetAllUsersEmpty() {
@@ -40,9 +37,6 @@ public class GetAllUsersCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * A non-empty hp_user table should return a non-empty users collection on the response.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetAllUsersNonEmpty() {

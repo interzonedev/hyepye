@@ -19,9 +19,6 @@ public class GetUserByIdCommandIT extends HyepyeAbstractIT {
 
     private static final Logger log = LoggerFactory.getLogger(GetUserByIdCommandIT.class);
 
-    /**
-     * The validation error message should be set on the response for a non positive ID.
-     */
     @Test
     public void testGetUserByIdNotPositive() {
 
@@ -40,9 +37,6 @@ public class GetUserByIdCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * The user should not be set on the response for a non-existent ID.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetUserByIdNonExistent() {
@@ -64,9 +58,6 @@ public class GetUserByIdCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * The user should be set on the response for a valid ID.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/user/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetUserByIdValid() {

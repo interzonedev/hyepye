@@ -207,8 +207,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(null);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -240,8 +238,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail("  ");
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -273,8 +269,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(Strings.repeat("a", 256));
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);
@@ -306,8 +300,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(Strings.repeat("a", 256));
         userIn.setLastName(TEST_LAST_NAME);
@@ -339,8 +331,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(Strings.repeat("a", 256));
@@ -372,8 +362,6 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
 
         User.Builder userIn = User.newBuilder();
         userIn.setUsername(TEST_USERNAME);
-        // userIn.setPasswordHash(TEST_PASSWORD_HASH);
-        // userIn.setPasswordSeed(TEST_PASSWORD_SEED);
         userIn.setEmail(TEST_EMAIL);
         userIn.setFirstName(TEST_FIRST_NAME);
         userIn.setLastName(TEST_LAST_NAME);

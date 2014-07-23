@@ -23,9 +23,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     private static final Logger log = LoggerFactory.getLogger(GetAllVocabulariesCommandIT.class);
 
-    /**
-     * A null vocabulary property should result in a validation error.
-     */
     @Test
     public void testGetAllVocabulariesNullOrderBy() {
 
@@ -44,9 +41,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * A negative limit should result in a validation error.
-     */
     @Test
     public void testGetAllVocabulariesNegativeLimit() {
 
@@ -65,9 +59,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * A negative offset should result in a validation error.
-     */
     @Test
     public void testGetAllVocabulariesNegativeOffset() {
 
@@ -86,9 +77,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * A zero limit should return no results.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetAllVocabulariesZeroLimit() {
@@ -108,9 +96,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * A non-zero limit should return a limited set of results.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetAllVocabulariesNonZeroLimit() {
@@ -132,9 +117,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * A null limit should return all results.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetAllVocabulariesNullLimit() {
@@ -154,9 +136,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * A zero offset should return all results.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetAllVocabulariesZeroOffset() {
@@ -176,9 +155,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * A non-zero offset should return a limited set of results.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetAllVocabulariesNonZeroOffset() {
@@ -198,9 +174,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * A null offset should return all results.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetAllVocabulariesNullOffset() {
@@ -220,9 +193,6 @@ public class GetAllVocabulariesCommandIT extends HyepyeAbstractIT {
 
     }
 
-    /**
-     * An empty vocabulary table should return an empty vocabularies collection on the response.
-     */
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/empty.xml", dataSourceBeanId = "hyepye.service.dataSource")
     public void testGetAllVocabulariesEmpty() {
