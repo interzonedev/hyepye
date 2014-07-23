@@ -20,6 +20,10 @@ public interface VocabularyRepository {
     /**
      * Gets a {@link List} of all {@link Vocabulary} instances.
      * 
+     * @param vocabularyType The {@link VocabularyType} of {@link Vocabulary} against which to search. If null, searches
+     *            against all {@link VocabularyType}s.
+     * @param status The {@link Status} of {@link Vocabulary} against which to search. If null, searches against all
+     *            {@link Status}es.
      * @param orderBy The {@link VocabularyProperty} by which to order the results.
      * @param ascending Whether or not the results are ordered in ascending order.
      * @param limit The maximum number of results to return.
@@ -29,8 +33,8 @@ public interface VocabularyRepository {
      * 
      * @throws ValidationException Thrown if the search parameters are invalid.
      */
-    public List<Vocabulary> getAllVocabularies(VocabularyProperty orderBy, boolean ascending, Long limit, Long offset)
-            throws ValidationException;
+    public List<Vocabulary> getAllVocabularies(VocabularyType vocabularyType, Status status,
+            VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) throws ValidationException;
 
     /**
      * Gets the {@link Vocabulary} with the specified ID.

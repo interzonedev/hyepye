@@ -11,15 +11,17 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyProperty;
+import com.interzonedev.hyepye.model.VocabularyType;
 import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository;
 
 /**
- * Gets all {@link Vocabulary} instances.
+ * Gets all {@link Vocabulary} instances according to the specified {@link VocabularyType} and {@link Status}.
  * 
  * @author mmarkarian
  */
@@ -28,6 +30,10 @@ import com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepositor
 public class GetAllVocabulariesCommand extends AbstractHyePyeCommand {
 
     private static final Logger log = LoggerFactory.getLogger(GetAllVocabulariesCommand.class);
+
+    private final VocabularyType vocabularyType;
+
+    private final Status status;
 
     private final VocabularyProperty orderBy;
 
@@ -44,14 +50,21 @@ public class GetAllVocabulariesCommand extends AbstractHyePyeCommand {
     /**
      * Creates an instance of this command with a specific command key and timeout.
      * 
+     * @param vocabularyType The {@link VocabularyType} of {@link Vocabulary} against which to search. If null, searches
+     *            against all {@link VocabularyType}s.
+     * @param status The {@link Status} of {@link Vocabulary} against which to search. If null, searches against all
+     *            {@link Status}es.
      * @param orderBy The {@link VocabularyProperty} by which to order the results.
      * @param ascending Whether or not the results are ordered in ascending order.
      * @param limit The maximum number of results to return.
      * @param offset The number of results to skip before returning results.
      */
-    public GetAllVocabulariesCommand(VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) {
+    public GetAllVocabulariesCommand(VocabularyType vocabularyType, Status status, VocabularyProperty orderBy,
+            boolean ascending, Long limit, Long offset) {
         super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.getAllVocabulariesCommand")
                 .setThreadTimeoutMillis(500).build());
+        this.vocabularyType = vocabularyType;
+        this.status = status;
         this.orderBy = orderBy;
         this.ascending = ascending;
         this.limit = limit;
@@ -59,13 +72,17 @@ public class GetAllVocabulariesCommand extends AbstractHyePyeCommand {
     }
 
     /**
-     * Creates an instance of this command with a specific command key and timeout. Gets all posible results without
+     * Creates an instance of this command with a specific command key and timeout. Gets all possible results without
      * limit.
      * 
+     * @param vocabularyType The {@link VocabularyType} of {@link Vocabulary} against which to search. If null, searches
+     *            against all {@link VocabularyType}s.
+     * @param status The {@link Status} of {@link Vocabulary} against which to search. If null, searches against all
+     *            {@link Status}es.
      * @param orderBy The {@link VocabularyProperty} by which to order the results.
      */
-    public GetAllVocabulariesCommand(VocabularyProperty orderBy) {
-        this(orderBy, true, Long.MAX_VALUE, 0L);
+    public GetAllVocabulariesCommand(VocabularyType vocabularyType, Status status, VocabularyProperty orderBy) {
+        this(vocabularyType, status, orderBy, true, Long.MAX_VALUE, 0L);
     }
 
     /**
@@ -83,7 +100,8 @@ public class GetAllVocabulariesCommand extends AbstractHyePyeCommand {
 
         HyePyeResponse.Builder hyePyeResponse = HyePyeResponse.newBuilder();
 
-        List<Vocabulary> vocabularies = vocabularyRepository.getAllVocabularies(orderBy, ascending, limit, offset);
+        List<Vocabulary> vocabularies = vocabularyRepository.getAllVocabularies(vocabularyType, status, orderBy,
+                ascending, limit, offset);
 
         log.debug("doCommand: Retrieved - " + vocabularies);
 

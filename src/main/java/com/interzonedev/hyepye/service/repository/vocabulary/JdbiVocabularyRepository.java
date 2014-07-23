@@ -57,11 +57,12 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * 
      * @see
      * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#getAllVocabularies(com.interzonedev
-     * .hyepye.model.VocabularyProperty, boolean, java.lang.Long, java.lang.Long)
+     * .hyepye.model.VocabularyType, com.interzonedev.hyepye.model.Status,
+     * com.interzonedev.hyepye.model.VocabularyProperty, boolean, java.lang.Long, java.lang.Long)
      */
     @Override
-    public List<Vocabulary> getAllVocabularies(VocabularyProperty orderBy, boolean ascending, Long limit, Long offset)
-            throws ValidationException {
+    public List<Vocabulary> getAllVocabularies(VocabularyType vocabularyType, Status status,
+            VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) throws ValidationException {
 
         log.debug("getAllVocabularies: Start");
 
@@ -91,6 +92,19 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
             queryString.append("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created,");
             queryString.append(" time_updated, created_by, modified_by");
             queryString.append(" FROM vocabulary");
+            if ((null != vocabularyType) || (null != status)) {
+                queryString.append(" WHERE");
+                if (null != vocabularyType) {
+                    queryString.append(" vocabulary_type = '").append(vocabularyType.getVocabularyTypeName())
+                            .append("'");
+                }
+                if ((null != status) && (null != vocabularyType)) {
+                    queryString.append(" AND");
+                }
+                if (null != status) {
+                    queryString.append(" status = '").append(status.getStatusName()).append("'");
+                }
+            }
             queryString.append(" ORDER BY ").append(orderBy.getVocabularyColumnName());
             if (ascending) {
                 queryString.append(" ASC");
@@ -101,6 +115,8 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
             queryString.append(" OFFSET ").append(offset);
 
             Query<Vocabulary> query = handle.createQuery(queryString.toString()).map(vocabularyMapper);
+
+            log.debug("getAllVocabularies: Executing search query - \"" + queryString + "\"");
 
             vocabularies = query.list();
         }
