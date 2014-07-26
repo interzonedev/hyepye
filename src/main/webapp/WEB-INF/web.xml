@@ -53,16 +53,19 @@
     <servlet>
         <servlet-name>hyepye-codaHaleMetricsServlet</servlet-name>
         <servlet-class>com.codahale.metrics.servlets.MetricsServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
     </servlet>
 
     <servlet>
         <servlet-name>hyepye-codaHaleHealthCheckServlet</servlet-name>
         <servlet-class>com.codahale.metrics.servlets.HealthCheckServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
     </servlet>
 
     <servlet>
         <servlet-name>hyepye-hystrixMetricsStreamServlet</servlet-name>
         <servlet-class>com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet</servlet-class>
+        <load-on-startup>4</load-on-startup>
     </servlet>
 
     <servlet-mapping>
@@ -91,5 +94,19 @@
             <page-encoding>UTF-8</page-encoding>
         </jsp-property-group>
     </jsp-config>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404</location>
+    </error-page>
+
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error/405</location>
+    </error-page>
+
+    <error-page>
+        <location>/error/default</location>
+    </error-page>
 
 </web-app>
