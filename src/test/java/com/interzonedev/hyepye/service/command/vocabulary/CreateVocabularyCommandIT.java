@@ -1,24 +1,21 @@
 package com.interzonedev.hyepye.service.command.vocabulary;
 
 import java.util.Date;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 
 import com.google.common.base.Strings;
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.hyepye.HyepyeAbstractIT;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyType;
 import com.interzonedev.hyepye.service.TestHelper;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
-import com.interzonedev.hyepye.service.repository.DuplicateModelException;
-import com.interzonedev.hyepye.service.repository.vocabulary.InvalidVocabularyException;
 import com.interzonedev.zankou.dataset.DataSet;
 
 /**
@@ -94,11 +91,12 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
-        InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("armenian", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getVocabulary());
@@ -123,11 +121,12 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
-        InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("armenian", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getVocabulary());
@@ -152,11 +151,12 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
-        InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("armenian", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getVocabulary());
@@ -181,11 +181,12 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
-        InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("english", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getVocabulary());
@@ -210,11 +211,12 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
-        InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("english", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getVocabulary());
@@ -239,11 +241,12 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
-        InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("english", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getVocabulary());
@@ -268,11 +271,12 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
-        InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("vocabularyType", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getVocabulary());
@@ -297,11 +301,12 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
-        InvalidVocabularyException ive = (InvalidVocabularyException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<Vocabulary>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromVocabularyErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("status", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getVocabulary());
@@ -327,9 +332,12 @@ public class CreateVocabularyCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 
-        DuplicateModelException dme = (DuplicateModelException) hyePyeResponse.getValidationError();
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
 
-        Assert.assertNotNull(dme);
+        Assert.assertTrue(errors.hasGlobalErrors());
+        Assert.assertFalse(errors.hasFieldErrors());
+        Assert.assertEquals(1, errors.getGlobalErrorCount());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getVocabulary());
 

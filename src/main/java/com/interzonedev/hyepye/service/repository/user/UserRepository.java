@@ -2,8 +2,8 @@ package com.interzonedev.hyepye.service.repository.user;
 
 import java.util.List;
 
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.hyepye.model.User;
-import com.interzonedev.hyepye.service.ValidationException;
 
 /**
  * API for retrieving and persisting {@link User}s.

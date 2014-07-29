@@ -20,6 +20,8 @@ public class Vocabulary implements Serializable {
 
     private static final long serialVersionUID = 9102738656862208975L;
 
+    public static final String MODEL_NAME = "vocabulary";
+
     @Min(1L)
     private final Long id;
 

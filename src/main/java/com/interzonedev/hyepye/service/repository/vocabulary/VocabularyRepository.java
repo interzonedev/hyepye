@@ -2,12 +2,12 @@ package com.interzonedev.hyepye.service.repository.vocabulary;
 
 import java.util.List;
 
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyProperty;
 import com.interzonedev.hyepye.model.VocabularyType;
-import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
 
 /**

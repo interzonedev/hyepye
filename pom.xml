@@ -38,6 +38,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.interzonedev</groupId>
+            <artifactId>blundr</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.1.2</version>

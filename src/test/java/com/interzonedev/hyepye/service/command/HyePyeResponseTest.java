@@ -6,11 +6,11 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.hyepye.model.Conjugation;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Verb;
 import com.interzonedev.hyepye.model.Vocabulary;
-import com.interzonedev.hyepye.service.ValidationException;
 
 /**
  * Unit test for the {@link HyePyeResponse} domain model. Makes sure all properties are accounted for in
@@ -70,8 +70,8 @@ public class HyePyeResponseTest {
 
     @Test
     public void testValidationException() {
-        ValidationException baseValidationError = new ValidationException("foo");
-        ValidationException otherValidationError = new ValidationException("bar");
+        ValidationException baseValidationError = new ValidationException("test", "foo");
+        ValidationException otherValidationError = new ValidationException("test", "bar");
 
         HyePyeResponse base = HyePyeResponse.newBuilder().setValidationError(baseValidationError).build();
         HyePyeResponse same = HyePyeResponse.newBuilder().setValidationError(baseValidationError).build();
@@ -244,7 +244,7 @@ public class HyePyeResponseTest {
     @Test
     public void testBuildFromTemplate() {
         Exception processingError = new RuntimeException("foo");
-        ValidationException validationError = new ValidationException("bar");
+        ValidationException validationError = new ValidationException("test", "bar");
         User user = User.newBuilder().setId(1L).build();
         List<User> users = Arrays.asList(new User[] { User.newBuilder().setId(1L).build(),
                 User.newBuilder().setId(2L).build() });

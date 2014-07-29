@@ -10,12 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.commandr.CommandConfiguration;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyProperty;
 import com.interzonedev.hyepye.model.VocabularyType;
-import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository;

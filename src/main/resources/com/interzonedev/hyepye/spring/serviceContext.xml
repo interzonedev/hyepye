@@ -20,6 +20,8 @@
 
     <bean id="hyepye.service.jsr303Validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
+    <bean id="hyepye.service.validationHelper" class="com.interzonedev.blundr.ValidationHelper" />
+
     <!-- Create a JDBC health check bean for the metrebar schema. -->
     <bean id="hyepye.service.jdbcHealthCheck" class="com.interzonedev.metrikos.JDBCHealthCheck">
         <constructor-arg index="0" ref="com.interzonedev.metrikos.healthCheckRegistry" />

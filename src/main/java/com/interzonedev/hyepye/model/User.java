@@ -20,6 +20,8 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = -8164945372635497639L;
 
+    public static final String MODEL_NAME = "user";
+
     @Min(1L)
     private final Long id;
 

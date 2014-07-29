@@ -10,9 +10,9 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.google.common.base.Strings;
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.commandr.CommandConfiguration;
 import com.interzonedev.hyepye.model.User;
-import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.repository.user.UserRepository;
@@ -94,13 +94,13 @@ public class UpdateUserCommand extends AbstractHyePyeCommand {
         HyePyeResponse.Builder hyePyeResponse = HyePyeResponse.newBuilder();
 
         if (null == userToUpdateTemplate) {
-            throw new ValidationException("The user must be set");
+            throw new ValidationException(User.MODEL_NAME, "The user must be set");
         }
 
         // Get the current User from the database.
         User currentUser = userRepository.getUserById(userToUpdateTemplate.getId());
         if (null == currentUser) {
-            throw new ValidationException("The user to update doesn't exist");
+            throw new ValidationException(User.MODEL_NAME, "The user to update doesn't exist");
         }
 
         User.Builder userToUpdate = User.newBuilder(currentUser);
@@ -113,7 +113,7 @@ public class UpdateUserCommand extends AbstractHyePyeCommand {
             // Validate that the specified current password is the same as that in the database for the User.
             String currentPasswordHash = passwordHelper.generatePasswordHash(currentPlainTextPassword, passwordSeed);
             if (!currentPasswordHash.equals(currentUser.getPasswordHash())) {
-                throw new ValidationException("The current password doesn't match");
+                throw new ValidationException(User.MODEL_NAME, "The current password doesn't match");
             }
 
             // Update the password.

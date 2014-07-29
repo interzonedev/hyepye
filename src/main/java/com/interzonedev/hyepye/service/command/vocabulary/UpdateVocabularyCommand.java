@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.commandr.CommandConfiguration;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
-import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository;
@@ -65,13 +65,13 @@ public class UpdateVocabularyCommand extends AbstractHyePyeCommand {
         HyePyeResponse.Builder hyePyeResponse = HyePyeResponse.newBuilder();
 
         if (null == vocabularyTemplateToUpdate) {
-            throw new ValidationException("The vocabulary must be set");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary must be set");
         }
 
         // Get the current Vocabulary from the database.
         Vocabulary currentVocabulary = vocabularyRepository.getVocabularyById(vocabularyTemplateToUpdate.getId());
         if (null == currentVocabulary) {
-            throw new ValidationException("The vocabulary to update doesn't exist");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary to update doesn't exist");
         }
 
         Vocabulary.Builder vocabularyToUpdate = Vocabulary.newBuilder(currentVocabulary);

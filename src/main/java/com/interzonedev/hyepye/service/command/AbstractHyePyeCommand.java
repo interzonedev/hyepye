@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer.Context;
 import com.google.common.base.Throwables;
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.commandr.AbstractIZCommand;
 import com.interzonedev.commandr.CommandConfiguration;
-import com.interzonedev.hyepye.service.ValidationException;
 import com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStrategy;
 
 /**

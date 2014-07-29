@@ -9,9 +9,9 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.google.common.base.Strings;
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.commandr.CommandConfiguration;
 import com.interzonedev.hyepye.model.User;
-import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.repository.user.UserRepository;
@@ -68,10 +68,10 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
         HyePyeResponse.Builder hyePyeResponse = HyePyeResponse.newBuilder();
 
         if (null == userToCreateTemplate) {
-            throw new ValidationException("The user must be set");
+            throw new ValidationException(User.MODEL_NAME, "The user must be set");
         }
         if (Strings.isNullOrEmpty(plainTextPassword)) {
-            throw new ValidationException("The plain text password must be set");
+            throw new ValidationException(User.MODEL_NAME, "The plain text password must be set");
         }
 
         User.Builder userToCreate = User.newBuilder(userToCreateTemplate);

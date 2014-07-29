@@ -1,23 +1,20 @@
 package com.interzonedev.hyepye.service.command.user;
 
 import java.util.Date;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 
 import com.google.common.base.Strings;
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.hyepye.HyepyeAbstractIT;
 import com.interzonedev.hyepye.model.Role;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.TestHelper;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
-import com.interzonedev.hyepye.service.repository.DuplicateModelException;
-import com.interzonedev.hyepye.service.repository.user.InvalidUserException;
 import com.interzonedev.zankou.dataset.DataSet;
 
 /**
@@ -120,11 +117,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("username", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
@@ -149,11 +147,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("username", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
@@ -178,11 +177,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("username", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
@@ -207,11 +207,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("email", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
@@ -236,11 +237,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("email", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
@@ -265,11 +267,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("email", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
@@ -294,11 +297,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("firstName", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
@@ -323,11 +327,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("lastName", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
@@ -352,11 +357,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        InvalidUserException ive = (InvalidUserException) hyePyeResponse.getValidationError();
-        Set<ConstraintViolation<User>> errors = ive.getErrors();
-        String errorPropertyName = getSinglePropertyNameFromUserErrors(errors);
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
+        String errorPropertyName = getSinglePropertyNameFromErrors(errors);
 
-        Assert.assertEquals(1, errors.size());
+        Assert.assertFalse(errors.hasGlobalErrors());
+        Assert.assertEquals(1, errors.getFieldErrorCount());
         Assert.assertEquals("role", errorPropertyName);
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
@@ -381,9 +387,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        DuplicateModelException dme = (DuplicateModelException) hyePyeResponse.getValidationError();
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
 
-        Assert.assertNotNull(dme);
+        Assert.assertTrue(errors.hasGlobalErrors());
+        Assert.assertFalse(errors.hasFieldErrors());
+        Assert.assertEquals(1, errors.getGlobalErrorCount());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
 
@@ -410,9 +419,12 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();
 
-        DuplicateModelException dme = (DuplicateModelException) hyePyeResponse.getValidationError();
+        ValidationException validationException = hyePyeResponse.getValidationError();
+        BindingResult errors = validationException.getErrors();
 
-        Assert.assertNotNull(dme);
+        Assert.assertTrue(errors.hasGlobalErrors());
+        Assert.assertFalse(errors.hasFieldErrors());
+        Assert.assertEquals(1, errors.getGlobalErrorCount());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertNull(hyePyeResponse.getUser());
 

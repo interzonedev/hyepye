@@ -10,15 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.commandr.CommandConfiguration;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyType;
-import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
-import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 import com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository;
 
 /**
@@ -101,7 +100,8 @@ public class SearchArmenianVocabularyCommand extends AbstractHyePyeCommand {
             if (1 == vocabularies.size()) {
                 hyePyeResponse.setVocabulary(vocabularies.get(0));
             } else {
-                throw new DuplicateModelException("There is more than one vocabulary with the same Armenian defintion.");
+                throw new ValidationException(Vocabulary.MODEL_NAME,
+                        "There is more than one vocabulary with the same Armenian defintion.");
             }
         } else {
             hyePyeResponse.setVocabularies(vocabularies);

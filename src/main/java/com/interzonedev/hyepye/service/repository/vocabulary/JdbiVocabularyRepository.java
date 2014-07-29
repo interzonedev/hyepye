@@ -2,12 +2,9 @@ package com.interzonedev.hyepye.service.repository.vocabulary;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
@@ -16,18 +13,20 @@ import org.skife.jdbi.v2.TransactionCallback;
 import org.skife.jdbi.v2.TransactionStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import com.google.common.base.Strings;
+import com.interzonedev.blundr.ValidationException;
+import com.interzonedev.blundr.ValidationHelper;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyProperty;
 import com.interzonedev.hyepye.model.VocabularyType;
-import com.interzonedev.hyepye.service.ValidationException;
 import com.interzonedev.hyepye.service.dao.vocabulary.JdbiVocabularyDAO;
 import com.interzonedev.hyepye.service.dao.vocabulary.VocabularyMapper;
 import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
-import com.interzonedev.hyepye.service.repository.DuplicateModelException;
 
 /**
  * JDBI specific API for retrieving and persisting {@link Vocabulary} instances.
@@ -43,13 +42,17 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
 
     private final Validator jsr303Validator;
 
+    private final ValidationHelper validationHelper;
+
     private final VocabularyMapper vocabularyMapper = new VocabularyMapper();
 
     @Inject
     public JdbiVocabularyRepository(@Named("hyepye.service.dbi") DBI dbi,
-            @Named("hyepye.service.jsr303Validator") Validator jsr303Validator) {
+            @Named("hyepye.service.jsr303Validator") Validator jsr303Validator,
+            @Named("hyepye.service.validationHelper") ValidationHelper validationHelper) {
         this.dbi = dbi;
         this.jsr303Validator = jsr303Validator;
+        this.validationHelper = validationHelper;
     }
 
     /*
@@ -75,15 +78,15 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
         }
 
         if (null == orderBy) {
-            throw new ValidationException("The order by must be set");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The order by must be set");
         }
 
         if (limit < 0L) {
-            throw new ValidationException("The result limit can not be negative");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The result limit can not be negative");
         }
 
         if (offset < 0L) {
-            throw new ValidationException("The result offset can not be negative");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The result offset can not be negative");
         }
 
         List<Vocabulary> vocabularies = new ArrayList<Vocabulary>();
@@ -138,7 +141,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
         log.debug("getVocabularyById: id = " + id);
 
         if (id <= 0L) {
-            throw new ValidationException("The vocabulary id must be a positive integer");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary id must be a positive integer");
         }
 
         Vocabulary vocabulary = getVocabularyDAO().getVocabularyById(id);
@@ -166,11 +169,11 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
         log.debug("searchArmenianVocabulary: Start");
 
         if (Strings.isNullOrEmpty(armenian)) {
-            throw new ValidationException("The Armenian definition to search must be set");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The Armenian definition to search must be set");
         }
 
         if (null == definitionSearchType) {
-            throw new ValidationException("The definition search type by must be set");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The definition search type by must be set");
         }
 
         if (null == limit) {
@@ -182,11 +185,11 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
         }
 
         if (limit < 0L) {
-            throw new ValidationException("The result limit can not be negative");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The result limit can not be negative");
         }
 
         if (offset < 0L) {
-            throw new ValidationException("The result offset can not be negative");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The result offset can not be negative");
         }
 
         List<Vocabulary> vocabularies = new ArrayList<Vocabulary>();
@@ -207,7 +210,8 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
                     queryString.append(" LIKE '%").append(armenian).append("%'");
                     break;
                 default:
-                    throw new ValidationException("Unsupported definition search type: " + definitionSearchType);
+                    throw new ValidationException(Vocabulary.MODEL_NAME, "Unsupported definition search type: "
+                            + definitionSearchType);
             }
             if (null != vocabularyType) {
                 queryString.append(" AND vocabulary_type = '").append(vocabularyType.getVocabularyTypeName())
@@ -255,11 +259,11 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
         log.debug("searchEnglishVocabulary: Start");
 
         if (Strings.isNullOrEmpty(english)) {
-            throw new ValidationException("The English definition to search must be set");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The English definition to search must be set");
         }
 
         if (null == definitionSearchType) {
-            throw new ValidationException("The definition search type by must be set");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The definition search type by must be set");
         }
 
         if (null == limit) {
@@ -271,11 +275,11 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
         }
 
         if (limit < 0L) {
-            throw new ValidationException("The result limit can not be negative");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The result limit can not be negative");
         }
 
         if (offset < 0L) {
-            throw new ValidationException("The result offset can not be negative");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The result offset can not be negative");
         }
 
         List<Vocabulary> vocabularies = new ArrayList<Vocabulary>();
@@ -296,7 +300,8 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
                     queryString.append(" LIKE '%").append(english).append("%'");
                     break;
                 default:
-                    throw new ValidationException("Unsupported definition search type: " + definitionSearchType);
+                    throw new ValidationException(Vocabulary.MODEL_NAME, "Unsupported definition search type: "
+                            + definitionSearchType);
             }
             if (null != vocabularyType) {
                 queryString.append(" AND vocabulary_type = '").append(vocabularyType.getVocabularyTypeName())
@@ -423,7 +428,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
         log.debug("deactivateVocabulary: id = " + id);
 
         if (id <= 0L) {
-            throw new ValidationException("The vocabulary id must be a positive integer");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary id must be a positive integer");
         }
 
         Vocabulary vocabularyOut = dbi.inTransaction(new TransactionCallback<Vocabulary>() {
@@ -435,7 +440,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
 
                 Vocabulary vocabularyToDeactivate = vocabularyDAO.getVocabularyById(id);
                 if (null == vocabularyToDeactivate) {
-                    throw new ValidationException("The vocabulary to delete doesn't exist");
+                    throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary to delete doesn't exist");
                 }
 
                 int numUpdatedRows = vocabularyDAO.deactivateVocabulary(id, userId);
@@ -470,17 +475,17 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
     private void validateVocabulary(Vocabulary vocabulary, Long userId, boolean creating) throws ValidationException {
 
         if (null == vocabulary) {
-            throw new ValidationException("The vocabulary must be set");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary must be set");
         }
 
         if (userId <= 0L) {
-            throw new ValidationException("The user id must be a positive integer");
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The user id must be a positive integer");
         }
 
-        Set<ConstraintViolation<Vocabulary>> errors = jsr303Validator.validate(vocabulary);
+        BindingResult errors = validationHelper.validate(jsr303Validator, vocabulary, Vocabulary.MODEL_NAME);
 
-        if (!errors.isEmpty()) {
-            throw new InvalidVocabularyException(errors);
+        if (errors.hasErrors()) {
+            throw new ValidationException(errors);
         }
 
     }
@@ -493,15 +498,16 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * @param vocabularyDAO The {@link JdbiVocabularyDAO} instance attached to the currently active transaction on the
      *            vocabulary table.
      * 
-     * @throws DuplicateModelException Thrown if the specified {@link Vocabulary} violates any uniqueness constraints of
-     *             the vocabulary table.
+     * @throws ValidationException Thrown if the specified {@link Vocabulary} violates any uniqueness constraints of the
+     *             vocabulary table.
      */
     private void validateDuplicateVocabularies(Vocabulary vocabulary, JdbiVocabularyDAO vocabularyDAO)
-            throws DuplicateModelException {
+            throws ValidationException {
 
         Vocabulary vocabularyWithSameArmenian = vocabularyDAO.getVocabularyByArmenian(vocabulary.getArmenian());
         if (null != vocabularyWithSameArmenian) {
-            throw new DuplicateModelException("A vocabulary with the same Armenian defintion already exists.");
+            throw new ValidationException(Vocabulary.MODEL_NAME,
+                    "A vocabulary with the same Armenian defintion already exists.");
         }
 
     }

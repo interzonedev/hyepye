@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.common.base.Objects;
+import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.hyepye.model.Conjugation;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Verb;
 import com.interzonedev.hyepye.model.Vocabulary;
-import com.interzonedev.hyepye.service.ValidationException;
 
 /**
  * Value object for all {@link HyePyeCommand} respones.
