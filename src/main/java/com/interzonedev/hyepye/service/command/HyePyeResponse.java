@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.common.base.Objects;
 import com.interzonedev.blundr.ValidationException;
+import com.interzonedev.commandr.IZCommandResponse;
 import com.interzonedev.hyepye.model.Conjugation;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Verb;
@@ -16,7 +17,7 @@ import com.interzonedev.hyepye.model.Vocabulary;
  * 
  * @author mmarkarian
  */
-public class HyePyeResponse implements Serializable {
+public class HyePyeResponse implements IZCommandResponse, Serializable {
 
     private static final long serialVersionUID = 7125535053959188152L;
 
@@ -170,6 +171,16 @@ public class HyePyeResponse implements Serializable {
                 .add("user", getUser()).add("users", getUsers()).add("conjugation", getConjugation())
                 .add("conjugations", getConjugations()).add("verb", getVerb()).add("verbs", getVerbs())
                 .add("vocabulary", getVocabulary()).add("vocabularies", getVocabularies()).toString();
+    }
+
+    @Override
+    public boolean hasValidationError() {
+        return (null != validationError);
+    }
+
+    @Override
+    public boolean hasProcessingError() {
+        return (null != processingError);
     }
 
     /**
