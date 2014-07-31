@@ -1,8 +1,5 @@
 package com.interzonedev.hyepye.web.vocabulary;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,12 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.interzonedev.blundr.ValidationHelper;
-import com.interzonedev.commandr.IZCommandResponse;
-import com.interzonedev.commandr.http.CommandExecutor;
-import com.interzonedev.hyepye.model.Vocabulary;
-import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.command.vocabulary.GetVocabularyByIdCommand;
-import com.interzonedev.hyepye.web.HyePyeCommandExecutor;
 import com.interzonedev.hyepye.web.HyePyeController;
 import com.interzonedev.respondr.response.ResponseTransformingException;
 import com.interzonedev.respondr.serialize.Serializer;
@@ -44,44 +36,16 @@ public class VocabularyController extends HyePyeController {
 
         log.debug("getVocabularyById: Start");
 
-        // Create the specific command to get the widget.
+        // Create the specific command to get the vocabulary.
         GetVocabularyByIdCommand getVocabularyByIdCommand = (GetVocabularyByIdCommand) applicationContext.getBean(
                 "hyepye.service.getVocabularyByIdCommand", id);
 
-        // Create a CommandExecutor instance to handle the successful response from the GetWidgetByUuidCommand.
-        CommandExecutor getVocabularyByIdCommandExecutor = new HyePyeCommandExecutor(getVocabularyByIdCommand,
-                serializer, validationHelper, messageSource, getLocale()) {
+        // Create a HyePyeCommandExecutor instance to handle the successful response from the GetVocabularyByIdCommand.
+        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(
+                getVocabularyByIdCommand, serializer, validationHelper, messageSource, getLocale());
 
-            @Override
-            protected Map<String, Object> onSuccessMap(IZCommandResponse izCommandResponse) {
-
-                log.debug("onSuccessMap: Start");
-
-                HyePyeResponse hyePyeResponse = (HyePyeResponse) izCommandResponse;
-
-                Map<String, Object> responseStructure = new HashMap<String, Object>();
-
-                Vocabulary vocabulary = hyePyeResponse.getVocabulary();
-                if (null != vocabulary) {
-                    // Create a map containing a minimal set of the vocabulary properties.
-                    Map<String, Object> vocabularyProperties = new HashMap<String, Object>();
-                    vocabularyProperties.put("id", vocabulary.getId());
-                    vocabularyProperties.put("armenian", vocabulary.getArmenian());
-                    vocabularyProperties.put("english", vocabulary.getEnglish());
-                    vocabularyProperties.put("status", vocabulary.getStatus().getStatusName());
-                    vocabularyProperties.put("vocabularyType", vocabulary.getVocabularyType().getVocabularyTypeName());
-
-                    responseStructure.put("vocabulary", vocabularyProperties);
-                }
-
-                log.debug("onSuccessMap: End");
-
-                return responseStructure;
-
-            }
-        };
-
-        ResponseEntity<String> responseEntity = getVocabularyByIdCommandExecutor.execute();
+        // Execute the command and get the response.
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute();
 
         log.debug("getVocabularyById: End");
 
