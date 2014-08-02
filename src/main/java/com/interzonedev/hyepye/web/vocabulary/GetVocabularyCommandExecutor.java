@@ -62,7 +62,7 @@ public class GetVocabularyCommandExecutor extends HyePyeCommandExecutor {
             vocabularyProperties.put("status", vocabulary.getStatus().getStatusName());
             vocabularyProperties.put("vocabularyType", vocabulary.getVocabularyType().getVocabularyTypeName());
 
-            responseStructure.put(VOCABULARY_MAP_KEY, vocabularyProperties);
+            responseStructure.put(VOCABULARY_MAP_KEY, Collections.unmodifiableMap(vocabularyProperties));
         }
 
         log.debug("onSuccessMap: End");
