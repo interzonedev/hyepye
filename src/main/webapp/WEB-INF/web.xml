@@ -75,17 +75,17 @@
 
     <servlet-mapping>
         <servlet-name>hyepye-codaHaleMetricsServlet</servlet-name>
-        <url-pattern>/metrics/*</url-pattern>
+        <url-pattern>/admin/metrics/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>hyepye-codaHaleHealthCheckServlet</servlet-name>
-        <url-pattern>/healthcheck/*</url-pattern>
+        <url-pattern>/admin/healthcheck/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>hyepye-hystrixMetricsStreamServlet</servlet-name>
-        <url-pattern>/hystrix.stream/*</url-pattern>
+        <url-pattern>/admin/hystrix.stream/*</url-pattern>
     </servlet-mapping>
 
     <jsp-config>
