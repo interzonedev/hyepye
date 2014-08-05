@@ -11,7 +11,7 @@ public class Webapp extends AbstractProcess {
 
         WebServerParams webServerParams = new WebServerParams(5000);
 
-        herokuSupportClient.startWebServer(WebServerType.JETTY, webServerParams);
+        herokuSupportClient.startWebServer(WebServerType.JETTY, webServerParams, null);
 
         log.debug("process: Jetty server shutdown");
     }
