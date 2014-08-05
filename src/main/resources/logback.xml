@@ -9,6 +9,7 @@
 
     <logger name="org.mortbay" level="INFO" />
     <logger name="org.eclipse.jetty" level="INFO" />
+    <logger name="org.eclipse.jetty.util.log" level="WARN" />
     <logger name="org.springframework" level="INFO" />
     <logger name="org.springframework.context" level="WARN" />
     <logger name="org.springframework.beans.factory.annotation" level="WARN" />
