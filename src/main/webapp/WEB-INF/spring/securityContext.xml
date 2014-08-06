@@ -3,18 +3,24 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <http>
-        <intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+    <http pattern="/assets/**" security="none" />
+
+    <http use-expressions="true">
+        <intercept-url pattern="/admin/**" access="hasRole('admin')" />
         <form-login />
         <logout />
     </http>
 
+    <beans:bean id="hyepye.web.passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg value="12" />
+    </beans:bean>
 
     <authentication-manager>
         <authentication-provider>
+            <password-encoder ref="hyepye.web.passwordEncoder" />
             <user-service>
-                <user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
-                <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+                <user name="markm" password="$2a$10$4Mz7zTffgqsIRn6NpfrGfeMa.S2osaNlylHXW2ILGX/uzTRxfDHtq"
+                    authorities="user, approver, admin" />
             </user-service>
         </authentication-provider>
     </authentication-manager>
