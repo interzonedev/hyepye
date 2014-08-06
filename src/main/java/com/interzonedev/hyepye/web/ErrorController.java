@@ -28,6 +28,34 @@ public class ErrorController {
     private static final Logger log = (Logger) LoggerFactory.getLogger(ErrorController.class);
 
     /**
+     * Handles the "Unauthorized" (401) case.
+     * 
+     * @return Returns a simple JSON response body with the status set to {@link HttpStatus#UNAUTHORIZED}.
+     */
+    @RequestMapping(value = "401")
+    public ResponseEntity<String> handle401() {
+
+        log.error("handle401");
+
+        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.UNAUTHORIZED);
+
+    }
+
+    /**
+     * Handles the "Forbidden" (403) case.
+     * 
+     * @return Returns a simple JSON response body with the status set to {@link HttpStatus#FORBIDDEN}.
+     */
+    @RequestMapping(value = "403")
+    public ResponseEntity<String> handle403() {
+
+        log.error("handle403");
+
+        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.FORBIDDEN);
+
+    }
+
+    /**
      * Handles the "Not Found" (404) case.
      * 
      * @return Returns a simple JSON response body with the status set to {@link HttpStatus#NOT_FOUND}.
