@@ -217,6 +217,10 @@
                                     <mainClass>com.interzonedev.hyepye.process.Migrate</mainClass>
                                     <id>migrate</id>
                                 </program>
+                                <program>
+                                    <mainClass>com.interzonedev.hyepye.process.SpringSecurityEncoderOutput</mainClass>
+                                    <id>encode</id>
+                                </program>
                             </programs>
                         </configuration>
                     </execution>
