@@ -11,7 +11,10 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:com/interzonedev/hyepye/spring/applicationContext.xml</param-value>
+        <param-value>
+            classpath:com/interzonedev/hyepye/spring/applicationContext.xml,
+            /WEB-INF/spring/securityContext.xml
+        </param-value>
     </context-param>
     <context-param>
         <param-name>com.interzonedev.metrikos.metricRegistryBeanName</param-name>
@@ -39,6 +42,16 @@
     <listener>
         <listener-class>com.interzonedev.metrikos.HealthCheckContextListener</listener-class>
     </listener>
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>hyepye-springServlet</servlet-name>
