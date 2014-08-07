@@ -17,6 +17,7 @@
     <mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
 
     <mvc:view-controller path="/" view-name="home" />
+    <mvc:view-controller path="/loginForm" view-name="login" />
 
     <bean id="hyepye.web.jsonSerializer" class="com.interzonedev.respondr.serialize.JsonSerializer" />
 

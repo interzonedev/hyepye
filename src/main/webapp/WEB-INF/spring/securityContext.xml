@@ -7,14 +7,16 @@
 
     <http use-expressions="true">
         <intercept-url pattern="/admin/**" access="hasRole('admin')" />
-        <form-login />
-        <logout />
+        <form-login login-page="/loginForm" login-processing-url="/login" username-parameter="username"
+    password-parameter="password" authentication-failure-url="/loginForm?loginError=true" />
+        <logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID" />
         <remember-me services-ref="hyepye.web.rememberMeServices" />
     </http>
 
     <beans:bean id="hyepye.web.rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
         <beans:constructor-arg value="hpk" />
         <beans:constructor-arg ref="hyepye.web.userDetailsService" />
+        <beans:property name="parameter" value="remember" />
         <beans:property name="cookieName" value="hprmc" />
         <beans:property name="tokenValiditySeconds" value="3600" />
     </beans:bean>
