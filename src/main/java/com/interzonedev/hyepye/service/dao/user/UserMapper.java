@@ -36,7 +36,6 @@ public class UserMapper implements ResultSetMapper<User> {
         user.setId(rs.getLong("hp_user_id"));
         user.setUsername(rs.getString("username"));
         user.setPasswordHash(rs.getString("password_hash"));
-        user.setPasswordSeed(rs.getString("password_seed"));
         user.setEmail(rs.getString("email"));
 
         if (!Strings.isNullOrEmpty(rs.getString("first_name"))) {

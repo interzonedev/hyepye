@@ -96,23 +96,6 @@ public class UserTest {
     }
 
     @Test
-    public void testPasswordSeed() {
-        String basePasswordSeed = "foo";
-        String otherPasswordSeed = "bar";
-
-        User base = User.newBuilder().setPasswordSeed(basePasswordSeed).build();
-        User same = User.newBuilder().setPasswordSeed(basePasswordSeed).build();
-        User different = User.newBuilder().setPasswordSeed(otherPasswordSeed).build();
-
-        Assert.assertEquals(basePasswordSeed, base.getPasswordSeed());
-        Assert.assertEquals(base, same);
-        Assert.assertEquals(base.hashCode(), same.hashCode());
-
-        Assert.assertNotEquals(base, different);
-        Assert.assertNotEquals(base.hashCode(), different.hashCode());
-    }
-
-    @Test
     public void testEmail() {
         String baseEmail = "foo";
         String otherEmail = "bar";
@@ -234,8 +217,8 @@ public class UserTest {
     @Test
     public void testBuildFromTemplate() {
         User base = User.newBuilder().setId(1L).setUsername("username").setPasswordHash("passwordHash")
-                .setPasswordSeed("passwordSeed").setEmail("email").setFirstName("firstName").setLastName("lastName")
-                .setRole(Role.ADMIN).setActive(true).setTimeCreated(new Date(1L)).setTimeUpdated(new Date(2L)).build();
+                .setEmail("email").setFirstName("firstName").setLastName("lastName").setRole(Role.ADMIN)
+                .setActive(true).setTimeCreated(new Date(1L)).setTimeUpdated(new Date(2L)).build();
         User same = User.newBuilder(base).build();
 
         Assert.assertEquals(base, same);

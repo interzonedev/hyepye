@@ -12,6 +12,6 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ CreateUserCommandIT.class, DeactivateUserCommandIT.class, GetAllUsersCommandIT.class,
-        GetUserByIdCommandIT.class, GetUserByNameCommandIT.class, PasswordHelperIT.class, UpdateUserCommandIT.class })
+        GetUserByIdCommandIT.class, GetUserByNameCommandIT.class, UpdateUserCommandIT.class })
 public class UserCommandTestSuite {
 }

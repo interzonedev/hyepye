@@ -9,8 +9,7 @@ CREATE SEQUENCE hp_user_seq;
 CREATE TABLE hp_user (
     hp_user_id INTEGER NOT NULL PRIMARY KEY DEFAULT nextval('hp_user_seq'),
     username VARCHAR(255) NOT NULL,
-    password_hash CHAR(64) NOT NULL,
-    password_seed CHAR(10) NOT NULL,
+    password_hash CHAR(60) NOT NULL,
     email VARCHAR(255) NOT NULL,
     first_name VARCHAR(255) DEFAULT NULL,
     last_name VARCHAR(255) DEFAULT NULL,

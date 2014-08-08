@@ -489,8 +489,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertTrue(userOut.getId() > 0L);
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
-        Assert.assertEquals(64, userOut.getPasswordHash().length());
-        Assert.assertEquals(10, userOut.getPasswordSeed().length());
+        Assert.assertEquals(60, userOut.getPasswordHash().length());
         Assert.assertEquals(TEST_EMAIL, userOut.getEmail());
         Assert.assertEquals(TEST_FIRST_NAME, userOut.getFirstName());
         Assert.assertEquals(TEST_LAST_NAME, userOut.getLastName());
@@ -533,8 +532,7 @@ public class CreateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertTrue(userOut.getId() > 0L);
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
-        Assert.assertEquals(64, userOut.getPasswordHash().length());
-        Assert.assertEquals(10, userOut.getPasswordSeed().length());
+        Assert.assertEquals(60, userOut.getPasswordHash().length());
         Assert.assertEquals(TEST_EMAIL, userOut.getEmail());
         Assert.assertNull(userOut.getFirstName());
         Assert.assertNull(userOut.getLastName());

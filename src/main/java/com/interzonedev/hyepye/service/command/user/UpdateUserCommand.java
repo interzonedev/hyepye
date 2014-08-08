@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.google.common.base.Strings;
 import com.interzonedev.blundr.ValidationException;
@@ -39,12 +40,12 @@ public class UpdateUserCommand extends AbstractHyePyeCommand {
     private final String newPlainTextPassword;
 
     @Inject
-    @Named("hyepye.service.userRepository")
-    private UserRepository userRepository;
+    @Named("hyepye.service.passwordEncoder")
+    private PasswordEncoder passwordEncoder;
 
     @Inject
-    @Named("hyepye.service.passwordHelper")
-    private PasswordHelper passwordHelper;
+    @Named("hyepye.service.userRepository")
+    private UserRepository userRepository;
 
     /**
      * Creates an instance of this command with a specific command key and timeout. Use this when the {@link User}'s
@@ -108,16 +109,13 @@ public class UpdateUserCommand extends AbstractHyePyeCommand {
         if (!Strings.isNullOrEmpty(currentPlainTextPassword) && !Strings.isNullOrEmpty(newPlainTextPassword)) {
             // The password is being updated.
 
-            String passwordSeed = currentUser.getPasswordSeed();
-
             // Validate that the specified current password is the same as that in the database for the User.
-            String currentPasswordHash = passwordHelper.generatePasswordHash(currentPlainTextPassword, passwordSeed);
-            if (!currentPasswordHash.equals(currentUser.getPasswordHash())) {
+            if (!passwordEncoder.matches(currentPlainTextPassword, currentUser.getPasswordHash())) {
                 throw new ValidationException(User.MODEL_NAME, "The current password doesn't match");
             }
 
             // Update the password.
-            String newPasswordHash = passwordHelper.generatePasswordHash(newPlainTextPassword, passwordSeed);
+            String newPasswordHash = passwordEncoder.encode(newPlainTextPassword);
             userToUpdate.setPasswordHash(newPasswordHash);
         }
 

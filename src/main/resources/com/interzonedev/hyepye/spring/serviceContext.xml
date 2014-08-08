@@ -22,7 +22,10 @@
 
     <bean id="hyepye.service.validationHelper" class="com.interzonedev.blundr.ValidationHelper" />
 
-    <!-- Create a JDBC health check bean for the metrebar schema. -->
+    <bean id="hyepye.service.passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg value="12" />
+    </bean>
+
     <bean id="hyepye.service.jdbcHealthCheck" class="com.interzonedev.metrikos.JDBCHealthCheck">
         <constructor-arg index="0" ref="com.interzonedev.metrikos.healthCheckRegistry" />
         <constructor-arg index="1" value="HyePye" />

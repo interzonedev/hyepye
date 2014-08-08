@@ -55,7 +55,6 @@ public @interface BindUser {
                     statement.bind("id", user.getId());
                     statement.bind("username", user.getUsername());
                     statement.bind("passwordHash", user.getPasswordHash());
-                    statement.bind("passwordSeed", user.getPasswordSeed());
                     statement.bind("email", user.getEmail());
                     statement.bind("firstName", user.getFirstName());
                     statement.bind("lastName", user.getLastName());

@@ -31,7 +31,6 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
     private static final String TEST_USERNAME = "testyt";
     private static final String TEST_CURRENT_PLAINTEXT_PASSWORD = "testpass";
     private static final String TEST_NEW_PLAINTEXT_PASSWORD = "newtestpass";
-    private static final String TEST_NEW_PASSWORD_HASH = "c0c43b79f130b2c3e0b01c2f96f9ddbc3e74e48f2bda53f7fbb0190927e77ba8";
     private static final String TEST_EMAIL = "testy.testerson@test.com";
     private static final String TEST_FIRST_NAME = "Testy";
     private static final String TEST_LAST_NAME = "Testerson";
@@ -464,8 +463,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(TEST_USER_ID, userOut.getId());
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
-        Assert.assertEquals(TEST_NEW_PASSWORD_HASH, userOut.getPasswordHash());
-        Assert.assertEquals(testUser.getPasswordSeed(), userOut.getPasswordSeed());
+        Assert.assertTrue(passwordEncoder.matches(TEST_NEW_PLAINTEXT_PASSWORD, userOut.getPasswordHash()));
         Assert.assertEquals(TEST_EMAIL, userOut.getEmail());
         Assert.assertEquals(TEST_FIRST_NAME, userOut.getFirstName());
         Assert.assertEquals(TEST_LAST_NAME, userOut.getLastName());
@@ -476,7 +474,7 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
         dbUnitDataSetTester.compareDataSetsIgnoreColumns(hyepyeDataSource,
                 "com/interzonedev/hyepye/dataset/user/afterUpdateWithPassword.xml", "hp_user",
-                TestHelper.COMMON_IGNORE_COLUMN_NAMES);
+                TestHelper.USER_IGNORE_COLUMN_NAMES);
 
         log.debug("testUpdateUserValidUpdatingPassword: End");
 
@@ -511,7 +509,6 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertEquals(TEST_USER_ID, userOut.getId());
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
         Assert.assertEquals(testUser.getPasswordHash(), userOut.getPasswordHash());
-        Assert.assertEquals(testUser.getPasswordSeed(), userOut.getPasswordSeed());
         Assert.assertEquals(TEST_EMAIL, userOut.getEmail());
         Assert.assertEquals(TEST_FIRST_NAME, userOut.getFirstName());
         Assert.assertEquals(TEST_LAST_NAME, userOut.getLastName());
@@ -558,7 +555,6 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertEquals(TEST_USER_ID, userOut.getId());
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
         Assert.assertEquals(testUser.getPasswordHash(), userOut.getPasswordHash());
-        Assert.assertEquals(testUser.getPasswordSeed(), userOut.getPasswordSeed());
         Assert.assertEquals(TEST_EMAIL, userOut.getEmail());
         Assert.assertEquals(TEST_FIRST_NAME, userOut.getFirstName());
         Assert.assertEquals(TEST_LAST_NAME, userOut.getLastName());
@@ -604,7 +600,6 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
         Assert.assertEquals(TEST_USER_ID, userOut.getId());
         Assert.assertEquals(TEST_USERNAME, userOut.getUsername());
         Assert.assertEquals(testUser.getPasswordHash(), userOut.getPasswordHash());
-        Assert.assertEquals(testUser.getPasswordSeed(), userOut.getPasswordSeed());
         Assert.assertEquals(TEST_EMAIL, userOut.getEmail());
         Assert.assertNull(userOut.getFirstName());
         Assert.assertNull(userOut.getLastName());

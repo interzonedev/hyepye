@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.google.common.base.Strings;
 import com.interzonedev.blundr.ValidationException;
@@ -32,12 +33,12 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
     private final String plainTextPassword;
 
     @Inject
-    @Named("hyepye.service.userRepository")
-    private UserRepository userRepository;
+    @Named("hyepye.service.passwordEncoder")
+    private PasswordEncoder passwordEncoder;
 
     @Inject
-    @Named("hyepye.service.passwordHelper")
-    private PasswordHelper passwordHelper;
+    @Named("hyepye.service.userRepository")
+    private UserRepository userRepository;
 
     /**
      * Creates an instance of this command with a specific command key and timeout.
@@ -76,11 +77,9 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
 
         User.Builder userToCreate = User.newBuilder(userToCreateTemplate);
 
-        String passwordSeed = passwordHelper.generatePasswordSeed();
-        String passwordHash = passwordHelper.generatePasswordHash(plainTextPassword, passwordSeed);
+        String passwordHash = passwordEncoder.encode(plainTextPassword);
 
         userToCreate.setPasswordHash(passwordHash);
-        userToCreate.setPasswordSeed(passwordSeed);
 
         User user = userRepository.createUser(userToCreate.build());
 

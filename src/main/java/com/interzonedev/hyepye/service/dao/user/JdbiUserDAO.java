@@ -25,7 +25,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#getAllUsers()
      */
     @Override
-    @SqlQuery("SELECT hp_user_id, username, password_hash, password_seed, email, first_name, last_name, role, active, "
+    @SqlQuery("SELECT hp_user_id, username, password_hash, email, first_name, last_name, role, active, "
             + "time_created, time_updated FROM hp_user")
     public List<User> getAllUsers();
 
@@ -35,7 +35,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#getUserById(java.lang.Long)
      */
     @Override
-    @SqlQuery("SELECT hp_user_id, username, password_hash, password_seed, email, first_name, last_name, role, active, "
+    @SqlQuery("SELECT hp_user_id, username, password_hash, email, first_name, last_name, role, active, "
             + "time_created, time_updated FROM hp_user WHERE hp_user_id = :id")
     public User getUserById(@Bind("id") Long id);
 
@@ -45,7 +45,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#getUserByName(java.lang.String)
      */
     @Override
-    @SqlQuery("SELECT hp_user_id, username, password_hash, password_seed, email, first_name, last_name, role, active, "
+    @SqlQuery("SELECT hp_user_id, username, password_hash, email, first_name, last_name, role, active, "
             + "time_created, time_updated FROM hp_user WHERE username = :name")
     public User getUserByName(@Bind("name") String name);
 
@@ -55,7 +55,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#getUserByEmail(java.lang.String)
      */
     @Override
-    @SqlQuery("SELECT hp_user_id, username, password_hash, password_seed, email, first_name, last_name, role, active, "
+    @SqlQuery("SELECT hp_user_id, username, password_hash, email, first_name, last_name, role, active, "
             + "time_created, time_updated FROM hp_user WHERE email = :email")
     public User getUserByEmail(@Bind("email") String email);
 
@@ -65,8 +65,8 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#createUser(com.interzonedev.hyepye.model.User)
      */
     @Override
-    @SqlUpdate("INSERT INTO hp_user (username, password_hash, password_seed, email, first_name, last_name, role, active) "
-            + "VALUES (:username, :passwordHash, :passwordSeed, :email, :firstName, :lastName, :role, :active)")
+    @SqlUpdate("INSERT INTO hp_user (username, password_hash, email, first_name, last_name, role, active) "
+            + "VALUES (:username, :passwordHash, :email, :firstName, :lastName, :role, :active)")
     @GetGeneratedKeys
     public long createUser(@BindUser User user);
 
@@ -76,8 +76,8 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      * @see com.interzonedev.hyepye.service.dao.UserDAO#updateUser(com.interzonedev.hyepye.model.User)
      */
     @Override
-    @SqlUpdate("UPDATE hp_user SET username = :username, password_hash = :passwordHash, password_seed = :passwordSeed, "
-            + "email = :email, first_name = :firstName, last_name = :lastName, role = :role, active = :active "
+    @SqlUpdate("UPDATE hp_user SET username = :username, password_hash = :passwordHash, email = :email, "
+            + "first_name = :firstName, last_name = :lastName, role = :role, active = :active "
             + "WHERE hp_user_id = :id")
     public int updateUser(@BindUser User user);
 

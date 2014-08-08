@@ -5,6 +5,7 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.validation.BindingResult;
 
@@ -47,6 +48,10 @@ public abstract class HyepyeAbstractIT extends AbstractIntegrationTest {
     @Inject
     @Named("hyepye.service.testHelper")
     protected TestHelper testHelper;
+
+    @Inject
+    @Named("hyepye.service.passwordEncoder")
+    protected PasswordEncoder passwordEncoder;
 
     /**
      * Extract the name of the {property that is in error from the specified {@link BindingResult}. Looks at the first

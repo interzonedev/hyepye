@@ -30,12 +30,8 @@ public class User implements Serializable {
     private final String username;
 
     @NotBlank
-    @Size(max = 64)
+    @Size(max = 60)
     private final String passwordHash;
-
-    @NotBlank
-    @Size(max = 10)
-    private final String passwordSeed;
 
     @NotBlank
     @Size(max = 255)
@@ -65,7 +61,6 @@ public class User implements Serializable {
         this.id = builder.id;
         this.username = builder.username;
         this.passwordHash = builder.passwordHash;
-        this.passwordSeed = builder.passwordSeed;
         this.email = builder.email;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
@@ -105,10 +100,6 @@ public class User implements Serializable {
 
     public String getPasswordHash() {
         return passwordHash;
-    }
-
-    public String getPasswordSeed() {
-        return passwordSeed;
     }
 
     public String getEmail() {
@@ -154,7 +145,6 @@ public class User implements Serializable {
 
         return Objects.equal(getId(), that.getId()) && Objects.equal(getUsername(), that.getUsername())
                 && Objects.equal(getPasswordHash(), that.getPasswordHash())
-                && Objects.equal(getPasswordSeed(), that.getPasswordSeed())
                 && Objects.equal(getEmail(), that.getEmail()) && Objects.equal(getFirstName(), that.getFirstName())
                 && Objects.equal(getLastName(), that.getLastName()) && Objects.equal(getRole(), that.getRole())
                 && Objects.equal(isActive(), that.isActive()) && Objects.equal(getTimeCreated(), that.getTimeCreated())
@@ -164,17 +154,17 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId(), getUsername(), getPasswordHash(), getPasswordSeed(), getEmail(),
-                getFirstName(), getLastName(), getRole(), isActive(), getTimeCreated(), getTimeUpdated());
+        return Objects.hashCode(getId(), getUsername(), getPasswordHash(), getEmail(), getFirstName(), getLastName(),
+                getRole(), isActive(), getTimeCreated(), getTimeUpdated());
     }
 
     @Override
     public String toString() {
         return Objects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode())).add("id", getId())
-                .add("username", getUsername()).add("passwordHash", getPasswordHash())
-                .add("passwordSeed", getPasswordSeed()).add("email", getEmail()).add("firstName", getFirstName())
-                .add("lastName", getLastName()).add("role", getRole()).add("active", isActive())
-                .add("timeCreated", getTimeCreated()).add("timeUpdated", getTimeUpdated()).toString();
+                .add("username", getUsername()).add("passwordHash", getPasswordHash()).add("email", getEmail())
+                .add("firstName", getFirstName()).add("lastName", getLastName()).add("role", getRole())
+                .add("active", isActive()).add("timeCreated", getTimeCreated()).add("timeUpdated", getTimeUpdated())
+                .toString();
     }
 
     /**
@@ -189,8 +179,6 @@ public class User implements Serializable {
         private String username;
 
         private String passwordHash;
-
-        private String passwordSeed;
 
         private String email;
 
@@ -221,7 +209,6 @@ public class User implements Serializable {
             this.id = template.getId();
             this.username = template.getUsername();
             this.passwordHash = template.getPasswordHash();
-            this.passwordSeed = template.getPasswordSeed();
             this.email = template.getEmail();
             this.firstName = template.getFirstName();
             this.lastName = template.getLastName();
@@ -252,11 +239,6 @@ public class User implements Serializable {
 
         public Builder setPasswordHash(String passwordHash) {
             this.passwordHash = passwordHash;
-            return this;
-        }
-
-        public Builder setPasswordSeed(String passwordSeed) {
-            this.passwordSeed = passwordSeed;
             return this;
         }
 
