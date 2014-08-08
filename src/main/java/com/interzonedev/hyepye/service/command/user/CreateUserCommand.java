@@ -48,7 +48,7 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
      */
     public CreateUserCommand(User userToCreateTemplate, String plainTextPassword) {
         super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.createUserCommand")
-                .setThreadTimeoutMillis(500).build());
+                .setThreadTimeoutMillis(1000).build());
         this.userToCreateTemplate = userToCreateTemplate;
         this.plainTextPassword = plainTextPassword;
     }

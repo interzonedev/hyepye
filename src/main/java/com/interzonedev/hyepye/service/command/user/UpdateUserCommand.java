@@ -59,7 +59,7 @@ public class UpdateUserCommand extends AbstractHyePyeCommand {
      */
     public UpdateUserCommand(User userToUpdateTemplate, String currentPlainTextPassword, String newPlainTextPassword) {
         super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.updateUserCommand")
-                .setThreadTimeoutMillis(500).build());
+                .setThreadTimeoutMillis(1000).build());
         this.userToUpdateTemplate = userToUpdateTemplate;
         this.currentPlainTextPassword = currentPlainTextPassword;
         this.newPlainTextPassword = newPlainTextPassword;

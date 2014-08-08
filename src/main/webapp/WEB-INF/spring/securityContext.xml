@@ -21,13 +21,11 @@
         <beans:property name="tokenValiditySeconds" value="3600" />
     </beans:bean>
 
+    <beans:bean id="hyepye.web.userDetailsService" class="com.interzonedev.hyepye.service.security.HyePyeUserDetailsService" />
+
     <authentication-manager>
-        <authentication-provider>
+        <authentication-provider user-service-ref="hyepye.web.userDetailsService">
             <password-encoder ref="hyepye.service.passwordEncoder" />
-            <user-service id="hyepye.web.userDetailsService">
-                <user name="markm" password="$2a$12$QgQc6VfeTpQaDYOsYzMuu.kgNr7Fn3hHBtfUBqrWpuJmzV2HRFk52"
-                    authorities="user, approver, admin" />
-            </user-service>
         </authentication-provider>
     </authentication-manager>
 
