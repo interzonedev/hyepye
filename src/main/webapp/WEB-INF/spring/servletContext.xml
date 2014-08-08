@@ -16,8 +16,8 @@
     <mvc:resources mapping="/assets/**" location="/assets/" />
     <mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
 
-    <mvc:view-controller path="/" view-name="home" />
-    <mvc:view-controller path="/loginForm" view-name="login" />
+    <mvc:view-controller path="/" view-name="home/home" />
+    <mvc:view-controller path="/loginForm" view-name="login/login" />
 
     <bean id="hyepye.web.jsonSerializer" class="com.interzonedev.respondr.serialize.JsonSerializer" />
 
@@ -31,7 +31,7 @@
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="prefix" value="/WEB-INF/jsp/page/" />
         <property name="suffix" value=".jsp" />
         <property name="contentType" value="text/html; charset=utf-8" />
     </bean>
