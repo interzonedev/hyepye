@@ -1,11 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form method="post" action="<c:url value="/login" />">
+<form method="post" action="<c:url value="/login" />" role="form">
     <input type="hidden" name="remember" value="true" />
     <div class="row">
         <c:if test="${param.loginError eq 'true'}">
             <div class="col-xs-12">
-                <div class="form-group has-error">
+                <div class="alert alert-danger">
                     Unrecognized login credentials.
                 </div>
             </div>
