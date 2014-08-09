@@ -36,7 +36,6 @@ public abstract class HyePyeController {
     @Inject
     protected ApplicationContext applicationContext;
 
-    @Inject
     public HyePyeController(Serializer serializer, ValidationHelper validationHelper, MessageSource messageSource) {
         this.serializer = serializer;
         this.validationHelper = validationHelper;
