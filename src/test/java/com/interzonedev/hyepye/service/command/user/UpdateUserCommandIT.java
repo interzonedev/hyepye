@@ -616,17 +616,4 @@ public class UpdateUserCommandIT extends HyepyeAbstractIT {
 
     }
 
-    private User getTestUser(Long userId) {
-
-        GetUserByIdCommand getUserByIdCommand = (GetUserByIdCommand) applicationContext.getBean(
-                "hyepye.service.getUserByIdCommand", userId);
-
-        HyePyeResponse hyePyeResponse = getUserByIdCommand.execute();
-
-        User testUser = hyePyeResponse.getUser();
-
-        return testUser;
-
-    }
-
 }

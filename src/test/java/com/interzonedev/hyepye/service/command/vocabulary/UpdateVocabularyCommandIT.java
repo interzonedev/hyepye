@@ -396,17 +396,4 @@ public class UpdateVocabularyCommandIT extends HyepyeAbstractIT {
 
     }
 
-    private Vocabulary getTestVocabulary(Long vocabularyId) {
-
-        GetVocabularyByIdCommand getVocabularyByIdCommand = (GetVocabularyByIdCommand) applicationContext.getBean(
-                "hyepye.service.getVocabularyByIdCommand", vocabularyId);
-
-        HyePyeResponse hyePyeResponse = getVocabularyByIdCommand.execute();
-
-        Vocabulary testVocabulary = hyePyeResponse.getVocabulary();
-
-        return testVocabulary;
-
-    }
-
 }

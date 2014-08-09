@@ -9,7 +9,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.validation.BindingResult;
 
+import com.interzonedev.hyepye.model.User;
+import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.service.TestHelper;
+import com.interzonedev.hyepye.service.command.HyePyeResponse;
+import com.interzonedev.hyepye.service.command.user.GetUserByIdCommand;
+import com.interzonedev.hyepye.service.command.vocabulary.GetVocabularyByIdCommand;
 import com.interzonedev.zankou.AbstractIntegrationTest;
 import com.interzonedev.zankou.dataset.dbunit.DbUnitDataSetTester;
 
@@ -64,6 +69,46 @@ public abstract class HyepyeAbstractIT extends AbstractIntegrationTest {
     protected String getSinglePropertyNameFromErrors(BindingResult errors) {
 
         return errors.getFieldError().getField();
+
+    }
+
+    /**
+     * Gets the {@link User} with the specified ID.
+     * 
+     * @param userId The ID of the {@link User} to retrieve.
+     * 
+     * @return Returns the {@link User} with the specified ID if it exists, otherwise returns null.
+     */
+    protected User getTestUser(Long userId) {
+
+        GetUserByIdCommand getUserByIdCommand = (GetUserByIdCommand) applicationContext.getBean(
+                "hyepye.service.getUserByIdCommand", userId);
+
+        HyePyeResponse hyePyeResponse = getUserByIdCommand.execute();
+
+        User testUser = hyePyeResponse.getUser();
+
+        return testUser;
+
+    }
+
+    /**
+     * Gets the {@link Vocabulary} with the specified ID.
+     * 
+     * @param userId The ID of the {@link Vocabulary} to retrieve.
+     * 
+     * @return Returns the {@link Vocabulary} with the specified ID if it exists, otherwise returns null.
+     */
+    protected Vocabulary getTestVocabulary(Long vocabularyId) {
+
+        GetVocabularyByIdCommand getVocabularyByIdCommand = (GetVocabularyByIdCommand) applicationContext.getBean(
+                "hyepye.service.getVocabularyByIdCommand", vocabularyId);
+
+        HyePyeResponse hyePyeResponse = getVocabularyByIdCommand.execute();
+
+        Vocabulary testVocabulary = hyePyeResponse.getVocabulary();
+
+        return testVocabulary;
 
     }
 
