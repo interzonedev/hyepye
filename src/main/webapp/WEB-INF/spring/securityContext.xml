@@ -15,16 +15,14 @@
 
     <beans:bean id="hyepye.web.rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
         <beans:constructor-arg value="hpk" />
-        <beans:constructor-arg ref="hyepye.web.userDetailsService" />
+        <beans:constructor-arg ref="hyepye.service.userDetailsService" />
         <beans:property name="parameter" value="remember" />
         <beans:property name="cookieName" value="hprmc" />
         <beans:property name="tokenValiditySeconds" value="3600" />
     </beans:bean>
 
-    <beans:bean id="hyepye.web.userDetailsService" class="com.interzonedev.hyepye.service.security.HyePyeUserDetailsService" />
-
     <authentication-manager>
-        <authentication-provider user-service-ref="hyepye.web.userDetailsService">
+        <authentication-provider user-service-ref="hyepye.service.userDetailsService">
             <password-encoder ref="hyepye.service.passwordEncoder" />
         </authentication-provider>
     </authentication-manager>
