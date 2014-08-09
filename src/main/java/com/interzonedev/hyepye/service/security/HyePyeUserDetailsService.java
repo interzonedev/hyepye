@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.command.user.GetUserByNameCommand;
 
+@Named("hyepye.service.userDetailsService")
 public class HyePyeUserDetailsService implements UserDetailsService {
 
     private static final Logger log = LoggerFactory.getLogger(HyePyeUserDetailsService.class);
@@ -33,6 +35,10 @@ public class HyePyeUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         log.debug("loadUserByUsername: Start - username = " + username);
+
+        if (null == username) {
+            throw new UsernameNotFoundException("The username must be set");
+        }
 
         GetUserByNameCommand getUserByNameCommand = (GetUserByNameCommand) applicationContext.getBean(
                 "hyepye.service.getUserByNameCommand", username);

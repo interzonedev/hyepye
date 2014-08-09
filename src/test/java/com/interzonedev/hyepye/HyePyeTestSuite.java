@@ -8,6 +8,7 @@ import com.interzonedev.hyepye.model.ModelTestSuite;
 import com.interzonedev.hyepye.service.command.CommandTestSuite;
 import com.interzonedev.hyepye.service.command.user.UserCommandTestSuite;
 import com.interzonedev.hyepye.service.command.vocabulary.VocabularyCommandTestSuite;
+import com.interzonedev.hyepye.service.security.SecurityTestSuite;
 
 /**
  * This is a convenience class for running all the tests for the entire Hye Pye application at once by an IDE. This
@@ -17,6 +18,6 @@ import com.interzonedev.hyepye.service.command.vocabulary.VocabularyCommandTestS
  */
 @RunWith(Suite.class)
 @SuiteClasses({ ModelTestSuite.class, CommandTestSuite.class, UserCommandTestSuite.class,
-        VocabularyCommandTestSuite.class })
+        VocabularyCommandTestSuite.class, SecurityTestSuite.class })
 public class HyePyeTestSuite {
 }

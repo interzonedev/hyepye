@@ -26,8 +26,6 @@
         <constructor-arg value="12" />
     </bean>
 
-    <bean id="hyepye.service.userDetailsService" class="com.interzonedev.hyepye.service.security.HyePyeUserDetailsService" />
-
     <bean id="hyepye.service.jdbcHealthCheck" class="com.interzonedev.metrikos.JDBCHealthCheck">
         <constructor-arg index="0" ref="com.interzonedev.metrikos.healthCheckRegistry" />
         <constructor-arg index="1" value="HyePye" />
