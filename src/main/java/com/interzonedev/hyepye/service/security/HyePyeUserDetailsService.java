@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.google.common.base.Strings;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.hyepye.service.command.user.GetUserByNameCommand;
@@ -36,7 +37,7 @@ public class HyePyeUserDetailsService implements UserDetailsService {
 
         log.debug("loadUserByUsername: Start - username = " + username);
 
-        if (null == username) {
+        if (Strings.isNullOrEmpty(username)) {
             throw new UsernameNotFoundException("The username must be set");
         }
 
@@ -47,7 +48,7 @@ public class HyePyeUserDetailsService implements UserDetailsService {
 
         User user = hyePyeResponse.getUser();
 
-        if (null == user) {
+        if ((null == user) || !user.isActive()) {
             String errorMessage = "Could not retrieve User with username " + username;
             log.debug("loadUserByUsername: " + errorMessage);
             throw new UsernameNotFoundException(errorMessage);
