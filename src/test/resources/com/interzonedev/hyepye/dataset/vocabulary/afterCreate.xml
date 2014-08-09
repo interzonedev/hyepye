@@ -2,7 +2,7 @@
 
 <dataset>
 
-    <hp_user hp_user_id="1" username="gernb" password_hash="$2a$12$gGMdMwEWukqdw.HmpacNOOocCDkp87/SkJj77O3la.XnQPFEfyWrC"
+    <hp_user hp_user_id="1" username="gernb" password_hash="$2a$10$T2TL3zqhQB66fXAAgqZf2udEOPR3fvlQ1t4klsw07eb2PHI85LUeK"
         email="gern@blanston.com" first_name="Gern" last_name="Blanston" role="admin" active="TRUE" time_created="2014-07-07 10:49:09"
         time_updated="2014-07-07 10:49:09" />
 

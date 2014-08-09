@@ -2,14 +2,14 @@
 
 <dataset>
 
-    <hp_user hp_user_id="1" username="testyt" password_hash="$2a$12$gGMdMwEWukqdw.HmpacNOOocCDkp87/SkJj77O3la.XnQPFEfyWrC"
+    <hp_user hp_user_id="1" username="testyt" password_hash="$2a$10$T2TL3zqhQB66fXAAgqZf2udEOPR3fvlQ1t4klsw07eb2PHI85LUeK"
         email="testy.testerson@test.com" role="approver" active="TRUE" />
 
-    <hp_user hp_user_id="2" username="uncfest" password_hash="$2a$12$VlNsr3WP84xCzM/4KlICYOHC7/tGFa1KYo0LXeScCET.N1PThAMe2"
+    <hp_user hp_user_id="2" username="uncfest" password_hash="$2a$10$zfHIn4rrMgwRoeJkZad/BeWDOjpp0aVuLq1ul.tiwGCwwW9b0hPI6"
         email="uncle@fester.com" first_name="Uncle" last_name="Fester" role="approver" active="TRUE" time_created="2014-07-07 10:49:09"
         time_updated="2014-07-07 10:49:09" />
 
-    <hp_user hp_user_id="3" username="cousit" password_hash="$2a$12$Uwz8JH8aBTAVk7AtAZPaK.mZRs5HGLv0pIQiQqxYGNlZtwqi95QS2"
+    <hp_user hp_user_id="3" username="cousit" password_hash="$2a$10$4GKSh7hUMJbdi23p1meAY.UgAy/T8rfpedIbpH81z4hpUh8jVuq3y"
         email="cousin@it.com" first_name="Cousin" last_name="It" role="user" active="FALSE" time_created="2014-07-07 10:49:09"
         time_updated="2014-07-07 10:49:09" />
 
