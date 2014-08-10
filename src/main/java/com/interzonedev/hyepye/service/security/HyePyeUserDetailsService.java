@@ -1,16 +1,11 @@
 package com.interzonedev.hyepye.service.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -54,11 +49,7 @@ public class HyePyeUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(errorMessage);
         }
 
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
-
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPasswordHash(), authorities);
+        HyePyeUserDetails userDetails = new HyePyeUserDetails(user, true, true, true);
 
         log.debug("loadUserByUsername: End");
 

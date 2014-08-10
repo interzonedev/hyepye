@@ -10,9 +10,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.interzonedev.blundr.ValidationHelper;
+import com.interzonedev.hyepye.model.User;
+import com.interzonedev.hyepye.service.security.HyePyeUserDetails;
 import com.interzonedev.respondr.response.HttpResponse;
 import com.interzonedev.respondr.response.ResponseTransformingException;
 import com.interzonedev.respondr.serialize.Serializer;
@@ -49,6 +53,25 @@ public abstract class HyePyeController {
      */
     protected Locale getLocale() {
         return Locale.US;
+    }
+
+    /**
+     * Gets the currently authenticated {@link User}.
+     * 
+     * @return Returns the currently authenticated {@link User} if there is one, otherwise returns null.
+     */
+    protected User getAuthenticatedUser() {
+
+        User authenticatedUser = null;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        HyePyeUserDetails userDetails = (HyePyeUserDetails) authentication.getPrincipal();
+        if (null != userDetails) {
+            authenticatedUser = userDetails.getUser();
+        }
+
+        return authenticatedUser;
+
     }
 
     /**
