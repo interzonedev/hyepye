@@ -6,7 +6,7 @@ import com.interzonedev.herokusupport.data.migration.operation.MigrationTask;
 import com.interzonedev.herokusupport.data.migration.result.MigrationResult;
 import com.interzonedev.herokusupport.util.SpringContextUtils;
 
-public class Migrate extends AbstractProcess {
+public class Migrate extends HyePyeProcess {
 
     @Override
     public void process(String[] args) throws Exception {

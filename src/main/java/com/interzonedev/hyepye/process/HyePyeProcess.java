@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.interzonedev.herokusupport.client.DefaultHerokuSupportClient;
 import com.interzonedev.herokusupport.client.HerokuSupportClient;
 
-public abstract class AbstractProcess {
+public abstract class HyePyeProcess {
 
     protected static final String[] CONTEXT_FILE_LOCATIONS = { "com/interzonedev/hyepye/spring/processContext.xml" };
 

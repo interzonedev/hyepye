@@ -3,7 +3,7 @@ package com.interzonedev.hyepye.process;
 import com.interzonedev.herokusupport.webserver.WebServerParams;
 import com.interzonedev.herokusupport.webserver.WebServerType;
 
-public class Webapp extends AbstractProcess {
+public class Webapp extends HyePyeProcess {
 
     @Override
     public void process(String[] args) throws Exception {
