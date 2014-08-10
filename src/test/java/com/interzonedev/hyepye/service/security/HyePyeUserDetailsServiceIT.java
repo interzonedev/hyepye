@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.interzonedev.hyepye.HyepyeAbstractIT;
+import com.interzonedev.hyepye.HyePyeIT;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.zankou.dataset.DataSet;
 
-public class HyePyeUserDetailsServiceIT extends HyepyeAbstractIT {
+public class HyePyeUserDetailsServiceIT extends HyePyeIT {
 
     private static final Logger log = LoggerFactory.getLogger(HyePyeUserDetailsServiceIT.class);
 

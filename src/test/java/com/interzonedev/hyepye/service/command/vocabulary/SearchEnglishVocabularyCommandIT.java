@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.interzonedev.hyepye.HyepyeAbstractIT;
+import com.interzonedev.hyepye.HyePyeIT;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyType;
@@ -21,7 +21,7 @@ import com.interzonedev.zankou.dataset.DataSet;
  * 
  * @author mmarkarian
  */
-public class SearchEnglishVocabularyCommandIT extends HyepyeAbstractIT {
+public class SearchEnglishVocabularyCommandIT extends HyePyeIT {
 
     private static final Logger log = LoggerFactory.getLogger(SearchEnglishVocabularyCommandIT.class);
 

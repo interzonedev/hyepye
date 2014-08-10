@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 
 import com.google.common.base.Strings;
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.hyepye.HyepyeAbstractIT;
+import com.interzonedev.hyepye.HyePyeIT;
 import com.interzonedev.hyepye.model.Role;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.TestHelper;
@@ -22,7 +22,7 @@ import com.interzonedev.zankou.dataset.DataSet;
  * 
  * @author mmarkarian
  */
-public class CreateUserCommandIT extends HyepyeAbstractIT {
+public class CreateUserCommandIT extends HyePyeIT {
 
     private static final Logger log = LoggerFactory.getLogger(CreateUserCommandIT.class);
 

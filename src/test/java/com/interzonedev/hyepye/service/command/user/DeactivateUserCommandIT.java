@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.interzonedev.hyepye.HyepyeAbstractIT;
+import com.interzonedev.hyepye.HyePyeIT;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.TestHelper;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
@@ -18,7 +18,7 @@ import com.interzonedev.zankou.dataset.DataSet;
  * 
  * @author mmarkarian
  */
-public class DeactivateUserCommandIT extends HyepyeAbstractIT {
+public class DeactivateUserCommandIT extends HyePyeIT {
 
     private static final Logger log = LoggerFactory.getLogger(DeactivateUserCommandIT.class);
 

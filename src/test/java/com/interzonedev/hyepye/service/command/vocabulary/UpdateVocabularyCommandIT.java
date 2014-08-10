@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 
 import com.google.common.base.Strings;
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.hyepye.HyepyeAbstractIT;
+import com.interzonedev.hyepye.HyePyeIT;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyType;
@@ -23,7 +23,7 @@ import com.interzonedev.zankou.dataset.DataSet;
  * 
  * @author mmarkarian
  */
-public class UpdateVocabularyCommandIT extends HyepyeAbstractIT {
+public class UpdateVocabularyCommandIT extends HyePyeIT {
 
     private static final Logger log = LoggerFactory.getLogger(UpdateVocabularyCommandIT.class);
 

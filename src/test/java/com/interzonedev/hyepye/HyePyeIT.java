@@ -25,7 +25,7 @@ import com.interzonedev.zankou.dataset.dbunit.DbUnitDataSetTester;
  * @author mmarkarian
  */
 @ContextConfiguration(locations = { "classpath:com/interzonedev/hyepye/spring/applicationContext-test.xml" })
-public abstract class HyepyeAbstractIT extends AbstractIntegrationTest {
+public abstract class HyePyeIT extends AbstractIntegrationTest {
 
     /**
      * Used in implementing tests for command bean creation.
