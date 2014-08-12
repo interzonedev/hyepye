@@ -50,7 +50,7 @@ public class SearchVocabularyCommand extends AbstractHyePyeCommand {
 
     private final Integer resultsPerPage;
 
-    private final int requestedPageNumber;
+    private final Integer requestedPageNumber;
 
     @Inject
     @Named("hyepye.service.vocabularyRepository")
@@ -73,7 +73,7 @@ public class SearchVocabularyCommand extends AbstractHyePyeCommand {
      */
     public SearchVocabularyCommand(String english, DefinitionSearchType englishSearchType, String armenian,
             DefinitionSearchType armenianSearchType, VocabularyType vocabularyType, Status status,
-            VocabularyProperty orderBy, boolean ascending, Integer resultsPerPage, int requestedPageNumber) {
+            VocabularyProperty orderBy, boolean ascending, Integer resultsPerPage, Integer requestedPageNumber) {
         super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.searchVocabularyCommand")
                 .setThreadTimeoutMillis(500).build());
         this.english = english;
@@ -103,6 +103,14 @@ public class SearchVocabularyCommand extends AbstractHyePyeCommand {
 
         HyePyeResponse.Builder hyePyeResponse = HyePyeResponse.newBuilder();
 
+        if ((null != resultsPerPage) && (resultsPerPage <= 0)) {
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The results per page must be positive if it is set");
+        }
+
+        if ((null == requestedPageNumber) || (requestedPageNumber <= 0)) {
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The requested page number must be positive");
+        }
+
         long limit = Long.MAX_VALUE;
         long offset = 0L;
         if (null != resultsPerPage) {
@@ -117,11 +125,12 @@ public class SearchVocabularyCommand extends AbstractHyePyeCommand {
 
         // Figure out pagination.
         int numberOfResults = vocabularies.size();
-        // TODO - Set these in the response.
         int numberOfPages = (int) Math.ceil(((float) numberOfResults) / ((float) limit));
         int returnedPageNumber = (requestedPageNumber <= numberOfPages) ? requestedPageNumber : numberOfPages;
 
         hyePyeResponse.setVocabularies(vocabularies);
+        hyePyeResponse.setNumberOfPages(numberOfPages);
+        hyePyeResponse.setReturnedPageNumber(returnedPageNumber);
 
         return hyePyeResponse.build();
 

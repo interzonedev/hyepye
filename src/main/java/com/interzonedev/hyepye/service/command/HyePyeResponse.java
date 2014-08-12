@@ -41,6 +41,10 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
 
     private final List<Vocabulary> vocabularies;
 
+    private final Integer numberOfPages;
+
+    private final Integer returnedPageNumber;
+
     /**
      * Creates a new {@link HyePyeResponse} from the values set on the specified {@link Builder}.
      * 
@@ -73,6 +77,8 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
         } else {
             this.vocabularies = Collections.unmodifiableList(builder.vocabularies);
         }
+        this.numberOfPages = builder.numberOfPages;
+        this.returnedPageNumber = builder.returnedPageNumber;
     }
 
     /**
@@ -135,6 +141,14 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
         return vocabularies;
     }
 
+    public Integer getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public Integer getReturnedPageNumber() {
+        return returnedPageNumber;
+    }
+
     @Override
     public boolean equals(Object obj) {
 
@@ -154,14 +168,17 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
                 && Objects.equal(getConjugation(), that.getConjugation())
                 && Objects.equal(getConjugations(), that.getConjugations()) && Objects.equal(getVerb(), that.getVerb())
                 && Objects.equal(getVerbs(), that.getVerbs()) && Objects.equal(getVocabulary(), that.getVocabulary())
-                && Objects.equal(getVocabularies(), that.getVocabularies());
+                && Objects.equal(getVocabularies(), that.getVocabularies())
+                && Objects.equal(getNumberOfPages(), that.getNumberOfPages())
+                && Objects.equal(getReturnedPageNumber(), that.getReturnedPageNumber());
 
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(getProcessingError(), getValidationError(), getUser(), getUsers(), getConjugation(),
-                getConjugations(), getVerb(), getVerbs(), getVocabulary(), getVocabularies());
+                getConjugations(), getVerb(), getVerbs(), getVocabulary(), getVocabularies(), getNumberOfPages(),
+                getReturnedPageNumber());
     }
 
     @Override
@@ -170,7 +187,8 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
                 .add("processingError", getProcessingError()).add("validationError", getValidationError())
                 .add("user", getUser()).add("users", getUsers()).add("conjugation", getConjugation())
                 .add("conjugations", getConjugations()).add("verb", getVerb()).add("verbs", getVerbs())
-                .add("vocabulary", getVocabulary()).add("vocabularies", getVocabularies()).toString();
+                .add("vocabulary", getVocabulary()).add("vocabularies", getVocabularies())
+                .add("numberOfPages", getNumberOfPages()).add("returnedPageNumber", getReturnedPageNumber()).toString();
     }
 
     @Override
@@ -211,6 +229,10 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
 
         private List<Vocabulary> vocabularies;
 
+        private Integer numberOfPages;
+
+        private Integer returnedPageNumber;
+
         /**
          * Default constructor. Allows for building a {@link HyePyeResponse} starting with default values.
          */
@@ -235,6 +257,8 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
             this.verbs = template.getVerbs();
             this.vocabulary = template.getVocabulary();
             this.vocabularies = template.getVocabularies();
+            this.numberOfPages = template.getNumberOfPages();
+            this.returnedPageNumber = template.getReturnedPageNumber();
         }
 
         /**
@@ -293,6 +317,16 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
 
         public Builder setVocabularies(List<Vocabulary> vocabularies) {
             this.vocabularies = vocabularies;
+            return this;
+        }
+
+        public Builder setNumberOfPages(Integer numberOfPages) {
+            this.numberOfPages = numberOfPages;
+            return this;
+        }
+
+        public Builder setReturnedPageNumber(Integer returnedPageNumber) {
+            this.returnedPageNumber = returnedPageNumber;
             return this;
         }
 

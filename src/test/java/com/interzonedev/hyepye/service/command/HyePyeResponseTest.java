@@ -242,6 +242,40 @@ public class HyePyeResponseTest {
     }
 
     @Test
+    public void testNumberOfPages() {
+        Integer baseNumberOfPages = 1;
+        Integer otherNumberOfPages = 2;
+
+        HyePyeResponse base = HyePyeResponse.newBuilder().setNumberOfPages(baseNumberOfPages).build();
+        HyePyeResponse same = HyePyeResponse.newBuilder().setNumberOfPages(baseNumberOfPages).build();
+        HyePyeResponse different = HyePyeResponse.newBuilder().setNumberOfPages(otherNumberOfPages).build();
+
+        Assert.assertEquals(baseNumberOfPages, base.getNumberOfPages());
+        Assert.assertEquals(base, same);
+        Assert.assertEquals(base.hashCode(), same.hashCode());
+
+        Assert.assertNotEquals(base, different);
+        Assert.assertNotEquals(base.hashCode(), different.hashCode());
+    }
+
+    @Test
+    public void testReturnedPageNumber() {
+        Integer baseReturnedPageNumber = 1;
+        Integer otherReturnedPageNumber = 2;
+
+        HyePyeResponse base = HyePyeResponse.newBuilder().setReturnedPageNumber(baseReturnedPageNumber).build();
+        HyePyeResponse same = HyePyeResponse.newBuilder().setReturnedPageNumber(baseReturnedPageNumber).build();
+        HyePyeResponse different = HyePyeResponse.newBuilder().setReturnedPageNumber(otherReturnedPageNumber).build();
+
+        Assert.assertEquals(baseReturnedPageNumber, base.getReturnedPageNumber());
+        Assert.assertEquals(base, same);
+        Assert.assertEquals(base.hashCode(), same.hashCode());
+
+        Assert.assertNotEquals(base, different);
+        Assert.assertNotEquals(base.hashCode(), different.hashCode());
+    }
+
+    @Test
     public void testBuildFromTemplate() {
         Exception processingError = new RuntimeException("foo");
         ValidationException validationError = new ValidationException("test", "bar");
@@ -257,11 +291,14 @@ public class HyePyeResponseTest {
         Vocabulary vocabulary = Vocabulary.newBuilder().setId(1L).build();
         List<Vocabulary> vocabularies = Arrays.asList(new Vocabulary[] { Vocabulary.newBuilder().setId(1L).build(),
                 Vocabulary.newBuilder().setId(2L).build() });
+        Integer numberOfPages = 1;
+        Integer returnedPageNumber = 1;
 
         HyePyeResponse base = HyePyeResponse.newBuilder().setProcessingError(processingError)
                 .setValidationError(validationError).setUser(user).setUsers(users).setConjugation(conjugation)
                 .setConjugations(conjugations).setVerb(verb).setVerbs(verbs).setVocabulary(vocabulary)
-                .setVocabularies(vocabularies).build();
+                .setVocabularies(vocabularies).setNumberOfPages(numberOfPages)
+                .setReturnedPageNumber(returnedPageNumber).build();
         HyePyeResponse same = HyePyeResponse.newBuilder(base).build();
 
         Assert.assertEquals(base, same);
