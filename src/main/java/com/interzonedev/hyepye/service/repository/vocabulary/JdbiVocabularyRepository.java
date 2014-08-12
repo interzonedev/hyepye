@@ -156,6 +156,116 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * (non-Javadoc)
      * 
      * @see
+     * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#searchVocabulary(java.lang.String,
+     * com.interzonedev.hyepye.service.repository.DefinitionSearchType, java.lang.String,
+     * com.interzonedev.hyepye.service.repository.DefinitionSearchType, com.interzonedev.hyepye.model.VocabularyType,
+     * com.interzonedev.hyepye.model.Status, com.interzonedev.hyepye.model.VocabularyProperty, boolean, java.lang.Long,
+     * java.lang.Long)
+     */
+    @Override
+    public List<Vocabulary> searchVocabulary(String english, DefinitionSearchType englishSearchType, String armenian,
+            DefinitionSearchType armenianSearchType, VocabularyType vocabularyType, Status status,
+            VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) throws ValidationException {
+
+        log.debug("searchVocabulary: Start");
+
+        english = Strings.emptyToNull(english);
+        armenian = Strings.emptyToNull(armenian);
+
+        if ((null != english) && (null == englishSearchType)) {
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The English search type by must be set");
+        }
+
+        if ((null != armenian) && (null == armenianSearchType)) {
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The Armenian search type by must be set");
+        }
+
+        if (null == orderBy) {
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The order by must be set");
+        }
+
+        if (null == limit) {
+            limit = Long.MAX_VALUE;
+        }
+
+        if (null == offset) {
+            offset = 0L;
+        }
+
+        if (limit < 0L) {
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The result limit can not be negative");
+        }
+
+        if (offset < 0L) {
+            throw new ValidationException(Vocabulary.MODEL_NAME, "The result offset can not be negative");
+        }
+
+        boolean hasWhereClause = (null != english) || (null != armenian) || (null != vocabularyType)
+                || (null != status);
+        boolean addedWhereClause = false;
+
+        List<Vocabulary> vocabularies = new ArrayList<Vocabulary>();
+        try (Handle handle = dbi.open();) {
+            StringBuilder queryString = new StringBuilder();
+            queryString.append("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created,");
+            queryString.append(" time_updated, created_by, modified_by");
+            queryString.append(" FROM vocabulary");
+            if (hasWhereClause) {
+                queryString.append(" WHERE");
+                if (null != english) {
+                    queryString.append(" english ");
+                    queryString.append(getWhereClauseForSearchTerm(englishSearchType, english));
+                    addedWhereClause = true;
+                }
+                if (null != armenian) {
+                    if (addedWhereClause) {
+                        queryString.append(" AND");
+                    }
+                    queryString.append(" armenian ");
+                    queryString.append(getWhereClauseForSearchTerm(armenianSearchType, armenian));
+                    addedWhereClause = true;
+                }
+                if (null != vocabularyType) {
+                    if (addedWhereClause) {
+                        queryString.append(" AND");
+                    }
+                    queryString.append(" vocabulary_type = '").append(vocabularyType.getVocabularyTypeName())
+                            .append("'");
+                    addedWhereClause = true;
+                }
+                if (null != status) {
+                    if (addedWhereClause) {
+                        queryString.append(" AND");
+                    }
+                    queryString.append(" status = '").append(status.getStatusName()).append("'");
+                }
+            }
+            queryString.append(" ORDER BY ").append(orderBy.getVocabularyColumnName());
+            if (ascending) {
+                queryString.append(" ASC");
+            } else {
+                queryString.append(" DESC");
+            }
+            queryString.append(" LIMIT ").append(limit);
+            queryString.append(" OFFSET ").append(offset);
+
+            Query<Vocabulary> query = handle.createQuery(queryString.toString()).map(vocabularyMapper);
+
+            log.debug("searchVocabulary: Executing search query - \"" + queryString + "\"");
+
+            vocabularies = query.list();
+        }
+
+        log.debug("searchVocabulary: Returning - vocabularies  = " + vocabularies);
+
+        return vocabularies;
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
      * com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#searchArmenianVocabulary(java.lang
      * .String, com.interzonedev.hyepye.service.repository.DefinitionSearchType,
      * com.interzonedev.hyepye.model.VocabularyType, com.interzonedev.hyepye.model.Status, boolean, java.lang.Long,
@@ -514,6 +624,41 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
 
     private JdbiVocabularyDAO getVocabularyDAO() {
         return dbi.onDemand(JdbiVocabularyDAO.class);
+    }
+
+    /**
+     * Gets a query string fragment for a where clause based on the specified {@link DefinitionSearchType} and search
+     * term.
+     * 
+     * @param definitionSearchType The {@link DefinitionSearchType} that determines the form of the where clause.
+     * @param searchTerm The literal value on which to search
+     * 
+     * @return Returns a query string fragment for a where clause based on the specified {@link DefinitionSearchType}
+     *         and search term.
+     * 
+     * @throws ValidationException Thrown if the specifed {@link DefinitionSearchType} is not supported.
+     */
+    private String getWhereClauseForSearchTerm(DefinitionSearchType definitionSearchType, String searchTerm)
+            throws ValidationException {
+
+        StringBuilder queryStringFragment = new StringBuilder();
+
+        switch (definitionSearchType) {
+            case FULL_WORD:
+                queryStringFragment.append("= '").append(searchTerm).append("'");
+                break;
+            case STARTS_WITH:
+                queryStringFragment.append("LIKE '").append(searchTerm).append("%'");
+                break;
+            case CONTAINS:
+                queryStringFragment.append("LIKE '%").append(searchTerm).append("%'");
+                break;
+            default:
+                throw new ValidationException(Vocabulary.MODEL_NAME, "Unsupported definition search type: "
+                        + definitionSearchType);
+        }
+
+        return queryStringFragment.toString();
     }
 
 }
