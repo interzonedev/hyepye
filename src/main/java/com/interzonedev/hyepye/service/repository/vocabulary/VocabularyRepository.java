@@ -18,25 +18,6 @@ import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
 public interface VocabularyRepository {
 
     /**
-     * Gets a {@link List} of all {@link Vocabulary} instances.
-     * 
-     * @param vocabularyType The {@link VocabularyType} of {@link Vocabulary} against which to search. If null, searches
-     *            against all {@link VocabularyType}s.
-     * @param status The {@link Status} of {@link Vocabulary} against which to search. If null, searches against all
-     *            {@link Status}es.
-     * @param orderBy The {@link VocabularyProperty} by which to order the results.
-     * @param ascending Whether or not the results are ordered in ascending order.
-     * @param limit The maximum number of results to return.
-     * @param offset The number of results to skip before returning results.
-     * 
-     * @return Returns a {@link List} of all {@link Vocabulary} instances.
-     * 
-     * @throws ValidationException Thrown if the search parameters are invalid.
-     */
-    public List<Vocabulary> getAllVocabularies(VocabularyType vocabularyType, Status status,
-            VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) throws ValidationException;
-
-    /**
      * Gets the {@link Vocabulary} with the specified ID.
      * 
      * @param id The ID of the {@link Vocabulary} to retrieve.
@@ -70,50 +51,6 @@ public interface VocabularyRepository {
     public List<Vocabulary> searchVocabulary(String english, DefinitionSearchType englishSearchType, String armenian,
             DefinitionSearchType armenianSearchType, VocabularyType vocabularyType, Status status,
             VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) throws ValidationException;
-
-    /**
-     * Searches all {@link Vocabulary} instances against Armenian definitions.
-     * 
-     * @param armenian The Armenian definition (either whole or a fragment) against which to search.
-     * @param definitionSearchType The type of search to perform.
-     * @param vocabularyType The {@link VocabularyType} of {@link Vocabulary} against which to search. If null, searches
-     *            against all {@link VocabularyType}s.
-     * @param status The {@link Status} of {@link Vocabulary} against which to search. If null, searches against all
-     *            {@link Status}es.
-     * @param ascending Whether or not the results are ordered in ascending order.
-     * @param limit The maximum number of results to return.
-     * @param offset The number of results to skip before returning results.
-     * 
-     * @return Returns a {@link List} of all {@link Vocabulary} instances that meet the search criteria against their
-     *         Armenian definitions.
-     * 
-     * @throws ValidationException Thrown if the search parameters are invalid.
-     */
-    public List<Vocabulary> searchArmenianVocabulary(String armenian, DefinitionSearchType definitionSearchType,
-            VocabularyType vocabularyType, Status status, boolean ascending, Long limit, Long offset)
-            throws ValidationException;
-
-    /**
-     * Searches all {@link Vocabulary} instances against English definitions.
-     * 
-     * @param english The English definition (either whole or a fragment) against which to search.
-     * @param definitionSearchType The type of search to perform.
-     * @param vocabularyType The {@link VocabularyType} of {@link Vocabulary} against which to search. If null, searches
-     *            against all {@link VocabularyType}s.
-     * @param status The {@link Status} of {@link Vocabulary} against which to search. If null, searches against all
-     *            {@link Status}es.
-     * @param ascending Whether or not the results are ordered in ascending order.
-     * @param limit The maximum number of results to return.
-     * @param offset The number of results to skip before returning results.
-     * 
-     * @return Returns a {@link List} of all {@link Vocabulary} instances that meet the search criteria against their
-     *         English definitions.
-     * 
-     * @throws ValidationException Thrown if the search parameters are invalid.
-     */
-    public List<Vocabulary> searchEnglishVocabulary(String english, DefinitionSearchType definitionSearchType,
-            VocabularyType vocabularyType, Status status, boolean ascending, Long limit, Long offset)
-            throws ValidationException;
 
     /**
      * Creates a new {@link Vocabulary} by persisting the specified {@link Vocabulary}.
