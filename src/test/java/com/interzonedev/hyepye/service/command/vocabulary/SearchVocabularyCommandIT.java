@@ -28,10 +28,6 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
     private static final String TEST_ARMENIAN_STARTS_WITH = "երե";
     private static final String TEST_ARMENIAN_CONTAINS = "եր";
 
-    /*
-     * TODO: orderBy; ascending; resultsPerPage; requestedPageNumber;
-     */
-
     /* Begin validation error tests. */
 
     @Test
@@ -590,6 +586,97 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         log.debug("testSearchVocabularyNullStatus: End");
 
     }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchVocabularyOrderByStatus() {
+
+        log.debug("testSearchVocabularyOrderByStatus: Start");
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 1L, 14L, 3L, 2L, 16L, });
+
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
+                (DefinitionSearchType) null, VocabularyType.NOUN, (Status) null, VocabularyProperty.STATUS, true,
+                (Integer) null, 1);
+
+        HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(expectedIds.size(), vocabularies.size());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchVocabularyOrderByStatus: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchVocabularyAscending() {
+
+        log.debug("testSearchVocabularyAscending: Start");
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 4L, 5L, 6L, 7L, 8L, 9L, 10L });
+
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_CONTAINS, DefinitionSearchType.CONTAINS,
+                (String) null, (DefinitionSearchType) null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ID,
+                true, (Integer) null, 1);
+
+        HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(expectedIds.size(), vocabularies.size());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchVocabularyAscending: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchVocabularyDescending() {
+
+        log.debug("testSearchVocabularyDescending: Start");
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 10L, 9L, 8L, 7L, 6L, 5L, 4L });
+
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_CONTAINS, DefinitionSearchType.CONTAINS,
+                (String) null, (DefinitionSearchType) null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ID,
+                false, (Integer) null, 1);
+
+        HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(expectedIds.size(), vocabularies.size());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchVocabularyDescending: End");
+
+    }
+
+    /*
+     * TODO: resultsPerPage; requestedPageNumber;
+     */
 
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
