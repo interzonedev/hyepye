@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<dataset>
+
+    <hp_user hp_user_id="1" username="gernb" password_hash="$2a$10$T2TL3zqhQB66fXAAgqZf2udEOPR3fvlQ1t4klsw07eb2PHI85LUeK"
+        email="gern@blanston.com" first_name="Gern" last_name="Blanston" role="admin" active="TRUE" time_created="2014-07-07 10:49:09"
+        time_updated="2014-07-07 10:49:09" />
+
+    <vocabulary vocabulary_id="1" armenian="բարեւ" english="hello" vocabulary_type="noun" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="2" armenian="կապիկ" english="monkey" vocabulary_type="noun" status="submitted"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="3" armenian="մատիտ" english="pencil" vocabulary_type="noun" status="rejected"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="4" armenian="Երկուշաբթի" english="Monday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="5" armenian="Երեքշաբթի" english="Tuesday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="6" armenian="Չորեքշաբթի" english="Wednesday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="7" armenian="Հինգշաբթի" english="Thursday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="8" armenian="Ուրբաթ" english="Friday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="9" armenian="Շաբաթ" english="Saturday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="10" armenian="Կիրակի" english="Sunday" vocabulary_type="day" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="11" armenian="երկու" english="two" vocabulary_type="number" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="12" armenian="երեք" english="three" vocabulary_type="number" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="13" armenian="երեսուն" english="thirty" vocabulary_type="number" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="14" armenian="երեկ" english="yesterday" vocabulary_type="noun" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="15" armenian="ներողություն" english="sorry" vocabulary_type="phrase" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="16" armenian="Հայերեն" english="Armenian" vocabulary_type="noun" status="submitted"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="17" armenian="կանաչ" english="green" vocabulary_type="color" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+    <vocabulary vocabulary_id="18" armenian="կանանչ" english="green" vocabulary_type="color" status="approved"
+        time_created="2014-07-07 10:49:09" time_updated="2014-07-07 10:49:09" created_by="1" modified_by="1" />
+
+</dataset>
