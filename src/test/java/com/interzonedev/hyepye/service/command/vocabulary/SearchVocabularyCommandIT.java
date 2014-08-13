@@ -172,6 +172,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -201,6 +203,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -230,6 +234,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -259,6 +265,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -288,6 +296,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -317,6 +327,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -346,6 +358,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -375,6 +389,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -404,6 +420,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -433,6 +451,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -462,6 +482,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -491,6 +513,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -520,6 +544,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -549,6 +575,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -578,6 +606,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -607,6 +637,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -636,6 +668,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -665,6 +699,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
@@ -674,9 +710,167 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
     }
 
-    /*
-     * TODO: resultsPerPage; requestedPageNumber;
-     */
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchVocabularyNullResultsPerPage() {
+
+        log.debug("testSearchVocabularyNullResultsPerPage: Start");
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L,
+                14L, 15L, 16L, 17L, 18L });
+
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
+                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true,
+                (Integer) null, 1);
+
+        HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchVocabularyNullResultsPerPage: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchVocabularyResultsPerPageLessThanNumberOfResults() {
+
+        log.debug("testSearchVocabularyResultsPerPageLessThanNumberOfResults: Start");
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 1L, 2L, 3L, 4L, 5L });
+
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
+                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true,
+                expectedIds.size(), 1);
+
+        HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(4, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchVocabularyResultsPerPageLessThanNumberOfResults: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchVocabularyResultsPerPageGreaterThanNumberOfResults() {
+
+        log.debug("testSearchVocabularyResultsPerPageGreaterThanNumberOfResults: Start");
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L,
+                14L, 15L, 16L, 17L, 18L });
+
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
+                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true, 20, 1);
+
+        HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchVocabularyResultsPerPageGreaterThanNumberOfResults: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchVocabularyRequestedPageNumberLessThanMaxPages() {
+
+        log.debug("testSearchVocabularyRequestedPageNumberLessThanMaxPages: Start");
+
+        Integer resultsPerPage = 5;
+        Integer requestedPageNumber = 3;
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 11L, 12L, 13L, 14L, 15L });
+
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
+                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true,
+                resultsPerPage, requestedPageNumber);
+
+        HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(4, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(3, hyePyeResponse.getReturnedPageNumber().intValue());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchVocabularyRequestedPageNumberLessThanMaxPages: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchVocabularyRequestedPageNumberGreaterThanMaxPages() {
+
+        log.debug("testSearchVocabularyRequestedPageNumberGreaterThanMaxPages: Start");
+
+        Integer resultsPerPage = 5;
+        Integer requestedPageNumber = 7;
+
+        List<Long> expectedIds = Arrays.asList(new Long[] { 14L, 15L, 16L, 17L, 18L });
+
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
+                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true,
+                resultsPerPage, requestedPageNumber);
+
+        HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(4, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(4, hyePyeResponse.getReturnedPageNumber().intValue());
+
+        for (int i = 0; i < expectedIds.size(); i++) {
+            Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
+        }
+
+        log.debug("testSearchVocabularyRequestedPageNumberGreaterThanMaxPages: End");
+
+    }
 
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
@@ -699,10 +893,37 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         Assert.assertNull(hyePyeResponse.getValidationError());
         Assert.assertNull(hyePyeResponse.getProcessingError());
         Assert.assertEquals(expectedIds.size(), vocabularies.size());
+        Assert.assertEquals(1, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(1, hyePyeResponse.getReturnedPageNumber().intValue());
 
         for (int i = 0; i < expectedIds.size(); i++) {
             Assert.assertEquals(expectedIds.get(i), vocabularies.get(i).getId());
         }
+
+        log.debug("testSearchVocabularyAllPossibleResults: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/searchVocabulary.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testSearchVocabularyNoResults() {
+
+        log.debug("testSearchVocabularyAllPossibleResults: Start");
+
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", "this_does_not_exist", DefinitionSearchType.FULL_WORD,
+                (String) null, (DefinitionSearchType) null, (VocabularyType) null, (Status) null,
+                VocabularyProperty.ENGLISH, true, (Integer) null, 1);
+
+        HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
+
+        List<Vocabulary> vocabularies = hyePyeResponse.getVocabularies();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+        Assert.assertTrue(vocabularies.isEmpty());
+        Assert.assertEquals(0, hyePyeResponse.getNumberOfPages().intValue());
+        Assert.assertEquals(0, hyePyeResponse.getReturnedPageNumber().intValue());
 
         log.debug("testSearchVocabularyAllPossibleResults: End");
 

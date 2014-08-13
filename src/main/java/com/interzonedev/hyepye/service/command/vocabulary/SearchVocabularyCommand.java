@@ -111,24 +111,31 @@ public class SearchVocabularyCommand extends AbstractHyePyeCommand {
             throw new ValidationException(Vocabulary.MODEL_NAME, "The requested page number must be positive");
         }
 
-        long limit = Long.MAX_VALUE;
-        long offset = 0L;
-        if (null != resultsPerPage) {
-            limit = resultsPerPage;
-            offset = (requestedPageNumber - 1) * resultsPerPage;
-        }
-
+        // Get all possible results for the search criteria.
         List<Vocabulary> vocabularies = vocabularyRepository.searchVocabulary(english, englishSearchType, armenian,
-                armenianSearchType, vocabularyType, status, orderBy, ascending, limit, offset);
+                armenianSearchType, vocabularyType, status, orderBy, ascending, Long.MAX_VALUE, 0L);
 
-        log.debug("doCommand: Retrieved - " + vocabularies);
+        log.debug("doCommand: Retrieved (non paginated) - " + vocabularies);
 
         // Figure out pagination.
-        int numberOfResults = vocabularies.size();
-        int numberOfPages = (int) Math.ceil(((float) numberOfResults) / ((float) limit));
+        int totalNumberOfResults = vocabularies.size();
+
+        int effectiveResultsPerPage = totalNumberOfResults;
+        if (null != resultsPerPage) {
+            effectiveResultsPerPage = Math.min(resultsPerPage, totalNumberOfResults);
+        }
+
+        // Take a slice of all the possible results for the requested page.
+        int toIndex = Math.min(requestedPageNumber * effectiveResultsPerPage, totalNumberOfResults);
+        int fromIndex = toIndex - effectiveResultsPerPage;
+        List<Vocabulary> vocabularyPage = vocabularies.subList(fromIndex, toIndex);
+
+        int numberOfPages = (int) Math.ceil(((float) totalNumberOfResults) / ((float) effectiveResultsPerPage));
         int returnedPageNumber = (requestedPageNumber <= numberOfPages) ? requestedPageNumber : numberOfPages;
 
-        hyePyeResponse.setVocabularies(vocabularies);
+        log.debug("doCommand: Retrieved (paginated) - " + vocabularyPage);
+
+        hyePyeResponse.setVocabularies(vocabularyPage);
         hyePyeResponse.setNumberOfPages(numberOfPages);
         hyePyeResponse.setReturnedPageNumber(returnedPageNumber);
 
