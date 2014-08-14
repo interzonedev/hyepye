@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.interzonedev.blundr.ValidationHelper;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.Vocabulary;
+import com.interzonedev.hyepye.model.VocabularyProperty;
 import com.interzonedev.hyepye.model.VocabularyType;
 import com.interzonedev.hyepye.service.command.vocabulary.CreateVocabularyCommand;
 import com.interzonedev.hyepye.service.command.vocabulary.GetVocabularyByIdCommand;
+import com.interzonedev.hyepye.service.command.vocabulary.SearchVocabularyCommand;
 import com.interzonedev.hyepye.service.command.vocabulary.UpdateVocabularyCommand;
+import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
 import com.interzonedev.hyepye.web.HyePyeController;
 import com.interzonedev.respondr.response.HttpResponse;
 import com.interzonedev.respondr.response.ResponseTransformingException;
@@ -58,6 +61,60 @@ public class VocabularyController extends HyePyeController {
         ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute();
 
         log.debug("getVocabularyById: End");
+
+        return responseEntity;
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/vocabulary/search")
+    public ResponseEntity<String> searchVocabulary(@Valid VocabularySearchForm vocabularySearchForm,
+            BindingResult bindingResult) throws ResponseTransformingException {
+
+        log.debug("searchVocabulary: Start");
+
+        if (bindingResult.hasErrors()) {
+            log.debug("searchVocabulary: Form has errors");
+            HttpResponse validationErrorResponse = new HttpResponse(bindingResult, messageSource, Locale.getDefault(),
+                    null, HttpStatus.BAD_REQUEST, HttpResponse.JSON_CONTENT_TYPE);
+            return validationErrorResponse.toResponseEntity(serializer);
+        }
+
+        String english = vocabularySearchForm.getEnglish();
+
+        DefinitionSearchType englishSearchType = DefinitionSearchType.fromDefinitionSearchTypeName(vocabularySearchForm
+                .getEnglishSearchTypeValue());
+
+        String armenian = vocabularySearchForm.getArmenian();
+
+        DefinitionSearchType armenianSearchType = DefinitionSearchType
+                .fromDefinitionSearchTypeName(vocabularySearchForm.getArmenianSearchTypeValue());
+
+        VocabularyType vocabularyType = VocabularyType.fromVocabularyTypeName(vocabularySearchForm
+                .getVocabularyTypeValue());
+
+        Status status = Status.fromStatusName(vocabularySearchForm.getStatusValue());
+
+        VocabularyProperty orderBy = VocabularyProperty.fromVocabularyColumnName(vocabularySearchForm.getOrderBy());
+
+        boolean ascending = vocabularySearchForm.isAscending();
+
+        Integer resultsPerPage = vocabularySearchForm.getResultsPerPage();
+
+        Integer requestedPageNumber = vocabularySearchForm.getRequestedPageNumber();
+
+        // Create the specific command to create the vocabulary.
+        SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.searchVocabularyCommand", english, englishSearchType, armenian, armenianSearchType,
+                vocabularyType, status, orderBy, ascending, resultsPerPage, requestedPageNumber);
+
+        // Create a HyePyeCommandExecutor instance to handle the successful response from the SearchVocabularyCommand.
+        GetVocabulariesCommandExecutor getVocabulariesCommandExecutor = new GetVocabulariesCommandExecutor(
+                searchVocabularyCommand, serializer, validationHelper, messageSource, getLocale());
+
+        // Execute the command and get the response.
+        ResponseEntity<String> responseEntity = getVocabulariesCommandExecutor.execute();
+
+        log.debug("searchVocabulary: End");
 
         return responseEntity;
 
