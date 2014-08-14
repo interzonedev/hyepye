@@ -24,9 +24,8 @@ import com.interzonedev.respondr.serialize.Serializer;
  * {@link HyePyeResponse}.
  * 
  * @author mmarkarian
- *
  */
-public class GetVocabulariesCommandExecutor extends HyePyeCommandExecutor {
+public class GetVocabulariesCommandExecutor extends GetVocabularyCommandExecutor {
 
     private static final Logger log = LoggerFactory.getLogger(GetVocabulariesCommandExecutor.class);
 
@@ -58,13 +57,7 @@ public class GetVocabulariesCommandExecutor extends HyePyeCommandExecutor {
         List<Map<String, Object>> vocabularies = new ArrayList<Map<String, Object>>();
 
         hyePyeResponse.getVocabularies().forEach((Vocabulary vocabulary) -> {
-            Map<String, Object> vocabularyProperties = new HashMap<String, Object>();
-            vocabularyProperties.put("id", vocabulary.getId());
-            vocabularyProperties.put("armenian", vocabulary.getArmenian());
-            vocabularyProperties.put("english", vocabulary.getEnglish());
-            vocabularyProperties.put("status", vocabulary.getStatus().getStatusName());
-            vocabularyProperties.put("vocabularyType", vocabulary.getVocabularyType().getVocabularyTypeName());
-            vocabularies.add(Collections.unmodifiableMap(vocabularyProperties));
+            vocabularies.add(Collections.unmodifiableMap(getVocabularyProperties(vocabulary)));
         });
 
         responseStructure.put(VOCABULARIES_MAP_KEY, Collections.unmodifiableList(vocabularies));

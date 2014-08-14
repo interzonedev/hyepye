@@ -22,7 +22,6 @@ import com.interzonedev.respondr.serialize.Serializer;
  * {@link HyePyeResponse}.
  * 
  * @author mmarkarian
- *
  */
 public class GetVocabularyCommandExecutor extends HyePyeCommandExecutor {
 
@@ -54,21 +53,32 @@ public class GetVocabularyCommandExecutor extends HyePyeCommandExecutor {
 
         Vocabulary vocabulary = hyePyeResponse.getVocabulary();
         if (null != vocabulary) {
-            // Create a map containing a minimal set of the vocabulary properties.
-            Map<String, Object> vocabularyProperties = new HashMap<String, Object>();
-            vocabularyProperties.put("id", vocabulary.getId());
-            vocabularyProperties.put("armenian", vocabulary.getArmenian());
-            vocabularyProperties.put("english", vocabulary.getEnglish());
-            vocabularyProperties.put("status", vocabulary.getStatus().getStatusName());
-            vocabularyProperties.put("vocabularyType", vocabulary.getVocabularyType().getVocabularyTypeName());
-
-            responseStructure.put(VOCABULARY_MAP_KEY, Collections.unmodifiableMap(vocabularyProperties));
+            responseStructure.put(VOCABULARY_MAP_KEY, Collections.unmodifiableMap(getVocabularyProperties(vocabulary)));
         }
 
         log.debug("onSuccessMap: End");
 
         return Collections.unmodifiableMap(responseStructure);
 
+    }
+
+    /**
+     * Gets a {@link Map} containing a minimal set of properties from the specified {@link Vocabulary}.
+     * 
+     * @param vocabulary The {@link Vocabulary} that contains the properties to set in the {@link Map}.
+     * 
+     * @return Returns a {@link Map} containing a minimal set of properties from the specified {@link Vocabulary}.
+     */
+    protected Map<String, Object> getVocabularyProperties(Vocabulary vocabulary) {
+        Map<String, Object> vocabularyProperties = new HashMap<String, Object>();
+
+        vocabularyProperties.put("id", vocabulary.getId());
+        vocabularyProperties.put("armenian", vocabulary.getArmenian());
+        vocabularyProperties.put("english", vocabulary.getEnglish());
+        vocabularyProperties.put("status", vocabulary.getStatus().getStatusName());
+        vocabularyProperties.put("vocabularyType", vocabulary.getVocabularyType().getVocabularyTypeName());
+
+        return vocabularyProperties;
     }
 
 }
