@@ -6,6 +6,7 @@
     <http pattern="/assets/**" security="none" />
 
     <http use-expressions="true">
+        <intercept-url pattern="/admin/hystrix.stream/**" access="permitAll" />
         <intercept-url pattern="/admin/**" access="hasRole('admin')" />
         <form-login login-page="/loginForm" login-processing-url="/login" username-parameter="username"
             password-parameter="password" authentication-failure-url="/loginForm?loginError=true" />
