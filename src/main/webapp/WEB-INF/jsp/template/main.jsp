@@ -20,7 +20,7 @@
 
         <link rel="icon" href="<c:url value="/assets/img/favicon.png" />" type="image/png" />
 
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
 
         <c:if test="${not empty param.cssIncludes}">
             <jsp:include page="${param.cssIncludes}" />
@@ -47,8 +47,12 @@
             <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-resource.min.js"></script>
-            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-sanitize.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-route.min.js"></script>
             <script src="<c:url value="/assets/js/app/izng.js" />"></script>
+
+            <c:if test="${not empty param.bodyJsIncludes}">
+                <jsp:include page="${param.bodyJsIncludes}" />
+            </c:if>
         </c:if>
     </body>
 </html>
