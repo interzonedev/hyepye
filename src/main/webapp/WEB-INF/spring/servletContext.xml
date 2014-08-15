@@ -18,7 +18,7 @@
 
     <mvc:view-controller path="/" view-name="home/home" />
     <mvc:view-controller path="/loginForm" view-name="login/login" />
-    <mvc:view-controller path="/admin/**" view-name="admin/admin" />
+    <mvc:view-controller path="/admin" view-name="admin/menu/menu" />
     <mvc:view-controller path="/admin/vocabularyapp" view-name="admin/vocabulary" />
 
     <bean id="hyepye.web.jsonSerializer" class="com.interzonedev.respondr.serialize.JsonSerializer" />
