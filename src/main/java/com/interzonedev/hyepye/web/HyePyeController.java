@@ -1,6 +1,8 @@
 package com.interzonedev.hyepye.web;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,9 +15,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.interzonedev.blundr.ValidationHelper;
+import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.User;
+import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
 import com.interzonedev.hyepye.service.security.HyePyeUserDetails;
 import com.interzonedev.respondr.response.HttpResponse;
 import com.interzonedev.respondr.response.ResponseTransformingException;
@@ -96,6 +102,39 @@ public abstract class HyePyeController {
         } catch (ResponseTransformingException e) {
             return HttpResponse.getDefaultJsonErrorResponseEntity();
         }
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/definitionSearchTypes")
+    public ResponseEntity<String> getDefinitionSearchTypes() throws ResponseTransformingException {
+
+        Map<String, Object> responseStructure = new HashMap<String, Object>();
+
+        for (DefinitionSearchType definitionSearchType : DefinitionSearchType.values()) {
+            responseStructure.put(definitionSearchType.getDefinitionSearchTypeName(),
+                    definitionSearchType.getDefinitionSearchTypeName());
+        }
+
+        HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
+                HttpResponse.JSON_CONTENT_TYPE);
+
+        return httpResponse.toResponseEntity(serializer);
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/statuses")
+    public ResponseEntity<String> getStatuses() throws ResponseTransformingException {
+
+        Map<String, Object> responseStructure = new HashMap<String, Object>();
+
+        for (Status status : Status.values()) {
+            responseStructure.put(status.getStatusName(), status.getStatusName());
+        }
+
+        HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
+                HttpResponse.JSON_CONTENT_TYPE);
+
+        return httpResponse.toResponseEntity(serializer);
 
     }
 

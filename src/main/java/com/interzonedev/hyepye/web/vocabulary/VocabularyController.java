@@ -1,6 +1,8 @@
 package com.interzonedev.hyepye.web.vocabulary;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -190,6 +192,39 @@ public class VocabularyController extends HyePyeController {
         log.debug("updateVocabulary: End");
 
         return responseEntity;
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/vocabulary/types")
+    public ResponseEntity<String> getVocabularyTypes() throws ResponseTransformingException {
+
+        Map<String, Object> responseStructure = new HashMap<String, Object>();
+
+        for (VocabularyType vocabularyType : VocabularyType.values()) {
+            responseStructure.put(vocabularyType.getVocabularyTypeName(), vocabularyType.getVocabularyTypeName());
+        }
+
+        HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
+                HttpResponse.JSON_CONTENT_TYPE);
+
+        return httpResponse.toResponseEntity(serializer);
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/vocabulary/properties")
+    public ResponseEntity<String> getVocabularyProperties() throws ResponseTransformingException {
+
+        Map<String, Object> responseStructure = new HashMap<String, Object>();
+
+        for (VocabularyProperty vocabularyProperty : VocabularyProperty.values()) {
+            responseStructure.put(vocabularyProperty.getVocabularyColumnName(),
+                    vocabularyProperty.getVocabularyColumnName());
+        }
+
+        HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
+                HttpResponse.JSON_CONTENT_TYPE);
+
+        return httpResponse.toResponseEntity(serializer);
 
     }
 

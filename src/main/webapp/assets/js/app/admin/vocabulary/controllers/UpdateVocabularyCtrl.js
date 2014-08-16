@@ -10,6 +10,8 @@
      */
     vocabularyAdminApp.controller("UpdateVocabularyCtrl", function($scope, $rootScope, $log, VocabularyService) {
 
+        // TODO - Get vocabulary by ID.
+        
         $scope.update = function() {
 
             $log.log("UpdateVocabularyCtrl: update - Start");
