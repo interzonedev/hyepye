@@ -22,8 +22,8 @@
             <div class="form-group">
                 <label for="status" class="col-xs-2 control-label">Status</label>
                 <div class="col-xs-10">
-                    <input type="text" class="form-control" id="status" ng-model="status" placeholder="Status" />
-                    <%--<select ng-model="currentStatus" ng-options="status.name for status in statuses" class="input-medium"></select>--%>
+                    <%--<input type="text" class="form-control" id="status" ng-model="status" placeholder="Status" />--%>
+                    <select class="form-control" id="status" ng-model="status" ng-options="thisStatus.value for thisStatus in statuses"></select>
                 </div>
             </div>
             <div class="form-group">

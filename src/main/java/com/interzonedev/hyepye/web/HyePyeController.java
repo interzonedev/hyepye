@@ -1,6 +1,8 @@
 package com.interzonedev.hyepye.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -36,6 +38,10 @@ import com.interzonedev.respondr.serialize.Serializer;
 public abstract class HyePyeController {
 
     private static final Logger log = LoggerFactory.getLogger(HyePyeController.class);
+
+    public static final String DEFINITION_SEARCH_TYPES_KEY = "definitionSearchTypes";
+
+    public static final String STATUSES_MAP_KEY = "statuses";
 
     protected final Serializer serializer;
 
@@ -110,10 +116,14 @@ public abstract class HyePyeController {
 
         Map<String, Object> responseStructure = new HashMap<String, Object>();
 
+        List<Map<String, String>> definitionSearchTypes = new ArrayList<Map<String, String>>();
         for (DefinitionSearchType definitionSearchType : DefinitionSearchType.values()) {
-            responseStructure.put(definitionSearchType.getDefinitionSearchTypeName(),
-                    definitionSearchType.getDefinitionSearchTypeName());
+            Map<String, String> definitionSearchTypeMap = new HashMap<String, String>();
+            definitionSearchTypeMap.put("value", definitionSearchType.getDefinitionSearchTypeName());
+            definitionSearchTypes.add(definitionSearchTypeMap);
         }
+
+        responseStructure.put(DEFINITION_SEARCH_TYPES_KEY, definitionSearchTypes);
 
         HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
                 HttpResponse.JSON_CONTENT_TYPE);
@@ -127,9 +137,14 @@ public abstract class HyePyeController {
 
         Map<String, Object> responseStructure = new HashMap<String, Object>();
 
+        List<Map<String, String>> statuses = new ArrayList<Map<String, String>>();
         for (Status status : Status.values()) {
-            responseStructure.put(status.getStatusName(), status.getStatusName());
+            Map<String, String> statusMap = new HashMap<String, String>();
+            statusMap.put("value", status.getStatusName());
+            statuses.add(statusMap);
         }
+
+        responseStructure.put(STATUSES_MAP_KEY, statuses);
 
         HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
                 HttpResponse.JSON_CONTENT_TYPE);
