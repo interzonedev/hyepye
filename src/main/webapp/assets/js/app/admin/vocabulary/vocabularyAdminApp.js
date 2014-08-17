@@ -5,6 +5,7 @@
 
     // Create the top level application for the Hye Pye vocabulary admin.
     vocabularyAdminApp = angular.module("hyepye.admin.vocabulary.App", [
+        "hyepye.common.controllers",
         "hyepye.common.services",
         "hyepye.admin.services",
         "ngRoute"
