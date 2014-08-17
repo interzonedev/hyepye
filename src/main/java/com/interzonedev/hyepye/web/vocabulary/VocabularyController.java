@@ -46,7 +46,7 @@ public class VocabularyController extends HyePyeController {
         super(serializer, validationHelper, messageSource);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/vocabulary/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/admin/vocabulary/{id}")
     public ResponseEntity<String> getVocabularyById(@PathVariable("id") Long id) throws ResponseTransformingException {
 
         log.debug("getVocabularyById: Start");

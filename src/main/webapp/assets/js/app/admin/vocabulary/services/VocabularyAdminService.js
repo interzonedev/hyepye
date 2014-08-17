@@ -14,6 +14,12 @@
 
         createVocabularyUrl =   "/admin/vocabulary";
 
+        this.getVocabularyById = function(id) {
+
+            return $http.get("/admin/vocabulary/" + id);
+            
+        };
+
         this.create = function(params) {
             
             var queryString;
