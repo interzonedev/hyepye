@@ -8,7 +8,7 @@
     /**
      * Defines a controller for updating a Vocabulary.
      */
-    vocabularyAdminApp.controller("UpdateVocabularyCtrl", function($scope, $rootScope, $log, VocabularyService) {
+    vocabularyAdminApp.controller("UpdateVocabularyCtrl", function($scope, $rootScope, $log, VocabularyAdminService, AdminService) {
 
         // TODO - Get vocabulary by ID.
         

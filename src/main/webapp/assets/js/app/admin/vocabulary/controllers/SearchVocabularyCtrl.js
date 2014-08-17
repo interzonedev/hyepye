@@ -8,7 +8,7 @@
     /**
      * Defines a controller for searching Vocabularies.
      */
-    vocabularyAdminApp.controller("SearchVocabularyCtrl", function($scope, $rootScope, $log, VocabularyService) {
+    vocabularyAdminApp.controller("SearchVocabularyCtrl", function($scope, $rootScope, $log, VocabularyService, AdminService) {
 
         $scope.vocabularies = {};
 
@@ -30,26 +30,17 @@
             };
             /*
             english;
-
             englishSearchTypeValue;
+            armenian;
+            armenianSearchTypeValue;
+            vocabularyTypeValue;
+            statusValue;
+            orderBy;
+            ascending;
+            resultsPerPage;
+            requestedPageNumber;
+            */
 
-    armenian;
-
-    armenianSearchTypeValue;
-
-    vocabularyTypeValue;
-
-    statusValue;
-
-    orderBy;
-
-    ascending;
-
-    resultsPerPage;
-
-    requestedPageNumber;
-             */
-            
             VocabularyService.search(searchParams).success(function(data, headers) {
                 if (data.vocabularies) {
                     $scope.vocabularies = data.vocabularies;

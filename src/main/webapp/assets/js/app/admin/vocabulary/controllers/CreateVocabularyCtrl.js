@@ -8,7 +8,7 @@
     /**
      * Defines a controller for creating a new Vocabulary.
      */
-    vocabularyAdminApp.controller("CreateVocabularyCtrl", function($scope, $rootScope, $log, VocabularyService) {
+    vocabularyAdminApp.controller("CreateVocabularyCtrl", function($scope, $rootScope, $log, VocabularyAdminService, AdminService) {
 
         $scope.create = function() {
 

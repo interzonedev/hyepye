@@ -8,7 +8,7 @@
      * application wide services. This will make all registered services
      * available to an application that includes this as a dependency.
      */
-    services = izng.module("hyepye.common.services", []);
+    services = izng.module("hyepye.common.services");
 
     /**
      * Creates an injectable singleton with static utility methods.

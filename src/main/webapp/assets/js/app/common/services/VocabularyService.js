@@ -1,14 +1,14 @@
 (function() {
     "use strict";
 
-    var vocabularyAdminApp;
+    var services;
 
-    vocabularyAdminApp = izng.module("hyepye.admin.vocabulary.App");
+    services = izng.module("hyepye.common.services");
 
     /**
      * Defines a service for sending requests to the Vocabulary endpoints.
      */
-    vocabularyAdminApp.service("VocabularyService", function ($http, ServiceUtils) {
+    services.service("VocabularyService", function ($http, ServiceUtils) {
 
         var vocabularyTypesUrl, vocabularyPropertiesUrl, vocabularyTypes, vocabularyProperties;
 

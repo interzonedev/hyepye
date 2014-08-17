@@ -122,7 +122,7 @@ public abstract class HyePyeController {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/statuses")
+    @RequestMapping(method = RequestMethod.GET, value = "/admin/statuses")
     public ResponseEntity<String> getStatuses() throws ResponseTransformingException {
 
         Map<String, Object> responseStructure = new HashMap<String, Object>();
