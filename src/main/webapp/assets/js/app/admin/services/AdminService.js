@@ -29,7 +29,6 @@
                 }, function error(response) {
                     return handleGetStatusesError(response);
                 });
-
             }
         };
 
