@@ -13,61 +13,36 @@
         var init, getStatuses, getVocabularyToUpdate;
 
         init = function() {
-            getStatuses();
-            getVocabularyToUpdate();
-        };
 
-        getStatuses = function() {
-            AdminService.getStatuses().success(function(data, headers) {
+            getStatuses()
+            .then(getVocabularyToUpdate())
+            .catch(function(response) {
                 var message;
-                if (data.statuses) {
-                    $scope.statuses = data.statuses;
-                } else {
-                    message = "Unable to retrieve statuses";
-                    $log.warn("UpdateVocabularyCtrl: getStatuses - " + message);
-                    $rootScope.$broadcast("alert", {
-                        "msg": message,
-                        "type": "warning"
-                    });
-                }
-            }).error(function(error) {
-                var message;
-                message = "Error retrieving statuses";
-                $log.error("UpdateVocabularyCtrl: getStatuses - " + message);
+                message = "Error initiating controller";
+                $log.error("UpdateVocabularyCtrl: init - " + message);
                 $rootScope.$broadcast("alert", {
                     "msg": message
                 });
             });
+            
         };
-        
+
+        getStatuses = function() {
+            return AdminService.getStatuses().then(function success(statuses) {
+                $scope.statuses = statuses;
+            });
+        };
+
         getVocabularyToUpdate = function() {
-            VocabularyAdminService.getVocabularyById($routeParams.id).success(function(data, headers) {
-                var vocabulary;
-                if (data.vocabulary) {
-                    vocabulary = data.vocabulary;
-                    $scope.id = vocabulary.id;
-                    $scope.armenian = vocabulary.armenian;
-                    $scope.english = vocabulary.english;
-                    $scope.vocabularyType = vocabulary.vocabularyType;
-                    angular.forEach($scope.statuses, function(value, key) {
-                        if (value.value === vocabulary.status ) {
-                            $scope.status = $scope.statuses[key];
-                        }
-                    });
-                } else {
-                    message = "Unable to retrieve vocabulary";
-                    $log.warn("UpdateVocabularyCtrl: getVocabularyToUpdate - " + message);
-                    $rootScope.$broadcast("alert", {
-                        "msg": message,
-                        "type": "warning"
-                    });
-                }
-            }).error(function(error) {
-                var message;
-                message = "Error retrieving vocabulary";
-                $log.error("UpdateVocabularyCtrl: getVocabularyToUpdate - " + message);
-                $rootScope.$broadcast("alert", {
-                    "msg": message
+            return VocabularyAdminService.getVocabularyById($routeParams.id).then(function success(vocabulary) {
+                $scope.id = vocabulary.id;
+                $scope.armenian = vocabulary.armenian;
+                $scope.english = vocabulary.english;
+                $scope.vocabularyType = vocabulary.vocabularyType;
+                angular.forEach($scope.statuses, function(value, key) {
+                    if (value.value === vocabulary.status ) {
+                        $scope.status = $scope.statuses[key];
+                    }
                 });
             });
         };
