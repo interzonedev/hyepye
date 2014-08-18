@@ -24,7 +24,7 @@
             $log.log("SearchVocabularyCtrl: search - Start");
 
             searchParams = {
-                vocabularyTypeValue: "day",
+                //vocabularyTypeValue: "day",
                 orderBy: "english",
                 requestedPageNumber: $scope.currentPage
             };
@@ -41,20 +41,14 @@
             requestedPageNumber;
             */
 
-            VocabularyService.search(searchParams).success(function(data, headers) {
-                if (data.vocabularies) {
-                    $scope.vocabularies = data.vocabularies;
-                } else {
-                    $rootScope.$broadcast("alert", {
-                        "msg": "Unable to perform search"
-                    });
-                }
-            }).error(function(error) {
+            VocabularyService.search(searchParams).then(function success(vocabularies) {
+                $scope.vocabularies = vocabularies;
+            }, function error(response) {
                 $rootScope.$broadcast("alert", {
                     "msg": "Unable to perform search"
                 });
             });
-            
+
             $log.log("SearchVocabularyCtrl: search - End");
 
         };

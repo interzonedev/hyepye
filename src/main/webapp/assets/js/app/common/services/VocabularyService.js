@@ -10,7 +10,8 @@
      */
     services.service("VocabularyService", function ($q, $http, ServiceUtils) {
 
-        var vocabularyTypes, vocabularyProperties, handleGetVocabularyTypesError, handleGetVocabularyPropertiesError;
+        var vocabularyTypes, vocabularyProperties, handleGetVocabularyTypesError, handleGetVocabularyPropertiesError,
+            handleSearchError;
 
         this.getVocabularyTypes = function() {
             if (vocabularyTypes) {
@@ -58,11 +59,18 @@
 
             queryString = ServiceUtils.getQueryStringFromParams(params);
 
-            return $http.get("/vocabulary/search?" + queryString);
+            return $http.get("/vocabulary/search?" + queryString).then(function success(response) {
+                if (response && response.data && response.data.vocabularies) {
+                    return response.data.vocabularies;
+                } else {
+                    return handleSearchError(response);
+                }
+            },function error(response) {
+                return handleSearchError;
+            });
             
         };
-        
-        
+
         handleGetVocabularyTypesError = function(response) {
             var message;
 
@@ -80,6 +88,18 @@
 
             message = "Error retrieving vocabulary properties";
             $log.error("VocabularyService: getVocabularyProperties - " + message);
+            $rootScope.$broadcast("alert", {
+                "msg": message
+            });
+
+            return $q.reject(response);
+        };
+
+        handleSearchError = function(response) {
+            var message;
+
+            message = "Error executing vocabulary search";
+            $log.error("VocabularyService: search - " + message);
             $rootScope.$broadcast("alert", {
                 "msg": message
             });
