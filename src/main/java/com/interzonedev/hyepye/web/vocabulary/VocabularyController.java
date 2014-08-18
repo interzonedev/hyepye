@@ -1,6 +1,8 @@
 package com.interzonedev.hyepye.web.vocabulary;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -38,6 +40,10 @@ import com.interzonedev.respondr.serialize.Serializer;
 public class VocabularyController extends HyePyeController {
 
     private static final Logger log = LoggerFactory.getLogger(VocabularyController.class);
+
+    public static final String VOCABULARY_TYPES_MAP_KEY = "vocabularyTypes";
+
+    public static final String VOCABULARY_PROPERTIES_MAP_KEY = "vocabularyProperties";
 
     @Inject
     public VocabularyController(@Named("hyepye.web.jsonSerializer") Serializer serializer,
@@ -200,9 +206,14 @@ public class VocabularyController extends HyePyeController {
 
         Map<String, Object> responseStructure = new HashMap<String, Object>();
 
+        List<Map<String, String>> vocabularyTypes = new ArrayList<Map<String, String>>();
         for (VocabularyType vocabularyType : VocabularyType.values()) {
-            responseStructure.put(vocabularyType.getVocabularyTypeName(), vocabularyType.getVocabularyTypeName());
+            Map<String, String> vocabularyTypeMap = new HashMap<String, String>();
+            vocabularyTypeMap.put("value", vocabularyType.getVocabularyTypeName());
+            vocabularyTypes.add(vocabularyTypeMap);
         }
+
+        responseStructure.put(VOCABULARY_TYPES_MAP_KEY, vocabularyTypes);
 
         HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
                 HttpResponse.JSON_CONTENT_TYPE);
@@ -216,10 +227,14 @@ public class VocabularyController extends HyePyeController {
 
         Map<String, Object> responseStructure = new HashMap<String, Object>();
 
+        List<Map<String, String>> vocabularyProperties = new ArrayList<Map<String, String>>();
         for (VocabularyProperty vocabularyProperty : VocabularyProperty.values()) {
-            responseStructure.put(vocabularyProperty.getVocabularyColumnName(),
-                    vocabularyProperty.getVocabularyColumnName());
+            Map<String, String> vocabularyPropertyMap = new HashMap<String, String>();
+            vocabularyPropertyMap.put("value", vocabularyProperty.getVocabularyColumnName());
+            vocabularyProperties.add(vocabularyPropertyMap);
         }
+
+        responseStructure.put(VOCABULARY_PROPERTIES_MAP_KEY, vocabularyProperties);
 
         HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
                 HttpResponse.JSON_CONTENT_TYPE);
