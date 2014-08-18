@@ -80,7 +80,10 @@
 
         };
 
-        init();
+        $scope.$on("$viewContentLoaded", function() {
+            $log.log("UpdateVocabularyCtrl: on $viewContentLoaded");
+            init();
+        });
 
     });
 
