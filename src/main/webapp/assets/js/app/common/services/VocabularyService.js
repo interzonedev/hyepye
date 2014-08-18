@@ -25,10 +25,10 @@
                         vocabularyTypes = response.data.vocabularyTypes;
                         return response.data.vocabularyTypes;
                     } else {
-                        return handleGetStatusesError(response);
+                        return handleGetVocabularyTypesError(response);
                     }
                 }, function error(response) {
-                    return handleGetStatusesError(response);
+                    return handleGetVocabularyTypesError(response);
                 });
             }
         };
@@ -45,10 +45,10 @@
                         vocabularyProperties = response.data.vocabularyProperties;
                         return response.data.vocabularyProperties;
                     } else {
-                        return handleGetStatusesError(response);
+                        return handleGetVocabularyPropertiesError(response);
                     }
                 }, function error(response) {
-                    return handleGetStatusesError(response);
+                    return handleGetVocabularyPropertiesError(response);
                 });
             }
         };
@@ -66,45 +66,36 @@
                     return handleSearchError(response);
                 }
             },function error(response) {
-                return handleSearchError;
+                return handleSearchError(response);
             });
             
         };
 
         handleGetVocabularyTypesError = function(response) {
-            var message;
+            var logPrefix, message;
 
+            logPrefix = "VocabularyService: getVocabularyTypes - "; 
             message = "Error retrieving vocabulary types";
-            $log.error("VocabularyService: getVocabularyProperties - " + message);
-            $rootScope.$broadcast("alert", {
-                "msg": message
-            });
 
-            return $q.reject(response);
+            return ServiceUtils.handleRemoteError(response, logPrefix, message);
         };
 
         handleGetVocabularyPropertiesError = function(response) {
-            var message;
+            var logPrefix, message;
 
+            logPrefix = "VocabularyService: getVocabularyProperties - ";
             message = "Error retrieving vocabulary properties";
-            $log.error("VocabularyService: getVocabularyProperties - " + message);
-            $rootScope.$broadcast("alert", {
-                "msg": message
-            });
 
-            return $q.reject(response);
+            return ServiceUtils.handleRemoteError(response, logPrefix, message);
         };
 
         handleSearchError = function(response) {
-            var message;
+            var logPrefix, message;
 
+            logPrefix = "VocabularyService: search - ";
             message = "Error executing vocabulary search";
-            $log.error("VocabularyService: search - " + message);
-            $rootScope.$broadcast("alert", {
-                "msg": message
-            });
 
-            return $q.reject(response);
+            return ServiceUtils.handleRemoteError(response, logPrefix, message);
         };
 
     });

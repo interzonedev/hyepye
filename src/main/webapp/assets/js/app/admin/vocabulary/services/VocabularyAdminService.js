@@ -37,15 +37,12 @@
         };
 
         handleGetVocabularyByIdError = function(response) {
-            var message;
+            var logPrefix, message;
 
+            logPrefix = "VocabularyAdminService: getVocabularyById - "; 
             message = "Error retrieving vocabulary";
-            $log.error("VocabularyAdminService: getVocabularyById - " + message);
-            $rootScope.$broadcast("alert", {
-                "msg": message
-            });
 
-            return $q.reject(response);
+            return ServiceUtils.handleRemoteError(response, logPrefix, message);
         };
 
     });
