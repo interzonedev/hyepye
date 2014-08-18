@@ -16,13 +16,13 @@
             <div class="form-group">
                 <label for="vocabularyType" class="col-xs-2 control-label">Vocabulary Type</label>
                 <div class="col-xs-10">
-                    <input type="text" class="form-control" id="vocabularyType" ng-model="vocabularyType" placeholder="Vocabulary Type" />
+                    <select class="form-control" id="vocabularyType" ng-model="vocabularyType" ng-options="aVocabularyType.value for aVocabularyType in vocabularyTypes"></select>
                 </div>
             </div>
             <div class="form-group">
                 <label for="status" class="col-xs-2 control-label">Status</label>
                 <div class="col-xs-10">
-                    <select class="form-control" id="status" ng-model="status" ng-options="thisStatus.value for thisStatus in statuses"></select>
+                    <select class="form-control" id="status" ng-model="status" ng-options="aStatus.value for aStatus in statuses"></select>
                 </div>
             </div>
             <div class="form-group">

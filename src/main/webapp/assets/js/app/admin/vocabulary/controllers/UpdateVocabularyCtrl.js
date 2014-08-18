@@ -8,13 +8,14 @@
     /**
      * Defines a controller for updating a Vocabulary.
      */
-    vocabularyAdminApp.controller("UpdateVocabularyCtrl", function($scope, $rootScope, $routeParams, $log, VocabularyAdminService, AdminService) {
+    vocabularyAdminApp.controller("UpdateVocabularyCtrl", function($scope, $rootScope, $routeParams, $log, AdminService, VocabularyService, VocabularyAdminService) {
 
-        var init, getStatuses, getVocabularyToUpdate;
+        var init, getStatuses, getVocabularyTypes, getVocabularyToUpdate;
 
         init = function() {
 
             getStatuses()
+            .then(getVocabularyTypes())
             .then(getVocabularyToUpdate())
             .catch(function(response) {
                 var message;
@@ -33,12 +34,22 @@
             });
         };
 
+        getVocabularyTypes = function() {
+            return VocabularyService.getVocabularyTypes().then(function success(vocabularyTypes) {
+                $scope.vocabularyTypes = vocabularyTypes;
+            });
+        };
+
         getVocabularyToUpdate = function() {
             return VocabularyAdminService.getVocabularyById($routeParams.id).then(function success(vocabulary) {
                 $scope.id = vocabulary.id;
                 $scope.armenian = vocabulary.armenian;
                 $scope.english = vocabulary.english;
-                $scope.vocabularyType = vocabulary.vocabularyType;
+                angular.forEach($scope.vocabularyTypes, function(value, key) {
+                    if (value.value === vocabulary.vocabularyType ) {
+                        $scope.vocabularyType = $scope.vocabularyTypes[key];
+                    }
+                });
                 angular.forEach($scope.statuses, function(value, key) {
                     if (value.value === vocabulary.status ) {
                         $scope.status = $scope.statuses[key];
