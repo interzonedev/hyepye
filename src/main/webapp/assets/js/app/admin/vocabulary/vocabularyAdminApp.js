@@ -11,7 +11,7 @@
         "ngRoute"
     ]);
 
-    vocabularyAdminApp.config(function($routeProvider) {
+    vocabularyAdminApp.config(function($routeProvider, $httpProvider) {
         $routeProvider
         .when("/", {
             controller: "SearchVocabularyCtrl",
@@ -25,6 +25,10 @@
         }).otherwise({
             redirectTo: "/"
         });
+
+        $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+        $httpProvider.defaults.headers.put["Content-Type"] = "application/x-www-form-urlencoded";
+
     });
 
 }());
