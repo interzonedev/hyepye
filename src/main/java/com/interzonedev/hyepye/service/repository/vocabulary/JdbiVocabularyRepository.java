@@ -359,7 +359,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
             throws ValidationException {
 
         Vocabulary vocabularyWithSameArmenian = vocabularyDAO.getVocabularyByArmenian(vocabulary.getArmenian());
-        if (null != vocabularyWithSameArmenian) {
+        if ((null != vocabularyWithSameArmenian) && !vocabularyWithSameArmenian.getId().equals(vocabulary.getId())) {
             throw new ValidationException(Vocabulary.MODEL_NAME,
                     "A vocabulary with the same Armenian defintion already exists.");
         }

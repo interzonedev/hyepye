@@ -354,9 +354,9 @@ public class UpdateVocabularyCommandIT extends HyePyeIT {
 
     @Test
     @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
-    public void testUpdateVocabularyValid() {
+    public void testUpdateVocabularyAlterArmenian() {
 
-        log.debug("testUpdateVocabularyValid: Start");
+        log.debug("testUpdateVocabularyAlterArmenian: Start");
 
         Date now = new Date();
 
@@ -389,10 +389,51 @@ public class UpdateVocabularyCommandIT extends HyePyeIT {
         Assert.assertEquals(TEST_USER_ID, vocabularyOut.getModifiedBy());
 
         dbUnitDataSetTester.compareDataSetsIgnoreColumns(hyepyeDataSource,
-                "com/interzonedev/hyepye/dataset/vocabulary/afterUpdate.xml", "vocabulary",
+                "com/interzonedev/hyepye/dataset/vocabulary/afterUpdateArmenian.xml", "vocabulary",
                 TestHelper.VOCABULARY_IGNORE_COLUMN_NAMES);
 
-        log.debug("testUpdateVocabularyValid: End");
+        log.debug("testUpdateVocabularyAlterArmenian: End");
+
+    }
+
+    @Test
+    @DataSet(filename = "com/interzonedev/hyepye/dataset/vocabulary/before.xml", dataSourceBeanId = "hyepye.service.dataSource")
+    public void testUpdateVocabularyAlterStatus() {
+
+        log.debug("testUpdateVocabularyAlterStatus: Start");
+
+        Date now = new Date();
+
+        Vocabulary testVocabulary = getTestVocabulary(TEST_VOCABULARY_ID);
+
+        Vocabulary.Builder vocabularyIn = Vocabulary.newBuilder(testVocabulary);
+        vocabularyIn.setStatus(TEST_STATUS);
+
+        UpdateVocabularyCommand updateVocabularyCommand = (UpdateVocabularyCommand) applicationContext.getBean(
+                "hyepye.service.updateVocabularyCommand", vocabularyIn.build(), TEST_USER_ID);
+
+        HyePyeResponse hyePyeResponse = updateVocabularyCommand.execute();
+
+        Vocabulary vocabularyOut = hyePyeResponse.getVocabulary();
+
+        Assert.assertNull(hyePyeResponse.getValidationError());
+        Assert.assertNull(hyePyeResponse.getProcessingError());
+
+        Assert.assertEquals(TEST_VOCABULARY_ID, vocabularyOut.getId());
+        Assert.assertEquals(testVocabulary.getArmenian(), vocabularyOut.getArmenian());
+        Assert.assertEquals(testVocabulary.getEnglish(), vocabularyOut.getEnglish());
+        Assert.assertEquals(testVocabulary.getVocabularyType(), vocabularyOut.getVocabularyType());
+        Assert.assertEquals(TEST_STATUS, vocabularyOut.getStatus());
+        Assert.assertEquals(testVocabulary.getTimeCreated(), vocabularyOut.getTimeCreated());
+        Assert.assertTrue(dbUnitDataSetTester.compareDatesToTheSecond(vocabularyOut.getTimeUpdated(), now) >= 0);
+        Assert.assertEquals(testVocabulary.getCreatedBy(), vocabularyOut.getCreatedBy());
+        Assert.assertEquals(TEST_USER_ID, vocabularyOut.getModifiedBy());
+
+        dbUnitDataSetTester.compareDataSetsIgnoreColumns(hyepyeDataSource,
+                "com/interzonedev/hyepye/dataset/vocabulary/afterUpdateStatus.xml", "vocabulary",
+                TestHelper.VOCABULARY_IGNORE_COLUMN_NAMES);
+
+        log.debug("testUpdateVocabularyAlterStatus: End");
 
     }
 
