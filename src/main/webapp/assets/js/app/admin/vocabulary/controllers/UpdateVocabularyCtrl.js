@@ -50,14 +50,14 @@
             $scope.id = vocabulary.id;
             $scope.armenian = vocabulary.armenian;
             $scope.english = vocabulary.english;
-            angular.forEach($scope.vocabularyTypes, function(value, key) {
-                if (value.value === vocabulary.vocabularyType ) {
-                    $scope.vocabularyType = $scope.vocabularyTypes[key];
+            angular.forEach($scope.vocabularyTypes, function(vocabularyTypeWrapper, index) {
+                if (vocabularyTypeWrapper.value === vocabulary.vocabularyType ) {
+                    $scope.vocabularyType = $scope.vocabularyTypes[index];
                 }
             });
-            angular.forEach($scope.statuses, function(value, key) {
-                if (value.value === vocabulary.status ) {
-                    $scope.status = $scope.statuses[key];
+            angular.forEach($scope.statuses, function(statusWrapper, index) {
+                if (statusWrapper.value === vocabulary.status ) {
+                    $scope.status = $scope.statuses[index];
                 }
             });            
         };
