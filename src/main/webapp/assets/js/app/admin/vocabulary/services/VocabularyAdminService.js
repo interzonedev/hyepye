@@ -10,7 +10,7 @@
      */
     vocabularyAdminApp.service("VocabularyAdminService", function ($rootScope, $q, $http, $log, ServiceUtils) {
 
-        var handleGetVocabularyByIdError;
+        var handleGetVocabularyByIdError, handleUpdateVocabularyError;
 
         this.getVocabularyById = function(id) {
 
@@ -26,13 +26,27 @@
 
         };
 
-        this.create = function(params) {
+        this.updateVocabulary = function(params) {
 
-            var queryString;
+            var postData;
 
-            queryString = ServiceUtils.getQueryStringFromParams(params);
+            postData = ServiceUtils.getQueryStringFromParams(params);
 
-            return $http.get("/vocabulary/search?" + queryString);
+            return $http.put("/admin/vocabulary/" + params.id, postData).then(function success(response) {
+                if (response && response.data && response.data.vocabulary) {
+                    return response.data.vocabulary;
+                } else {
+                    return handleUpdateVocabularyError(response);
+                }
+            }, function error(response) {
+                if (400 === response.status) {
+                    if (response.data && response.data.validationErrors) {
+                        return $q.reject(response.data.validationErrors);
+                    }
+                } else {
+                    return handleUpdateVocabularyError(response);
+                }
+            });
             
         };
 
@@ -45,6 +59,15 @@
             return ServiceUtils.handleRemoteError(response, logPrefix, message);
         };
 
+        handleUpdateVocabularyError = function(response) {
+            var logPrefix, message;
+
+            logPrefix = "VocabularyAdminService: updateVocabulary - "; 
+            message = "Error updating vocabulary";
+
+            return ServiceUtils.handleRemoteError(response, logPrefix, message);
+        };
+        
     });
 
 }());
