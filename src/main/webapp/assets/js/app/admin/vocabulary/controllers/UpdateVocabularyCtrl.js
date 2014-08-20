@@ -77,12 +77,13 @@
 
             VocabularyAdminService.updateVocabulary(params).then(function success(vocabulary) {
                 setVocabularyInScope(vocabulary);
+                $scope.validationErrors = {};
                 $rootScope.$broadcast("alert", {
                     "msg": "Update Successful",
                     "type": "success"
                 });
             }, function error(validationErrors) {
-                // TODO - Resolve validation errors and set in form.
+                $scope.validationErrors = validationErrors;
                 $log.log("UpdateVocabularyCtrl: update - error updating vocabulary - " + angular.toJson(validationErrors, true));
             });
 
