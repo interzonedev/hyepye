@@ -22,6 +22,7 @@
     <mvc:view-controller path="/admin/vocabularyapp" view-name="admin/vocabulary/app" />
     <mvc:view-controller path="/admin/vocabularyapp/search" view-name="admin/vocabulary/search" />
     <mvc:view-controller path="/admin/vocabularyapp/form" view-name="admin/vocabulary/form" />
+    <mvc:view-controller path="/directives/alerts" view-name="directives/alerts" />
 
     <bean id="hyepye.web.jsonSerializer" class="com.interzonedev.respondr.serialize.JsonSerializer" />
 
