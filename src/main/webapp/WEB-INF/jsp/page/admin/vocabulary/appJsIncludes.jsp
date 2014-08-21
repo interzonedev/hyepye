@@ -5,7 +5,6 @@
 <script src="<c:url value="/assets/js/app/admin/vocabulary/controllers/CreateVocabularyCtrl.js" />"></script>
 <script src="<c:url value="/assets/js/app/admin/vocabulary/controllers/SearchVocabularyCtrl.js" />"></script>
 <script src="<c:url value="/assets/js/app/admin/vocabulary/controllers/UpdateVocabularyCtrl.js" />"></script>
-<script src="<c:url value="/assets/js/app/admin/vocabulary/services/VocabularyAdminService.js" />"></script>
 <script src="<c:url value="/assets/js/app/common/directives/AlertsDirective.js" />"></script>
 <script src="<c:url value="/assets/js/app/common/services/ServiceUtils.js" />"></script>
 <script src="<c:url value="/assets/js/app/common/services/VocabularyService.js" />"></script>

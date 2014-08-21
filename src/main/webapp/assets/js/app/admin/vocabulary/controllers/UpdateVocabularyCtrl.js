@@ -8,7 +8,7 @@
     /**
      * Defines a controller for updating a Vocabulary.
      */
-    vocabularyAdminApp.controller("UpdateVocabularyCtrl", function($scope, $rootScope, $routeParams, $log, AdminService, VocabularyService, VocabularyAdminService) {
+    vocabularyAdminApp.controller("UpdateVocabularyCtrl", function($scope, $rootScope, $routeParams, $log, AdminService, VocabularyService) {
 
         var init, getStatuses, getVocabularyTypes, getVocabularyToUpdate, setVocabularyInScope;
 
@@ -41,7 +41,7 @@
         };
 
         getVocabularyToUpdate = function() {
-            return VocabularyAdminService.getVocabularyById($routeParams.id).then(function success(vocabulary) {
+            return VocabularyService.getVocabularyById($routeParams.id).then(function success(vocabulary) {
                 setVocabularyInScope(vocabulary);
             });
         };
@@ -75,7 +75,7 @@
             params.vocabularyTypeValue = $scope.vocabularyType.value;
             params.statusValue = $scope.status.value;
 
-            VocabularyAdminService.updateVocabulary(params).then(function success(vocabulary) {
+            VocabularyService.updateVocabulary(params).then(function success(vocabulary) {
                 setVocabularyInScope(vocabulary);
                 $scope.validationErrors = {};
                 $rootScope.$broadcast("alert", {
