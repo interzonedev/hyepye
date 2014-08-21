@@ -26,6 +26,10 @@
             <jsp:include page="${param.cssIncludes}" />
         </c:if>
 
+        <c:if test="${!excludeAppJs}">
+            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js"></script>
+        </c:if>
+
         <c:if test="${not empty param.headJsIncludes}">
             <jsp:include page="${param.headJsIncludes}" />
         </c:if>
@@ -45,7 +49,6 @@
         <c:if test="${!excludeAppJs}">
             <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
             <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-resource.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-route.min.js"></script>
             <script src="<c:url value="/assets/js/app/izng.js" />"></script>
