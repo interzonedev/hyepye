@@ -10,6 +10,13 @@
      */
     services.factory("ServiceUtils", function($q, $log, $rootScope) {
 
+        var remoteErrorDefaultParams;
+
+        remoteErrorDefaultParams = {
+            logPrefix: "",
+            message: "Error executing remote request"
+        };
+
         return {
 
             /**
@@ -47,13 +54,20 @@
              * returned.
              * 
              * @param {Object} response The response object returned by the Angular $http module remote request methods.
-             * @param {String} logPrefix The prefix to set before the specified message in the log message.
-             * @param {String} message The message to log and to send in the error alert.
+             * @param {Object} params An associative array of parameters used in logging and alerting. The expected
+             *            params are:
+             *            {String} logPrefix The prefix to set before the specified message in the log message.
+             *            {String} message The message to log and to send in the error alert.
              * 
              * @returns An Angular promise that will only reject upon completion with the specified response set as the
              *          rejection argument.
              */
-            handleRemoteError: function(response, logPrefix, message) {
+            handleRemoteError: function(response, params) {
+                var logPrefix, message;
+
+                logPrefix = params.logPrefix || remoteErrorDefaultParams.params;
+                message = params.message || remoteErrorDefaultParams.message;
+
                 $log.error(logPrefix + message);
                 $rootScope.$broadcast("alert", {
                     "msg": message

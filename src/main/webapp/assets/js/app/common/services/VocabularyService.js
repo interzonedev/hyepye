@@ -110,48 +110,58 @@
         };
 
         handleGetVocabularyTypesError = function(response) {
-            var logPrefix, message;
+            var errorParams;
 
-            logPrefix = "VocabularyService: getVocabularyTypes - "; 
-            message = "Error retrieving vocabulary types";
+            errorParams = {
+                logPrefix: "VocabularyService: getVocabularyTypes - ", 
+                message: "Error retrieving vocabulary types"
+            };
 
-            return ServiceUtils.handleRemoteError(response, logPrefix, message);
+            return ServiceUtils.handleRemoteError(response, errorParams);
         };
 
         handleGetVocabularyPropertiesError = function(response) {
-            var logPrefix, message;
+            var errorParams;
 
-            logPrefix = "VocabularyService: getVocabularyProperties - ";
-            message = "Error retrieving vocabulary properties";
+            errorParams = {
+                logPrefix: "VocabularyService: getVocabularyProperties - ", 
+                message: "Error retrieving vocabulary properties"
+            };
 
-            return ServiceUtils.handleRemoteError(response, logPrefix, message);
+            return ServiceUtils.handleRemoteError(response, errorParams);
         };
 
         handleSearchError = function(response) {
-            var logPrefix, message;
+            var errorParams;
 
-            logPrefix = "VocabularyService: search - ";
-            message = "Error executing vocabulary search";
+            errorParams = {
+                logPrefix: "VocabularyService: search - ", 
+                message: "Error executing vocabulary search"
+            };
 
-            return ServiceUtils.handleRemoteError(response, logPrefix, message);
+            return ServiceUtils.handleRemoteError(response, errorParams);
         };
 
         handleGetVocabularyByIdError = function(response) {
-            var logPrefix, message;
+            var errorParams;
 
-            logPrefix = "VocabularyService: getVocabularyById - "; 
-            message = "Error retrieving vocabulary";
+            errorParams = {
+                logPrefix: "VocabularyService: getVocabularyById - ", 
+                message: "Error retrieving vocabulary"
+            };
 
-            return ServiceUtils.handleRemoteError(response, logPrefix, message);
+            return ServiceUtils.handleRemoteError(response, errorParams);
         };
 
         handleUpdateVocabularyError = function(response) {
-            var logPrefix, message;
+            var errorParams;
 
-            logPrefix = "VocabularyService: updateVocabulary - "; 
-            message = "Error updating vocabulary";
+            errorParams = {
+                logPrefix: "VocabularyService: updateVocabulary - ", 
+                message: "Error updating vocabulary"
+            };
 
-            return ServiceUtils.handleRemoteError(response, logPrefix, message);
+            return ServiceUtils.handleRemoteError(response, errorParams);
         };
 
     });
