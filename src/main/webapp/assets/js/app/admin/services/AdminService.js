@@ -33,15 +33,14 @@
         };
 
         handleGetStatusesError = function(response) {
-            var message;
+            var errorParams;
 
-            message = "Error retrieving statuses";
-            $log.error("AdminService: getStatuses - " + message);
-            $rootScope.$broadcast("alert", {
-                "msg": message
-            });
+            errorParams = {
+                logPrefix: "AdminService: getStatuses - ", 
+                message: "Error retrieving statuses"
+            };
 
-            return $q.reject(response);
+            return ServiceUtils.handleRemoteError(response, errorParams);
         };
 
     });
