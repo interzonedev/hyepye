@@ -3,12 +3,12 @@
 
     var services;
 
-    services = izng.module("hyepye.admin.services");
+    services = izng.module("hyepye.common.services");
 
     /**
      * Defines a service for sending requests to common admin endpoints.
      */
-    services.service("AdminService", function ($rootScope, $q, $http, $log, ServiceUtils) {
+    services.service("CommonService", function ($rootScope, $q, $http, $log, ServiceUtils) {
 
         var statuses, handleGetStatusesError;
 
@@ -36,7 +36,7 @@
             var errorParams;
 
             errorParams = {
-                logPrefix: "AdminService: getStatuses - ", 
+                logPrefix: "CommonService: getStatuses - ", 
                 message: "Error retrieving statuses"
             };
 

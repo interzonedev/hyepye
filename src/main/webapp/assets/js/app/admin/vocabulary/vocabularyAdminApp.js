@@ -7,7 +7,6 @@
     vocabularyAdminApp = angular.module("hyepye.admin.vocabulary.App", [
         "hyepye.common.directives",
         "hyepye.common.services",
-        "hyepye.admin.services",
         "ngRoute"
     ]);
 

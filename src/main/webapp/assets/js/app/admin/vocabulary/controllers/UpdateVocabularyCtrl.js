@@ -8,7 +8,7 @@
     /**
      * Defines a controller for updating a Vocabulary.
      */
-    vocabularyAdminApp.controller("UpdateVocabularyCtrl", function($scope, $rootScope, $routeParams, $log, AdminService, VocabularyService) {
+    vocabularyAdminApp.controller("UpdateVocabularyCtrl", function($scope, $rootScope, $routeParams, $log, CommonService, VocabularyService) {
 
         var init, getStatuses, getVocabularyTypes, getVocabularyToUpdate, setVocabularyInScope;
 
@@ -29,7 +29,7 @@
         };
 
         getStatuses = function() {
-            return AdminService.getStatuses().then(function success(statuses) {
+            return CommonService.getStatuses().then(function success(statuses) {
                 $scope.statuses = statuses;
             });
         };

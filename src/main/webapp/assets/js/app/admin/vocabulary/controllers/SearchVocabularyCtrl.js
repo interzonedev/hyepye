@@ -8,7 +8,7 @@
     /**
      * Defines a controller for searching Vocabularies.
      */
-    vocabularyAdminApp.controller("SearchVocabularyCtrl", function($scope, $rootScope, $log, VocabularyService, AdminService) {
+    vocabularyAdminApp.controller("SearchVocabularyCtrl", function($scope, $rootScope, $log, VocabularyService, CommonService) {
 
         $scope.vocabularies = {};
 
