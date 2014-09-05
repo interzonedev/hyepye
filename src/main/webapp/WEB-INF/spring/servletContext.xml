@@ -19,6 +19,7 @@
     <mvc:view-controller path="/" view-name="home/home" />
     <mvc:view-controller path="/loginForm" view-name="login/login" />
     <mvc:view-controller path="/admin" view-name="admin/menu/menu" />
+    <mvc:view-controller path="/admin/" view-name="admin/menu/menu" />
     <mvc:view-controller path="/admin/vocabularyapp" view-name="admin/vocabulary/app" />
     <mvc:view-controller path="/admin/vocabularyapp/search" view-name="admin/vocabulary/search" />
     <mvc:view-controller path="/admin/vocabularyapp/form" view-name="admin/vocabulary/form" />
