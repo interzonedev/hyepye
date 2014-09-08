@@ -1,80 +1,77 @@
 package com.interzonedev.hyepye.process;
 
-import java.io.IOException;
 import java.util.Properties;
 
-import org.eclipse.jetty.server.HttpConfiguration;
-import org.eclipse.jetty.server.HttpConnectionFactory;
-import org.eclipse.jetty.server.SecureRequestCustomizer;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.SslConnectionFactory;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.eclipse.jetty.webapp.WebAppContext;
-
 import com.interzonedev.herokusupport.environment.Environment;
+import com.interzonedev.herokusupport.webserver.SecureWebServerParams;
 import com.interzonedev.herokusupport.webserver.WebServerParams;
+import com.interzonedev.herokusupport.webserver.WebServerProperties;
 import com.interzonedev.herokusupport.webserver.WebServerType;
 
 public class Webapp extends HyePyeProcess {
+
+    private final Properties properties = new Properties();
 
     @Override
     public void process(String[] args) throws Exception {
         log.debug("process: Launching Jetty server");
 
-        WebServerParams webServerParams = new WebServerParams(5000);
+        loadProperties();
 
-        herokuSupportClient.startWebServer(WebServerType.JETTY, webServerParams, (Server server,
-                WebAppContext webAppContext) -> {
-            configure(server, webAppContext);
-        });
+        WebServerParams webServerParams = getWebServerParams();
+
+        SecureWebServerParams secureWebServerParams = getSecureWebServerParams();
+
+        herokuSupportClient.startWebServer(WebServerType.JETTY, webServerParams, secureWebServerParams, (
+                webServerProperties) -> {
+            getWebServerProperties(webServerProperties);
+        }, null);
 
         log.debug("process: Jetty server shutdown");
     }
 
-    /**
-     * Configure for SSL.
-     * 
-     * @param server
-     * @param webAppContext
-     * @throws IOException
-     */
-    private void configure(Server server, WebAppContext webAppContext) {
-        if (!Environment.getCurrentEnvironment().equals(Environment.LOCAL)) {
-            return;
-        }
-
-        log.debug("configure: Configuring Jetty server for SSL");
-
-        Properties properties = new Properties();
+    private void loadProperties() {
         try {
-            properties.load(this.getClass()
-                    .getResourceAsStream("/com/interzonedev/hyepye/localssl/localssl.properties"));
+            properties.load(this.getClass().getResourceAsStream(
+                    "/com/interzonedev/hyepye/webserver/local-webserver.properties"));
         } catch (Exception e) {
-            String errorMessage = "Error loading local SSL properties";
+            String errorMessage = "Error loading local webserver properties";
             log.error(errorMessage, e);
             throw new RuntimeException(errorMessage, e);
+        }
+    }
+
+    private WebServerParams getWebServerParams() {
+        Integer httpPort = Integer.valueOf(properties.getProperty("http.port"));
+
+        WebServerParams webServerParams = new WebServerParams(httpPort);
+
+        return webServerParams;
+    }
+
+    private SecureWebServerParams getSecureWebServerParams() {
+        if (!Environment.getCurrentEnvironment().equals(Environment.LOCAL)) {
+            return null;
         }
 
         String keyStorePath = properties.getProperty("key.store.path");
         String keyStorePassword = properties.getProperty("key.store.password");
         String keyManagerPassword = properties.getProperty("key.manager.password");
-        Integer sslPort = Integer.valueOf(properties.getProperty("ssl.port"));
+        Integer httpsPort = Integer.valueOf(properties.getProperty("https.port"));
 
-        HttpConfiguration https = new HttpConfiguration();
-        https.addCustomizer(new SecureRequestCustomizer());
+        return new SecureWebServerParams(keyStorePath, keyStorePassword, keyManagerPassword, httpsPort);
 
-        SslContextFactory sslContextFactory = new SslContextFactory();
-        sslContextFactory.setKeyStorePath(Webapp.class.getResource(keyStorePath).toExternalForm());
-        sslContextFactory.setKeyStorePassword(keyStorePassword);
-        sslContextFactory.setKeyManagerPassword(keyManagerPassword);
+    }
 
-        ServerConnector sslConnector = new ServerConnector(server, new SslConnectionFactory(sslContextFactory,
-                "http/1.1"), new HttpConnectionFactory(https));
-        sslConnector.setPort(sslPort);
-
-        server.addConnector(sslConnector);
-
+    private void getWebServerProperties(WebServerProperties webServerProperties) {
+        Integer httpPort = webServerProperties.getHttpPort();
+        Integer httpsPort = webServerProperties.getHttpsPort();
+        log.debug("getPorts: httpPort = " + httpPort + " - httpsPort = " + httpsPort);
+        if (null == httpsPort) {
+            httpsPort = httpPort;
+        }
+        System.setProperty("webserver.port.http", httpPort.toString());
+        System.setProperty("webserver.port.https", httpsPort.toString());
     }
 
     public static void main(String[] args) throws Exception {
