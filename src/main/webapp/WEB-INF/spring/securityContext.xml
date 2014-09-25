@@ -7,9 +7,11 @@
     <http pattern="/admin/hystrix.stream/**" security="none" />
 
     <http use-expressions="true">
+        <!--
         <port-mappings>
             <port-mapping http="#{systemProperties['webserver.port.http']}" https="#{systemProperties['webserver.port.https']}" />
         </port-mappings>
+        -->
         <intercept-url pattern="/admin/**" access="hasRole('admin')" />
         <intercept-url pattern="/loginForm" access="permitAll" requires-channel="https" />
         <intercept-url pattern="/login" access="permitAll" requires-channel="https" />
