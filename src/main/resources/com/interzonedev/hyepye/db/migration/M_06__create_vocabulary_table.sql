@@ -8,7 +8,7 @@ CREATE SEQUENCE vocabulary_seq;
 
 CREATE TABLE vocabulary (
     vocabulary_id INTEGER NOT NULL PRIMARY KEY DEFAULT nextval('vocabulary_seq'),
-    armenian VARCHAR(255) COLLATE "hy_AM.UTF-8" NOT NULL,
+    armenian VARCHAR(255) COLLATE "hy_AM" NOT NULL,
     english VARCHAR(255) NOT NULL,
     vocabulary_type VARCHAR(50) NOT NULL,
     status VARCHAR(50) NOT NULL,

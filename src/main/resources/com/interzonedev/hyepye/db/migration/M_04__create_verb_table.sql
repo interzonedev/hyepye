@@ -8,7 +8,7 @@ CREATE SEQUENCE verb_seq;
 
 CREATE TABLE verb (
     verb_id INTEGER NOT NULL PRIMARY KEY DEFAULT nextval('verb_seq'),
-    armenian VARCHAR(255) COLLATE "hy_AM.UTF-8" NOT NULL,
+    armenian VARCHAR(255) COLLATE "hy_AM" NOT NULL,
     english VARCHAR(255) NOT NULL,
     conjugation_group VARCHAR(5) NOT NULL,
     irregular BOOLEAN NOT NULL DEFAULT TRUE,
