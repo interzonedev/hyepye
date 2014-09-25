@@ -13,9 +13,9 @@
         </port-mappings>
         -->
         <intercept-url pattern="/admin/**" access="hasRole('admin')" />
-        <intercept-url pattern="/loginForm" access="permitAll" requires-channel="https" />
-        <intercept-url pattern="/login" access="permitAll" requires-channel="https" />
-        <intercept-url pattern="/**" access="permitAll" requires-channel="http" />
+        <intercept-url pattern="/loginForm" access="permitAll" />
+        <intercept-url pattern="/login" access="permitAll" />
+        <intercept-url pattern="/**" access="permitAll" />
         <form-login login-page="/loginForm" login-processing-url="/login" username-parameter="username"
             password-parameter="password" authentication-failure-url="/loginForm?loginError=true" />
         <logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID" />
