@@ -57,9 +57,6 @@ public class HyePyeWebSecurityConfigation extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // TODO - Enable and add CSRF header to Ajax posts/puts.
-        http.csrf().disable();
-
         setPortMappings(http);
 
         http.authorizeRequests().antMatchers("/admin/**").hasAuthority("admin");
