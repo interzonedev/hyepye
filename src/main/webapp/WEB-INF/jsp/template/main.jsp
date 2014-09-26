@@ -4,11 +4,22 @@
 
 <%@ page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<c:set var="excludeAppJs" value="${false}" />
+<c:set var="excludeAppJs" value="${false}" scope="page" />
 <c:if test="${(not empty param.excludeAppJs) and (param.excludeAppJs)}">
-    <c:set var="excludeAppJs" value="${true}" />
+    <c:set var="excludeAppJs" value="${true}" scope="page" />
 </c:if>
+
+<%-- Display the logout form if the user is authenticated and is not on the login page. --%>
+<c:set var="displayLogoutForm" value="${false}" scope="page" />
+<sec:authorize access="isAuthenticated()">
+    <c:if test="${not fn:contains(pageContext.request.servletPath, 'login')}">
+        <c:set var="displayLogoutForm" value="${true}" scope="page" />
+        <c:url var="logoutFormAction" value="/logout" scope="page" />
+    </c:if>
+</sec:authorize>
 
 <html lang="en-US">
     <head>
@@ -40,6 +51,12 @@
             <header>
                 <div class="page-header">
                     <h1>Hye Pye - ${param.pageHeader}</h1>
+                    <c:if test="${displayLogoutForm}">
+                        <form method="post" action="${logoutFormAction}">
+                            <sec:csrfInput />
+                            <button type="submit" class="btn btn-xs">Logout</button>
+                        </form>
+                    </c:if>
                 </div>
             </header>
 
