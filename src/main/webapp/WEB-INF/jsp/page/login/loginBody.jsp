@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<form method="post" action="<c:url value="/login" />" class="form-horizontal" role="form">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+<c:url var="formAction" value="/login" scope="page" />
+
+<form method="post" action="${formAction}" class="form-horizontal" role="form">
+    <sec:csrfInput />
     <c:if test="${param.loginError eq 'true'}">
         <div class="col-sm-12">
             <div class="alert alert-danger">

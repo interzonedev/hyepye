@@ -53,6 +53,22 @@
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-route.min.js"></script>
             <script src="<c:url value="/assets/js/app/izng.js" />"></script>
 
+            <%--
+                Add a map of Spring Security CSRF token properties to the base izng object if specified and if CSRF is
+                enabled.
+            --%>
+            <c:if test="${(param.includeCsrfJs) and (not empty _csrf)}">
+                <script>
+                    (function(context) {
+                        context.izng.csrf = {
+                            "token": "${_csrf.token}",
+                            "headerName": "${_csrf.headerName}",
+                            "parameterName": "${_csrf.parameterName}"
+                        };
+                    }(this));
+                </script>
+            </c:if>
+
             <c:if test="${not empty param.bodyJsIncludes}">
                 <jsp:include page="${param.bodyJsIncludes}" />
             </c:if>
