@@ -623,7 +623,7 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         log.debug("testSearchVocabularyOrderByStatus: Start");
 
-        List<Long> expectedIds = Arrays.asList(new Long[] { 1L, 14L, 3L, 2L, 16L, });
+        List<Long> expectedIds = Arrays.asList(new Long[] { 1L, 14L, 3L, 2L, 16L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
