@@ -1,40 +1,12 @@
-<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <http pattern="/assets/**" security="none" />
-    <http pattern="/admin/hystrix.stream/**" security="none" />
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-    <http use-expressions="true">
-        <!--
-        <port-mappings>
-            <port-mapping http="#{systemProperties['webserver.port.http']}" https="#{systemProperties['webserver.port.https']}" />
-        </port-mappings>
-        -->
-        <intercept-url pattern="/admin/**" access="hasRole('admin')" />
-        <intercept-url pattern="/loginForm" access="permitAll" />
-        <intercept-url pattern="/login" access="permitAll" />
-        <intercept-url pattern="/**" access="permitAll" />
-        <form-login login-page="/loginForm" login-processing-url="/login" username-parameter="username"
-            password-parameter="password" authentication-failure-url="/loginForm?loginError=true" />
-        <logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID" />
-        <remember-me services-ref="hyepye.web.rememberMeServices" />
-        <session-management session-fixation-protection="none" />
-    </http>
+    <context:component-scan base-package="com.interzonedev.hyepye.web.security" />
 
-    <beans:bean id="hyepye.web.rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
-        <beans:constructor-arg value="hpk" />
-        <beans:constructor-arg ref="hyepye.service.userDetailsService" />
-        <beans:property name="parameter" value="remember" />
-        <beans:property name="cookieName" value="hprmc" />
-        <beans:property name="tokenValiditySeconds" value="3600" />
-    </beans:bean>
-
-    <authentication-manager>
-        <authentication-provider user-service-ref="hyepye.service.userDetailsService">
-            <password-encoder ref="hyepye.service.passwordEncoder" />
-        </authentication-provider>
-    </authentication-manager>
-
-</beans:beans>
+</beans>

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <form method="post" action="<c:url value="/login" />" class="form-horizontal" role="form">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <c:if test="${param.loginError eq 'true'}">
         <div class="col-sm-12">
             <div class="alert alert-danger">
