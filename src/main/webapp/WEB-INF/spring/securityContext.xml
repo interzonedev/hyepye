@@ -7,6 +7,7 @@
     <http pattern="/admin/hystrix.stream/**" security="none" />
 
     <http use-expressions="true">
+        <csrf />
         <port-mappings>
             <port-mapping http="#{systemProperties['webserver.port.http']}" https="#{systemProperties['webserver.port.https']}" />
         </port-mappings>
