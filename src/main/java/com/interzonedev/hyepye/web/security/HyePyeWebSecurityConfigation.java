@@ -95,9 +95,11 @@ public class HyePyeWebSecurityConfigation extends WebSecurityConfigurerAdapter {
     }
 
     private void setRequiredChannelUrls(HttpSecurity http) throws Exception {
+        /*
         if (Environment.PRODUCTION.equals(Environment.getCurrentEnvironment())) {
             return;
         }
+        */
 
         http.requiresChannel().antMatchers("/loginForm", "/login").requiresSecure();
         http.requiresChannel().anyRequest().requiresInsecure();
