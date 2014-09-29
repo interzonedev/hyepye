@@ -16,7 +16,7 @@ public class HyePyePortMapper implements PortMapper {
 
     private final Integer productionHttpPort = Integer.valueOf(80);
 
-    private final Integer productionHttpsPort = Integer.valueOf(80);
+    private final Integer productionHttpsPort = Integer.valueOf(443);
 
     @Override
     public Integer lookupHttpPort(Integer httpsPort) {
