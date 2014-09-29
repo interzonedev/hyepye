@@ -57,7 +57,8 @@ public class HyePyeWebSecurityConfigation extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        setPortMappings(http);
+        // setPortMappings(http);
+        http.portMapper().portMapper(new HyePyePortMapper());
 
         http.authorizeRequests().antMatchers("/admin/**").hasAuthority("admin");
 
