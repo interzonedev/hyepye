@@ -114,6 +114,8 @@ public abstract class HyePyeController {
     @RequestMapping(method = RequestMethod.GET, value = "/definitionSearchTypes")
     public ResponseEntity<String> getDefinitionSearchTypes() throws ResponseTransformingException {
 
+        log.debug("getDefinitionSearchTypes: Start");
+
         Map<String, Object> responseStructure = new HashMap<String, Object>();
 
         List<Map<String, String>> definitionSearchTypes = new ArrayList<Map<String, String>>();
@@ -128,12 +130,16 @@ public abstract class HyePyeController {
         HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
                 HttpResponse.JSON_CONTENT_TYPE);
 
+        log.debug("getDefinitionSearchTypes: End");
+
         return httpResponse.toResponseEntity(serializer);
 
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/admin/statuses")
     public ResponseEntity<String> getStatuses() throws ResponseTransformingException {
+
+        log.debug("getStatuses: Start");
 
         Map<String, Object> responseStructure = new HashMap<String, Object>();
 
@@ -148,6 +154,8 @@ public abstract class HyePyeController {
 
         HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
                 HttpResponse.JSON_CONTENT_TYPE);
+
+        log.debug("getStatuses: End");
 
         return httpResponse.toResponseEntity(serializer);
 
