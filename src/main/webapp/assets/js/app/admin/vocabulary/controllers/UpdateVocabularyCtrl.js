@@ -62,6 +62,8 @@
             });            
         };
 
+        $scope.updating = true;
+
         $scope.update = function() {
 
             var params;
