@@ -11,7 +11,7 @@
     services.service("VocabularyService", function ($q, $http, ServiceUtils) {
 
         var vocabularyTypes, vocabularyProperties, handleGetVocabularyTypesError, handleGetVocabularyPropertiesError,
-            handleSearchError, handleGetVocabularyByIdError, handleUpdateVocabularyError;
+            handleSearchError, handleGetVocabularyByIdError, handleCreateVocabularyError, handleUpdateVocabularyError;
 
         this.getVocabularyTypes = function() {
             if (vocabularyTypes) {
@@ -85,6 +85,28 @@
 
         };
 
+        this.createVocabulary = function(params) {
+
+            var requestData;
+
+            requestData = ServiceUtils.getQueryStringFromParams(params);
+
+            return $http.post("/admin/vocabulary/", requestData).then(function success(response) {
+                if (response && response.data && response.data.vocabulary) {
+                    return response.data.vocabulary;
+                } else {
+                    return handleCreateVocabularyError(response);
+                }
+            }, function error(response) {
+                if (response.data && response.data.validationErrors) {
+                    return $q.reject(response.data.validationErrors);
+                } else {
+                    return handleCreateVocabularyError(response);
+                }
+            });
+            
+        };
+
         this.updateVocabulary = function(params) {
 
             var requestData;
@@ -146,6 +168,17 @@
             errorParams = {
                 logPrefix: "VocabularyService: getVocabularyById - ", 
                 message: "Error retrieving vocabulary"
+            };
+
+            return ServiceUtils.handleRemoteError(response, errorParams);
+        };
+
+        handleCreateVocabularyError = function(response) {
+            var errorParams;
+
+            errorParams = {
+                logPrefix: "VocabularyService: createVocabulary - ", 
+                message: "Error creating vocabulary"
             };
 
             return ServiceUtils.handleRemoteError(response, errorParams);
