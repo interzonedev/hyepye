@@ -149,7 +149,7 @@ public class VocabularyController extends HyePyeController {
 
         // Create the specific command to create the vocabulary.
         CreateVocabularyCommand createVocabularyCommand = (CreateVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.createVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser());
+                "hyepye.service.createVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
         // Create a HyePyeCommandExecutor instance to handle the successful response from the CreateVocabularyCommand.
         GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(
