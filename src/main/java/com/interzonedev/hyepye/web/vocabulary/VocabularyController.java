@@ -149,7 +149,7 @@ public class VocabularyController extends HyePyeController {
 
         // Create the specific command to create the vocabulary.
         CreateVocabularyCommand createVocabularyCommand = (CreateVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.createVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser());
+                "hyepye.service.createVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
         // Create a HyePyeCommandExecutor instance to handle the successful response from the CreateVocabularyCommand.
         GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(
@@ -204,6 +204,8 @@ public class VocabularyController extends HyePyeController {
     @RequestMapping(method = RequestMethod.GET, value = "/vocabulary/types")
     public ResponseEntity<String> getVocabularyTypes() throws ResponseTransformingException {
 
+        log.debug("getVocabularyTypes: Start");
+
         Map<String, Object> responseStructure = new HashMap<String, Object>();
 
         List<Map<String, String>> vocabularyTypes = new ArrayList<Map<String, String>>();
@@ -218,12 +220,16 @@ public class VocabularyController extends HyePyeController {
         HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
                 HttpResponse.JSON_CONTENT_TYPE);
 
+        log.debug("getVocabularyTypes: End");
+
         return httpResponse.toResponseEntity(serializer);
 
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/vocabulary/properties")
     public ResponseEntity<String> getVocabularyProperties() throws ResponseTransformingException {
+
+        log.debug("getVocabularyProperties: Start");
 
         Map<String, Object> responseStructure = new HashMap<String, Object>();
 
@@ -238,6 +244,8 @@ public class VocabularyController extends HyePyeController {
 
         HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
                 HttpResponse.JSON_CONTENT_TYPE);
+
+        log.debug("getVocabularyProperties: End");
 
         return httpResponse.toResponseEntity(serializer);
 

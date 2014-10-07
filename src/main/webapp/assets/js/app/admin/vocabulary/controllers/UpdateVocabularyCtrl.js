@@ -16,7 +16,7 @@
 
             getStatuses()
             .then(getVocabularyTypes())
-            .then(getVocabularyToUpdate())
+            .then(getVocabularyToUpdate)
             .catch(function(response) {
                 var message;
                 message = "Error initiating controller";
@@ -61,6 +61,8 @@
                 }
             });            
         };
+
+        $scope.updating = true;
 
         $scope.update = function() {
 

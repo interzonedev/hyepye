@@ -24,12 +24,17 @@
              * request.
              * 
              * @param {Object} params An associative array of name/value request parameters.
+             * @param {Boolean} includeNullAndUndefinedValues Whether or not to include name/value pairs in the
+             *                                                specified params if the value is null or undefined.
+             *                                                Defaults to false if not specified.
              * 
              * @returns A standard HTTP query string for a GET request in the form name1=value1&name2=value2...if the
              *          params input is a valid object, otherwise returns an empty string.
              */
-            getQueryStringFromParams: function(params) {
+            getQueryStringFromParams: function(params, includeNullAndUndefinedValues) {
                 var queryStringArray, name = null, value;
+
+                includeNullAndUndefinedValues = !!includeNullAndUndefinedValues;
 
                 if (!angular.isObject(params)) {
                     return "";
@@ -39,8 +44,9 @@
                 for (name in params) {
                     if (params.hasOwnProperty(name)) {
                         value = params[name];
-                        queryStringArray.push(encodeURIComponent(name) + "="
-                                + encodeURIComponent(value));
+                        if (((null !== value) && !angular.isUndefined(value)) || includeNullAndUndefinedValues) {
+                            queryStringArray.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
+                        }
                     }
                 }
 

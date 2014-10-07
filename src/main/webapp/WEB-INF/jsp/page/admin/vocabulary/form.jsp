@@ -1,5 +1,8 @@
 <div class="row">
     <div class="col-xs-12">
+        <ul ng-hide="!validationErrors.global.length" class="list-unstyled">
+            <li ng-repeat="error in validationErrors.global"><small class="text-danger">{{error}}</small></li>
+        </ul>
         <form name="vocabularyForm" class="form-horizontal" role="form">
             <div class="form-group" ng-class="{'has-error': validationErrors.armenian.length}">
                 <label for="armenian" class="col-xs-2 control-label">Armenian</label>
@@ -38,8 +41,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-xs-offset-2 col-xs-10">
-                    <button ng-click="update()" class="btn btn-default">Update</button>
+                <div class="col-xs-offset-2 col-xs-10" ng-switch on="updating">
+                    <button ng-switch-when="true" ng-click="update()" class="btn btn-default">Update</button>
+                    <button ng-switch-default ng-click="create()" class="btn btn-default">Create</button>
                 </div>
             </div>
         </form>
