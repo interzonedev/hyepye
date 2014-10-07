@@ -1,5 +1,8 @@
 <div class="row">
     <div class="col-xs-12">
+        <ul ng-hide="!validationErrors.global.length" class="list-unstyled">
+            <li ng-repeat="error in validationErrors.global"><small class="text-danger">{{error}}</small></li>
+        </ul>
         <form name="vocabularyForm" class="form-horizontal" role="form">
             <div class="form-group" ng-class="{'has-error': validationErrors.armenian.length}">
                 <label for="armenian" class="col-xs-2 control-label">Armenian</label>
