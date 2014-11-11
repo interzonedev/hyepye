@@ -14,7 +14,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,14 +39,9 @@ public class HyePyeSecurityFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        StringBuilder logMessage = new StringBuilder();
-
-        logMessage.append(StringUtils.repeat("*", 10)).append(" ").append(" (").append(httpRequest.hashCode())
-                .append("): ").append(httpRequest.getMethod()).append(" ").append(httpRequest.getScheme()).append(" ")
-                .append(httpRequest.getServerName()).append(" ").append(httpRequest.getLocalPort()).append(" ")
-                .append(httpRequest.getRemotePort()).append(" ").append(httpRequest.getLocalAddr()).append(" ")
-                .append(httpRequest.getRemoteAddr()).append(" ").append(httpRequest.getRequestURI()).append(" ")
-                .append(StringUtils.repeat("*", 10));
+        String logMessage = (new StringBuilder()).append(" (").append(httpRequest.hashCode()).append("): ")
+                .append(httpRequest.getMethod()).append(" ").append(httpRequest.getScheme()).append(" ")
+                .append(httpRequest.getServerName()).append(" ").append(httpRequest.getRequestURI()).toString();
 
         log.debug("doFilter: Start - " + logMessage);
 
