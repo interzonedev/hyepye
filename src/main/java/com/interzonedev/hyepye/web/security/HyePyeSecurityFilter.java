@@ -30,6 +30,10 @@ public class HyePyeSecurityFilter implements Filter {
     }
 
     @Override
+    public void destroy() {
+    }
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException {
 
@@ -47,14 +51,10 @@ public class HyePyeSecurityFilter implements Filter {
 
         log.debug("doFilter: Start - " + logMessage);
 
-        boolean needsRedirect = Environment.PRODUCTION.equals(Environment.getCurrentEnvironment())
-                && (!"https".equals(httpRequest.getScheme()));
-
-        if (needsRedirect) {
+        if (requiresRedirect(httpRequest)) {
             // The request is HTTP, needs a redirect.
             try {
-                URI redirectURI = new URI("https", httpRequest.getServerName(), httpRequest.getRequestURI(), null);
-                String redirectURL = redirectURI.toString();
+                String redirectURL = getRedirectUrl(httpRequest);
                 log.debug("doFilter: Redirecting to " + redirectURL);
                 httpResponse.sendRedirect(redirectURL);
                 return;
@@ -73,8 +73,18 @@ public class HyePyeSecurityFilter implements Filter {
 
     }
 
-    @Override
-    public void destroy() {
+    private boolean requiresRedirect(HttpServletRequest httpRequest) {
+        String forwardedScheme = httpRequest.getHeader("X-Forwarded-Proto");
+        log.debug("requiresRedirect: forwardedScheme = " + forwardedScheme);
+        boolean needsRedirect = Environment.PRODUCTION.equals(Environment.getCurrentEnvironment())
+                && (!"http".equals(forwardedScheme));
+        return needsRedirect;
+    }
+
+    private String getRedirectUrl(HttpServletRequest httpRequest) throws URISyntaxException {
+        URI redirectURI = new URI("https", httpRequest.getServerName(), httpRequest.getRequestURI(), null);
+        String redirectURL = redirectURI.toString();
+        return redirectURL;
     }
 
 }
