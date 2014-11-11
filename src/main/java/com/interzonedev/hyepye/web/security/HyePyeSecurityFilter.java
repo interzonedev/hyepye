@@ -77,7 +77,8 @@ public class HyePyeSecurityFilter implements Filter {
         String forwardedScheme = httpRequest.getHeader("X-Forwarded-Proto");
         log.debug("requiresRedirect: forwardedScheme = " + forwardedScheme);
         boolean needsRedirect = Environment.PRODUCTION.equals(Environment.getCurrentEnvironment())
-                && (!"http".equals(forwardedScheme));
+                && ("http".equals(forwardedScheme));
+        log.debug("requiresRedirect: needsRedirect = " + needsRedirect);
         return needsRedirect;
     }
 
