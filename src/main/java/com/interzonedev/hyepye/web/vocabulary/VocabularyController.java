@@ -82,8 +82,14 @@ public class VocabularyController extends HyePyeController {
 
         if (bindingResult.hasErrors()) {
             log.debug("searchVocabulary: Form has errors");
-            HttpResponse validationErrorResponse = new HttpResponse(bindingResult, messageSource, Locale.getDefault(),
-                    null, HttpStatus.BAD_REQUEST, HttpResponse.JSON_CONTENT_TYPE);
+            HttpResponse validationErrorResponse = HttpResponse
+                    .newBuilder()
+                    .setBindingResult(bindingResult)
+                    .setMessageSource(messageSource)
+                    .setLocale(Locale.getDefault())
+                    .setHttpStatus(HttpStatus.BAD_REQUEST)
+                    .setContentType(HttpResponse.JSON_CONTENT_TYPE)
+                    .build();
             return validationErrorResponse.toResponseEntity(serializer);
         }
 
@@ -136,8 +142,14 @@ public class VocabularyController extends HyePyeController {
 
         if (bindingResult.hasErrors()) {
             log.debug("createVocabulary: Form has errors");
-            HttpResponse validationErrorResponse = new HttpResponse(bindingResult, messageSource, Locale.getDefault(),
-                    null, HttpStatus.BAD_REQUEST, HttpResponse.JSON_CONTENT_TYPE);
+            HttpResponse validationErrorResponse = HttpResponse
+                    .newBuilder()
+                    .setBindingResult(bindingResult)
+                    .setMessageSource(messageSource)
+                    .setLocale(Locale.getDefault())
+                    .setHttpStatus(HttpStatus.BAD_REQUEST)
+                    .setContentType(HttpResponse.JSON_CONTENT_TYPE)
+                    .build();
             return validationErrorResponse.toResponseEntity(serializer);
         }
 
@@ -172,8 +184,14 @@ public class VocabularyController extends HyePyeController {
 
         if (bindingResult.hasErrors()) {
             log.debug("updateVocabulary: Form has errors");
-            HttpResponse validationErrorResponse = new HttpResponse(bindingResult, messageSource, Locale.getDefault(),
-                    null, HttpStatus.BAD_REQUEST, HttpResponse.JSON_CONTENT_TYPE);
+            HttpResponse validationErrorResponse = HttpResponse
+                    .newBuilder()
+                    .setBindingResult(bindingResult)
+                    .setMessageSource(messageSource)
+                    .setLocale(Locale.getDefault())
+                    .setHttpStatus(HttpStatus.BAD_REQUEST)
+                    .setContentType(HttpResponse.JSON_CONTENT_TYPE)
+                    .build();
             return validationErrorResponse.toResponseEntity(serializer);
         }
 
@@ -217,8 +235,12 @@ public class VocabularyController extends HyePyeController {
 
         responseStructure.put(VOCABULARY_TYPES_MAP_KEY, vocabularyTypes);
 
-        HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
-                HttpResponse.JSON_CONTENT_TYPE);
+        HttpResponse httpResponse = HttpResponse
+                .newBuilder()
+                .setBodyAsMap(responseStructure)
+                .setHttpStatus(HttpStatus.OK)
+                .setContentType(HttpResponse.JSON_CONTENT_TYPE)
+                .build();
 
         log.debug("getVocabularyTypes: End");
 
@@ -242,8 +264,12 @@ public class VocabularyController extends HyePyeController {
 
         responseStructure.put(VOCABULARY_PROPERTIES_MAP_KEY, vocabularyProperties);
 
-        HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
-                HttpResponse.JSON_CONTENT_TYPE);
+        HttpResponse httpResponse = HttpResponse
+                .newBuilder()
+                .setBodyAsMap(responseStructure)
+                .setHttpStatus(HttpStatus.OK)
+                .setContentType(HttpResponse.JSON_CONTENT_TYPE)
+                .build();
 
         log.debug("getVocabularyProperties: End");
 

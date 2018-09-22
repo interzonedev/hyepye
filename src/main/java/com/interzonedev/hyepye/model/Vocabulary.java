@@ -7,6 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.google.common.base.Objects;
@@ -154,7 +155,7 @@ public class Vocabulary implements Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode())).add("id", getId())
+        return MoreObjects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode())).add("id", getId())
                 .add("armenian", getArmenian()).add("english", getEnglish()).add("vocabularyType", getVocabularyType())
                 .add("status", getStatus()).add("timeCreated", getTimeCreated()).add("timeUpdated", getTimeUpdated())
                 .add("createdBy", getCreatedBy()).add("modifiedBy", getModifiedBy()).toString();

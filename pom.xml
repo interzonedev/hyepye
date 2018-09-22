@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.interzonedev</groupId>
         <artifactId>interzonedev-parent</artifactId>
-        <version>2.3.0</version>
+        <version>2.5.0</version>
     </parent>
 
     <artifactId>hyepye</artifactId>
@@ -29,31 +29,31 @@
         <dependency>
             <groupId>com.interzonedev</groupId>
             <artifactId>heroku-support</artifactId>
-            <version>2.1.6</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.interzonedev</groupId>
             <artifactId>commandr</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </dependency>
 
         <dependency>
             <groupId>com.interzonedev</groupId>
             <artifactId>blundr</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.2</version>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.2</version>
+            <version>1.2.3</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>17.0</version>
+            <version>26.0-jre</version>
         </dependency>
 
         <dependency>
@@ -98,18 +98,19 @@
         <dependency>
             <groupId>com.interzonedev</groupId>
             <artifactId>metrikos</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.interzonedev</groupId>
             <artifactId>respondr</artifactId>
-            <version>1.0.0</version>
+            <version>2.0.0</version>
         </dependency>
 
         <dependency>
@@ -138,7 +139,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
 

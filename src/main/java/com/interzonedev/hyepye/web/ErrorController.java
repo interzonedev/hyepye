@@ -1,5 +1,6 @@
 package com.interzonedev.hyepye.web;
 
+import com.interzonedev.respondr.serialize.Serializer;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ch.qos.logback.classic.Logger;
 
 import com.interzonedev.respondr.response.HttpResponse;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Web controller that allows the return of a JSON response body with the proper HTTP response status for errors that
@@ -27,6 +31,13 @@ public class ErrorController {
 
     private static final Logger log = (Logger) LoggerFactory.getLogger(ErrorController.class);
 
+    protected final Serializer serializer;
+
+    @Inject
+    public ErrorController(@Named("hyepye.web.jsonSerializer") Serializer serializer) {
+        this.serializer = serializer;
+    }
+
     /**
      * Handles the "Unauthorized" (401) case.
      * 
@@ -34,11 +45,8 @@ public class ErrorController {
      */
     @RequestMapping(value = "401")
     public ResponseEntity<String> handle401() {
-
         log.error("handle401");
-
-        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.UNAUTHORIZED);
-
+        return getHttpStatusJsonResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
     /**
@@ -48,11 +56,8 @@ public class ErrorController {
      */
     @RequestMapping(value = "403")
     public ResponseEntity<String> handle403() {
-
         log.error("handle403");
-
-        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.FORBIDDEN);
-
+        return getHttpStatusJsonResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     /**
@@ -62,11 +67,8 @@ public class ErrorController {
      */
     @RequestMapping(value = "404")
     public ResponseEntity<String> handle404() {
-
         log.error("handle404");
-
-        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.NOT_FOUND);
-
+        return getHttpStatusJsonResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -76,11 +78,8 @@ public class ErrorController {
      */
     @RequestMapping(value = "405")
     public ResponseEntity<String> handle405() {
-
         log.error("handle405");
-
-        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
-
+        return getHttpStatusJsonResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     /**
@@ -90,11 +89,24 @@ public class ErrorController {
      */
     @RequestMapping(value = "default")
     public ResponseEntity<String> handleDefault() {
-
         log.error("handleDefault");
-
-        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-
+        return getHttpStatusJsonResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    private ResponseEntity<String> getHttpStatusJsonResponseEntity(HttpStatus httpStatus) {
+        if (null == httpStatus) {
+            throw new IllegalArgumentException("The HTTP response status must be set");
+        }
+
+        String processingErrorMessage = httpStatus.getReasonPhrase();
+
+        HttpResponse httpResponse = HttpResponse
+                .newBuilder()
+                .setProcessingError(processingErrorMessage)
+                .setHttpStatus(httpStatus)
+                .setContentType(HttpResponse.JSON_CONTENT_TYPE)
+                .build();
+
+        return httpResponse.toResponseEntity(serializer);
+    }
 }

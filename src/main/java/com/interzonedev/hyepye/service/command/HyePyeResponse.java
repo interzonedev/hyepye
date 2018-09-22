@@ -1,10 +1,11 @@
 package com.interzonedev.hyepye.service.command;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
 import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.commandr.IZCommandResponse;
 import com.interzonedev.hyepye.model.Conjugation;
@@ -55,27 +56,27 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
         this.validationError = builder.validationError;
         this.user = builder.user;
         if (null == builder.users) {
-            this.users = Collections.emptyList();
+            this.users = ImmutableList.of();
         } else {
-            this.users = Collections.unmodifiableList(builder.users);
+            this.users = ImmutableList.copyOf(builder.users);
         }
         this.conjugation = builder.conjugation;
         if (null == builder.conjugations) {
-            this.conjugations = Collections.emptyList();
+            this.conjugations = ImmutableList.of();
         } else {
-            this.conjugations = Collections.unmodifiableList(builder.conjugations);
+            this.conjugations = ImmutableList.copyOf(builder.conjugations);
         }
         this.verb = builder.verb;
         if (null == builder.verbs) {
-            this.verbs = Collections.emptyList();
+            this.verbs = ImmutableList.of();
         } else {
-            this.verbs = Collections.unmodifiableList(builder.verbs);
+            this.verbs = ImmutableList.copyOf(builder.verbs);
         }
         this.vocabulary = builder.vocabulary;
         if (null == builder.vocabularies) {
-            this.vocabularies = Collections.emptyList();
+            this.vocabularies = ImmutableList.of();
         } else {
-            this.vocabularies = Collections.unmodifiableList(builder.vocabularies);
+            this.vocabularies = ImmutableList.copyOf(builder.vocabularies);
         }
         this.numberOfPages = builder.numberOfPages;
         this.returnedPageNumber = builder.returnedPageNumber;
@@ -183,7 +184,7 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+        return MoreObjects.toStringHelper(getClass().getName() + "@" + Integer.toHexString(hashCode()))
                 .add("processingError", getProcessingError()).add("validationError", getValidationError())
                 .add("user", getUser()).add("users", getUsers()).add("conjugation", getConjugation())
                 .add("conjugations", getConjugations()).add("verb", getVerb()).add("verbs", getVerbs())

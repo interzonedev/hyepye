@@ -26,7 +26,6 @@ import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
 import com.interzonedev.hyepye.service.security.HyePyeUserDetails;
 import com.interzonedev.respondr.response.HttpResponse;
-import com.interzonedev.respondr.response.ResponseTransformingException;
 import com.interzonedev.respondr.serialize.Serializer;
 
 /**
@@ -102,17 +101,21 @@ public abstract class HyePyeController {
         log.error("handleException", t);
 
         try {
-            HttpResponse errorHttpResponse = new HttpResponse(t, null, HttpStatus.INTERNAL_SERVER_ERROR,
-                    HttpResponse.JSON_CONTENT_TYPE);
+            HttpResponse errorHttpResponse = HttpResponse
+                    .newBuilder()
+                    .setThrowable(t)
+                    .setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .setContentType(HttpResponse.JSON_CONTENT_TYPE)
+                    .build();
             return errorHttpResponse.toResponseEntity(serializer);
-        } catch (ResponseTransformingException e) {
+        } catch (Exception e) {
             return HttpResponse.getDefaultJsonErrorResponseEntity();
         }
 
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/definitionSearchTypes")
-    public ResponseEntity<String> getDefinitionSearchTypes() throws ResponseTransformingException {
+    public ResponseEntity<String> getDefinitionSearchTypes() {
 
         log.debug("getDefinitionSearchTypes: Start");
 
@@ -127,17 +130,21 @@ public abstract class HyePyeController {
 
         responseStructure.put(DEFINITION_SEARCH_TYPES_KEY, definitionSearchTypes);
 
-        HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
-                HttpResponse.JSON_CONTENT_TYPE);
+        HttpResponse httpResponse = HttpResponse
+                .newBuilder()
+                .setBodyAsMap(responseStructure)
+                .setHttpStatus(HttpStatus.OK)
+                .setContentType(HttpResponse.JSON_CONTENT_TYPE)
+                .build();
 
-        log.debug("getDefinitionSearchTypes: End");
+                log.debug("getDefinitionSearchTypes: End");
 
         return httpResponse.toResponseEntity(serializer);
 
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/admin/statuses")
-    public ResponseEntity<String> getStatuses() throws ResponseTransformingException {
+    public ResponseEntity<String> getStatuses() {
 
         log.debug("getStatuses: Start");
 
@@ -152,10 +159,14 @@ public abstract class HyePyeController {
 
         responseStructure.put(STATUSES_MAP_KEY, statuses);
 
-        HttpResponse httpResponse = new HttpResponse(responseStructure, null, HttpStatus.OK,
-                HttpResponse.JSON_CONTENT_TYPE);
+        HttpResponse httpResponse = HttpResponse
+                .newBuilder()
+                .setBodyAsMap(responseStructure)
+                .setHttpStatus(HttpStatus.OK)
+                .setContentType(HttpResponse.JSON_CONTENT_TYPE)
+                .build();
 
-        log.debug("getStatuses: End");
+                log.debug("getStatuses: End");
 
         return httpResponse.toResponseEntity(serializer);
 
