@@ -46,7 +46,7 @@ public class ErrorController {
     @RequestMapping(value = "401")
     public ResponseEntity<String> handle401() {
         log.error("handle401");
-        return getHttpStatusJsonResponseEntity(HttpStatus.UNAUTHORIZED);
+        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.UNAUTHORIZED, serializer);
     }
 
     /**
@@ -57,7 +57,7 @@ public class ErrorController {
     @RequestMapping(value = "403")
     public ResponseEntity<String> handle403() {
         log.error("handle403");
-        return getHttpStatusJsonResponseEntity(HttpStatus.FORBIDDEN);
+        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.FORBIDDEN, serializer);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ErrorController {
     @RequestMapping(value = "404")
     public ResponseEntity<String> handle404() {
         log.error("handle404");
-        return getHttpStatusJsonResponseEntity(HttpStatus.NOT_FOUND);
+        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.NOT_FOUND, serializer);
     }
 
     /**
@@ -79,7 +79,7 @@ public class ErrorController {
     @RequestMapping(value = "405")
     public ResponseEntity<String> handle405() {
         log.error("handle405");
-        return getHttpStatusJsonResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
+        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.METHOD_NOT_ALLOWED, serializer);
     }
 
     /**
@@ -90,23 +90,7 @@ public class ErrorController {
     @RequestMapping(value = "default")
     public ResponseEntity<String> handleDefault() {
         log.error("handleDefault");
-        return getHttpStatusJsonResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        return HttpResponse.getHttpStatusJsonResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, serializer);
     }
 
-    private ResponseEntity<String> getHttpStatusJsonResponseEntity(HttpStatus httpStatus) {
-        if (null == httpStatus) {
-            throw new IllegalArgumentException("The HTTP response status must be set");
-        }
-
-        String processingErrorMessage = httpStatus.getReasonPhrase();
-
-        HttpResponse httpResponse = HttpResponse
-                .newBuilder()
-                .setProcessingError(processingErrorMessage)
-                .setHttpStatus(httpStatus)
-                .setContentType(HttpResponse.JSON_CONTENT_TYPE)
-                .build();
-
-        return httpResponse.toResponseEntity(serializer);
-    }
 }
