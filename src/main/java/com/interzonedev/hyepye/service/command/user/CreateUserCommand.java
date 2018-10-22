@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.google.common.base.Strings;
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.commandr.hystrix.HystrixCommandConfiguration;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
@@ -47,7 +47,7 @@ public class CreateUserCommand extends AbstractHyePyeCommand {
      * @param plainTextPassword The plain text password for the new {@link User} to create.
      */
     public CreateUserCommand(User userToCreateTemplate, String plainTextPassword) {
-        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.createUserCommand")
+        super(HystrixCommandConfiguration.newBuilder().setCommandKey("hyepye.service.createUserCommand")
                 .setThreadTimeoutMillis(1000).build());
         this.userToCreateTemplate = userToCreateTemplate;
         this.plainTextPassword = plainTextPassword;

@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.google.common.base.Strings;
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.commandr.hystrix.HystrixCommandConfiguration;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
@@ -58,7 +58,7 @@ public class UpdateUserCommand extends AbstractHyePyeCommand {
      *            being updated.
      */
     public UpdateUserCommand(User userToUpdateTemplate, String currentPlainTextPassword, String newPlainTextPassword) {
-        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.updateUserCommand")
+        super(HystrixCommandConfiguration.newBuilder().setCommandKey("hyepye.service.updateUserCommand")
                 .setThreadTimeoutMillis(1000).build());
         this.userToUpdateTemplate = userToUpdateTemplate;
         this.currentPlainTextPassword = currentPlainTextPassword;
@@ -72,7 +72,7 @@ public class UpdateUserCommand extends AbstractHyePyeCommand {
      * @param userToUpdateTemplate The {@link User} that contains the properties to set on the {@link User} to update.
      */
     public UpdateUserCommand(User userToUpdateTemplate) {
-        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.updateUserCommand")
+        super(HystrixCommandConfiguration.newBuilder().setCommandKey("hyepye.service.updateUserCommand")
                 .setThreadTimeoutMillis(500).build());
         this.userToUpdateTemplate = userToUpdateTemplate;
         this.currentPlainTextPassword = null;

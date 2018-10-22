@@ -9,7 +9,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.commandr.hystrix.HystrixCommandConfiguration;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
@@ -38,7 +38,7 @@ public class DeactivateUserCommand extends AbstractHyePyeCommand {
      * @param id The ID of the {@link User} to deactivate.
      */
     public DeactivateUserCommand(Long id) {
-        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.deactivateUserCommand")
+        super(HystrixCommandConfiguration.newBuilder().setCommandKey("hyepye.service.deactivateUserCommand")
                 .setThreadTimeoutMillis(500).build());
         this.id = id;
     }

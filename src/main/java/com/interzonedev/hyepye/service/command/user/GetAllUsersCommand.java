@@ -11,7 +11,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.commandr.hystrix.HystrixCommandConfiguration;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
@@ -36,7 +36,7 @@ public class GetAllUsersCommand extends AbstractHyePyeCommand {
      * Creates an instance of this command with a specific command key and timeout.
      */
     public GetAllUsersCommand() {
-        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.getAllUsersCommand")
+        super(HystrixCommandConfiguration.newBuilder().setCommandKey("hyepye.service.getAllUsersCommand")
                 .setThreadTimeoutMillis(500).build());
     }
 

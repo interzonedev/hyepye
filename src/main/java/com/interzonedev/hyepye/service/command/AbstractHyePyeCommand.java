@@ -10,8 +10,8 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer.Context;
 import com.google.common.base.Throwables;
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.commandr.AbstractIZCommand;
-import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.commandr.hystrix.AbstractIZHystrixCommand;
+import com.interzonedev.commandr.hystrix.HystrixCommandConfiguration;
 import com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStrategy;
 
 /**
@@ -27,7 +27,7 @@ import com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStrategy;
  * 
  * @author mmarkarian
  */
-public abstract class AbstractHyePyeCommand extends AbstractIZCommand<HyePyeResponse> implements HyePyeCommand {
+public abstract class AbstractHyePyeCommand extends AbstractIZHystrixCommand<HyePyeResponse> implements HyePyeCommand {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractHyePyeCommand.class);
 
@@ -40,8 +40,8 @@ public abstract class AbstractHyePyeCommand extends AbstractIZCommand<HyePyeResp
     @Named("com.interzonedev.metrikos.metricRegistry")
     private MetricRegistry metricRegistry;
 
-    protected AbstractHyePyeCommand(CommandConfiguration commandConfiguration) {
-        super(CommandConfiguration.newBuilder(commandConfiguration).setCommandGroupKey(SERVICE_COMMAND_GROUP_KEY)
+    protected AbstractHyePyeCommand(HystrixCommandConfiguration commandConfiguration) {
+        super(HystrixCommandConfiguration.newBuilder(commandConfiguration).setCommandGroupKey(SERVICE_COMMAND_GROUP_KEY)
                 .setExecutionIsolationStrategy(ExecutionIsolationStrategy.SEMAPHORE).build());
     }
 

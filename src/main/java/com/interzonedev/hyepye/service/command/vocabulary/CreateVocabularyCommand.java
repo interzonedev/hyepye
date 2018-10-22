@@ -9,7 +9,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.commandr.hystrix.HystrixCommandConfiguration;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.service.command.AbstractHyePyeCommand;
@@ -43,7 +43,7 @@ public class CreateVocabularyCommand extends AbstractHyePyeCommand {
      * @param userId The ID of the {@link User} creating the {@link Vocabulary}.
      */
     public CreateVocabularyCommand(Vocabulary vocabularyToCreate, Long userId) {
-        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.createVocabularyCommand")
+        super(HystrixCommandConfiguration.newBuilder().setCommandKey("hyepye.service.createVocabularyCommand")
                 .setThreadTimeoutMillis(500).build());
         this.vocabularyToCreate = vocabularyToCreate;
         this.userId = userId;

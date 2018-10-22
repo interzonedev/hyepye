@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
-import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.commandr.hystrix.HystrixCommandConfiguration;
 import com.interzonedev.hyepye.service.dao.user.JdbiUserDAO;
 
 /**
@@ -34,7 +34,7 @@ public class WarmupCommand extends AbstractHyePyeCommand {
      * within the limits of executing this command.
      */
     public WarmupCommand() {
-        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.Warmup").setThreadTimeoutMillis(3000)
+        super(HystrixCommandConfiguration.newBuilder().setCommandKey("hyepye.service.Warmup").setThreadTimeoutMillis(3000)
                 .build());
     }
 

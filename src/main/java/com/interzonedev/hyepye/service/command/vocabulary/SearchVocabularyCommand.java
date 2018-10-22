@@ -11,7 +11,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.commandr.CommandConfiguration;
+import com.interzonedev.commandr.hystrix.HystrixCommandConfiguration;
 import com.interzonedev.hyepye.model.Status;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.model.VocabularyProperty;
@@ -74,7 +74,7 @@ public class SearchVocabularyCommand extends AbstractHyePyeCommand {
     public SearchVocabularyCommand(String english, DefinitionSearchType englishSearchType, String armenian,
             DefinitionSearchType armenianSearchType, VocabularyType vocabularyType, Status status,
             VocabularyProperty orderBy, boolean ascending, Integer resultsPerPage, Integer requestedPageNumber) {
-        super(CommandConfiguration.newBuilder().setCommandKey("hyepye.service.searchVocabularyCommand")
+        super(HystrixCommandConfiguration.newBuilder().setCommandKey("hyepye.service.searchVocabularyCommand")
                 .setThreadTimeoutMillis(500).build());
         this.english = english;
         this.englishSearchType = englishSearchType;
