@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
-import org.hibernate.validator.constraints.NotBlank;
 
 import com.google.common.base.Objects;
 

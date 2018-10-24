@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.PortMapperImpl;
@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
 import com.interzonedev.herokusupport.environment.Environment;
 
 @Configuration("hyepye.web.webSecurityConfigation")
-@EnableWebMvcSecurity
+@EnableWebSecurity
 public class HyePyeWebSecurityConfigation extends WebSecurityConfigurerAdapter {
 
     private static final Logger log = LoggerFactory.getLogger(HyePyeWebSecurityConfigation.class);

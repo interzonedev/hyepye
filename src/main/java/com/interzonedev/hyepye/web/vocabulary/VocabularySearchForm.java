@@ -1,8 +1,7 @@
 package com.interzonedev.hyepye.web.vocabulary;
 
 import javax.validation.constraints.Min;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 public class VocabularySearchForm {
 

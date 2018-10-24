@@ -44,6 +44,7 @@ public class SpringSecurityEncoderOutput {
 
         Long afterBCrypt = System.currentTimeMillis();
 
+        @SuppressWarnings("deprecation")
         StandardPasswordEncoder standardPasswordEncoder = new StandardPasswordEncoder();
         String standardPasswordEncoded = standardPasswordEncoder.encode(plainTextPassowrd);
         System.out.println("standardPasswordEncoded = " + standardPasswordEncoded);
