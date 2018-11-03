@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.Valid;
 
+import com.interzonedev.commandr.http.CommandExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -82,15 +83,8 @@ public class VocabularyController extends HyePyeController {
 
         if (bindingResult.hasErrors()) {
             log.debug("searchVocabulary: Form has errors");
-            HttpResponse validationErrorResponse = HttpResponse
-                    .newBuilder()
-                    .setBindingResult(bindingResult)
-                    .setMessageSource(messageSource)
-                    .setLocale(Locale.getDefault())
-                    .setHttpStatus(HttpStatus.BAD_REQUEST)
-                    .setContentType(HttpResponse.JSON_CONTENT_TYPE)
-                    .build();
-            return validationErrorResponse.toResponseEntity(serializer);
+            return CommandExecutor.getFormValidationErrorJsonResponse(bindingResult, messageSource, Locale.getDefault(),
+                    serializer);
         }
 
         String english = vocabularySearchForm.getEnglish();
@@ -142,15 +136,8 @@ public class VocabularyController extends HyePyeController {
 
         if (bindingResult.hasErrors()) {
             log.debug("createVocabulary: Form has errors");
-            HttpResponse validationErrorResponse = HttpResponse
-                    .newBuilder()
-                    .setBindingResult(bindingResult)
-                    .setMessageSource(messageSource)
-                    .setLocale(Locale.getDefault())
-                    .setHttpStatus(HttpStatus.BAD_REQUEST)
-                    .setContentType(HttpResponse.JSON_CONTENT_TYPE)
-                    .build();
-            return validationErrorResponse.toResponseEntity(serializer);
+            return CommandExecutor.getFormValidationErrorJsonResponse(bindingResult, messageSource, Locale.getDefault(),
+                    serializer);
         }
 
         Vocabulary.Builder vocabularyIn = Vocabulary.newBuilder();
@@ -184,15 +171,8 @@ public class VocabularyController extends HyePyeController {
 
         if (bindingResult.hasErrors()) {
             log.debug("updateVocabulary: Form has errors");
-            HttpResponse validationErrorResponse = HttpResponse
-                    .newBuilder()
-                    .setBindingResult(bindingResult)
-                    .setMessageSource(messageSource)
-                    .setLocale(Locale.getDefault())
-                    .setHttpStatus(HttpStatus.BAD_REQUEST)
-                    .setContentType(HttpResponse.JSON_CONTENT_TYPE)
-                    .build();
-            return validationErrorResponse.toResponseEntity(serializer);
+            return CommandExecutor.getFormValidationErrorJsonResponse(bindingResult, messageSource, Locale.getDefault(),
+                    serializer);
         }
 
         Vocabulary.Builder vocabularyIn = Vocabulary.newBuilder();
