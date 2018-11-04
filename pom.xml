@@ -39,12 +39,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.interzonedev</groupId>
-            <artifactId>blundr</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-
-        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
@@ -105,12 +99,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.interzonedev</groupId>
-            <artifactId>respondr</artifactId>
-            <version>2.1.0</version>
         </dependency>
 
         <dependency>

@@ -83,7 +83,7 @@ public class VocabularyController extends HyePyeController {
 
         if (bindingResult.hasErrors()) {
             log.debug("searchVocabulary: Form has errors");
-            return CommandExecutor.getFormValidationErrorJsonResponse(bindingResult, messageSource, Locale.getDefault(),
+            return HttpResponse.getValidationErrorJsonResponse(bindingResult, messageSource, Locale.getDefault(),
                     serializer);
         }
 
@@ -136,7 +136,7 @@ public class VocabularyController extends HyePyeController {
 
         if (bindingResult.hasErrors()) {
             log.debug("createVocabulary: Form has errors");
-            return CommandExecutor.getFormValidationErrorJsonResponse(bindingResult, messageSource, Locale.getDefault(),
+            return HttpResponse.getValidationErrorJsonResponse(bindingResult, messageSource, Locale.getDefault(),
                     serializer);
         }
 
@@ -171,7 +171,7 @@ public class VocabularyController extends HyePyeController {
 
         if (bindingResult.hasErrors()) {
             log.debug("updateVocabulary: Form has errors");
-            return CommandExecutor.getFormValidationErrorJsonResponse(bindingResult, messageSource, Locale.getDefault(),
+            return HttpResponse.getValidationErrorJsonResponse(bindingResult, messageSource, Locale.getDefault(),
                     serializer);
         }
 
