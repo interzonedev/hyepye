@@ -1,5 +1,16 @@
 package com.interzonedev.hyepye.web.vocabulary;
 
+import com.interzonedev.blundr.ValidationHelper;
+import com.interzonedev.commandr.IZCommandResponse;
+import com.interzonedev.commandr.http.CommandExecutor;
+import com.interzonedev.hyepye.model.Vocabulary;
+import com.interzonedev.hyepye.service.command.HyePyeCommand;
+import com.interzonedev.hyepye.service.command.HyePyeResponse;
+import com.interzonedev.respondr.serialize.Serializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,20 +18,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
-
-import com.interzonedev.blundr.ValidationHelper;
-import com.interzonedev.commandr.IZCommandResponse;
-import com.interzonedev.hyepye.model.Vocabulary;
-import com.interzonedev.hyepye.service.command.HyePyeCommand;
-import com.interzonedev.hyepye.service.command.HyePyeResponse;
-import com.interzonedev.hyepye.web.HyePyeCommandExecutor;
-import com.interzonedev.respondr.serialize.Serializer;
-
 /**
- * {@link HyePyeCommandExecutor} implementation for getting a {@link List} of {@link Vocabulary} instances from a
+ * {@link CommandExecutor} implementation for getting a {@link List} of {@link Vocabulary} instances from a
  * {@link HyePyeResponse}.
  * 
  * @author mmarkarian
