@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.Valid;
 
-import com.interzonedev.commandr.http.CommandExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -63,11 +62,11 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.getVocabularyByIdCommand", id);
 
         // Create a CommandExecutor instance to handle the successful response from the GetVocabularyByIdCommand.
-        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(
-                getVocabularyByIdCommand, serializer, validationHelper, messageSource, getLocale());
+        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(serializer,
+                validationHelper, messageSource, getLocale());
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute();
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(getVocabularyByIdCommand);
 
         log.debug("getVocabularyById: End");
 
@@ -116,11 +115,11 @@ public class VocabularyController extends HyePyeController {
                 vocabularyType, status, orderBy, ascending, resultsPerPage, requestedPageNumber);
 
         // Create a CommandExecutor instance to handle the successful response from the SearchVocabularyCommand.
-        GetVocabulariesCommandExecutor getVocabulariesCommandExecutor = new GetVocabulariesCommandExecutor(
-                searchVocabularyCommand, serializer, validationHelper, messageSource, getLocale());
+        GetVocabulariesCommandExecutor getVocabulariesCommandExecutor = new GetVocabulariesCommandExecutor(serializer,
+                validationHelper, messageSource, getLocale());
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabulariesCommandExecutor.execute();
+        ResponseEntity<String> responseEntity = getVocabulariesCommandExecutor.execute(searchVocabularyCommand);
 
         log.debug("searchVocabulary: End");
 
@@ -151,11 +150,11 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.createVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
         // Create a CommandExecutor instance to handle the successful response from the CreateVocabularyCommand.
-        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(
-                createVocabularyCommand, serializer, validationHelper, messageSource, getLocale());
+        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(serializer,
+                validationHelper, messageSource, getLocale());
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute();
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(createVocabularyCommand);
 
         log.debug("createVocabulary: End");
 
@@ -187,11 +186,11 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.updateVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
         // Create a CommandExecutor instance to handle the successful response from the UpdateVocabularyCommand.
-        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(
-                updateVocabularyCommand, serializer, validationHelper, messageSource, getLocale());
+        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(serializer,
+                validationHelper, messageSource, getLocale());
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute();
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(updateVocabularyCommand);
 
         log.debug("updateVocabulary: End");
 

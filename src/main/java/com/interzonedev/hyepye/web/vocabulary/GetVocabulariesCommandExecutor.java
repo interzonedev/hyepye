@@ -3,7 +3,6 @@ package com.interzonedev.hyepye.web.vocabulary;
 import com.interzonedev.blundr.ValidationHelper;
 import com.interzonedev.commandr.IZCommandResponse;
 import com.interzonedev.hyepye.model.Vocabulary;
-import com.interzonedev.hyepye.service.command.HyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.respondr.serialize.Serializer;
 import org.slf4j.Logger;
@@ -29,9 +28,9 @@ public class GetVocabulariesCommandExecutor extends GetVocabularyCommandExecutor
 
     public static final String VOCABULARIES_MAP_KEY = "vocabularies";
 
-    public GetVocabulariesCommandExecutor(HyePyeCommand command, Serializer serializer,
-            ValidationHelper validationHelper, MessageSource messageSource, Locale locale) {
-        super(command, serializer, validationHelper, messageSource, locale);
+    public GetVocabulariesCommandExecutor(Serializer serializer, ValidationHelper validationHelper,
+                                          MessageSource messageSource, Locale locale) {
+        super(serializer, validationHelper, messageSource, locale);
     }
 
     /**

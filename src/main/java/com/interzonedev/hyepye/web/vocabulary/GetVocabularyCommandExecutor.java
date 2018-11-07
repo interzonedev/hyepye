@@ -2,7 +2,7 @@ package com.interzonedev.hyepye.web.vocabulary;
 
 import com.interzonedev.blundr.ValidationHelper;
 import com.interzonedev.commandr.IZCommandResponse;
-import com.interzonedev.commandr.http.CommandExecutor;
+import com.interzonedev.commandr.http.IZCommandExecutor;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.service.command.HyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
@@ -17,20 +17,20 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * {@link CommandExecutor} implementation for getting a single {@link Vocabulary} instance from a
+ * {@link IZCommandExecutor} implementation for getting a single {@link Vocabulary} instance from a
  * {@link HyePyeResponse}.
  * 
  * @author mmarkarian
  */
-public class GetVocabularyCommandExecutor extends CommandExecutor {
+public class GetVocabularyCommandExecutor extends IZCommandExecutor {
 
     private static final Logger log = LoggerFactory.getLogger(GetVocabularyCommandExecutor.class);
 
     public static final String VOCABULARY_MAP_KEY = "vocabulary";
 
-    public GetVocabularyCommandExecutor(HyePyeCommand command, Serializer serializer,
-            ValidationHelper validationHelper, MessageSource messageSource, Locale locale) {
-        super(command, serializer, validationHelper, messageSource, locale);
+    public GetVocabularyCommandExecutor(Serializer serializer, ValidationHelper validationHelper,
+                                        MessageSource messageSource, Locale locale) {
+        super(serializer, validationHelper, messageSource, locale);
     }
 
     /**
