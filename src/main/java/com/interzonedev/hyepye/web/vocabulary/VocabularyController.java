@@ -62,7 +62,7 @@ public class VocabularyController extends HyePyeController {
         GetVocabularyByIdCommand getVocabularyByIdCommand = (GetVocabularyByIdCommand) applicationContext.getBean(
                 "hyepye.service.getVocabularyByIdCommand", id);
 
-        // Create a HyePyeCommandExecutor instance to handle the successful response from the GetVocabularyByIdCommand.
+        // Create a CommandExecutor instance to handle the successful response from the GetVocabularyByIdCommand.
         GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(
                 getVocabularyByIdCommand, serializer, validationHelper, messageSource, getLocale());
 
@@ -115,7 +115,7 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.searchVocabularyCommand", english, englishSearchType, armenian, armenianSearchType,
                 vocabularyType, status, orderBy, ascending, resultsPerPage, requestedPageNumber);
 
-        // Create a HyePyeCommandExecutor instance to handle the successful response from the SearchVocabularyCommand.
+        // Create a CommandExecutor instance to handle the successful response from the SearchVocabularyCommand.
         GetVocabulariesCommandExecutor getVocabulariesCommandExecutor = new GetVocabulariesCommandExecutor(
                 searchVocabularyCommand, serializer, validationHelper, messageSource, getLocale());
 
@@ -150,7 +150,7 @@ public class VocabularyController extends HyePyeController {
         CreateVocabularyCommand createVocabularyCommand = (CreateVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.createVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
-        // Create a HyePyeCommandExecutor instance to handle the successful response from the CreateVocabularyCommand.
+        // Create a CommandExecutor instance to handle the successful response from the CreateVocabularyCommand.
         GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(
                 createVocabularyCommand, serializer, validationHelper, messageSource, getLocale());
 
@@ -186,7 +186,7 @@ public class VocabularyController extends HyePyeController {
         UpdateVocabularyCommand updateVocabularyCommand = (UpdateVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.updateVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
-        // Create a HyePyeCommandExecutor instance to handle the successful response from the UpdateVocabularyCommand.
+        // Create a CommandExecutor instance to handle the successful response from the UpdateVocabularyCommand.
         GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(
                 updateVocabularyCommand, serializer, validationHelper, messageSource, getLocale());
 

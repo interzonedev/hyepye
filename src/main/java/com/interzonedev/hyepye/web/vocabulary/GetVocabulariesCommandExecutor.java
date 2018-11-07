@@ -2,7 +2,6 @@ package com.interzonedev.hyepye.web.vocabulary;
 
 import com.interzonedev.blundr.ValidationHelper;
 import com.interzonedev.commandr.IZCommandResponse;
-import com.interzonedev.commandr.http.CommandExecutor;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.service.command.HyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
@@ -19,7 +18,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * {@link CommandExecutor} implementation for getting a {@link List} of {@link Vocabulary} instances from a
+ * Extension of {@link GetVocabularyCommandExecutor} for getting a {@link List} of {@link Vocabulary} instances from a
  * {@link HyePyeResponse}.
  * 
  * @author mmarkarian
