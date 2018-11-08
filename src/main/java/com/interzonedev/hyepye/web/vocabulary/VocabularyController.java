@@ -62,11 +62,12 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.getVocabularyByIdCommand", id);
 
         // Create a CommandExecutor instance to handle the successful response from the GetVocabularyByIdCommand.
-        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(serializer,
-                validationHelper, messageSource, getLocale());
+        GetVocabularyCommandExecutor getVocabularyCommandExecutor =
+                (GetVocabularyCommandExecutor) applicationContext.getBean("hyepye.web.getVocabularyCommandExecutor");
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(getVocabularyByIdCommand);
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(getVocabularyByIdCommand,
+                getLocale());
 
         log.debug("getVocabularyById: End");
 
@@ -115,11 +116,12 @@ public class VocabularyController extends HyePyeController {
                 vocabularyType, status, orderBy, ascending, resultsPerPage, requestedPageNumber);
 
         // Create a CommandExecutor instance to handle the successful response from the SearchVocabularyCommand.
-        GetVocabulariesCommandExecutor getVocabulariesCommandExecutor = new GetVocabulariesCommandExecutor(serializer,
-                validationHelper, messageSource, getLocale());
+        GetVocabulariesCommandExecutor getVocabulariesCommandExecutor =
+                (GetVocabulariesCommandExecutor) applicationContext.getBean("hyepye.web.getVocabulariesCommandExecutor");
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabulariesCommandExecutor.execute(searchVocabularyCommand);
+        ResponseEntity<String> responseEntity = getVocabulariesCommandExecutor.execute(searchVocabularyCommand,
+                getLocale());
 
         log.debug("searchVocabulary: End");
 
@@ -150,11 +152,12 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.createVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
         // Create a CommandExecutor instance to handle the successful response from the CreateVocabularyCommand.
-        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(serializer,
-                validationHelper, messageSource, getLocale());
+        GetVocabularyCommandExecutor getVocabularyCommandExecutor =
+                (GetVocabularyCommandExecutor) applicationContext.getBean("hyepye.web.getVocabularyCommandExecutor");
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(createVocabularyCommand);
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(createVocabularyCommand,
+                getLocale());
 
         log.debug("createVocabulary: End");
 
@@ -186,11 +189,12 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.updateVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
         // Create a CommandExecutor instance to handle the successful response from the UpdateVocabularyCommand.
-        GetVocabularyCommandExecutor getVocabularyCommandExecutor = new GetVocabularyCommandExecutor(serializer,
-                validationHelper, messageSource, getLocale());
+        GetVocabularyCommandExecutor getVocabularyCommandExecutor =
+                (GetVocabularyCommandExecutor) applicationContext.getBean("hyepye.web.getVocabularyCommandExecutor");
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(updateVocabularyCommand);
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(updateVocabularyCommand,
+                getLocale());
 
         log.debug("updateVocabulary: End");
 

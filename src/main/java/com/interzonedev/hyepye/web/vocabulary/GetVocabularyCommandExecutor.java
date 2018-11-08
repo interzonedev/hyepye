@@ -4,16 +4,18 @@ import com.interzonedev.blundr.ValidationHelper;
 import com.interzonedev.commandr.IZCommandResponse;
 import com.interzonedev.commandr.http.IZCommandExecutor;
 import com.interzonedev.hyepye.model.Vocabulary;
-import com.interzonedev.hyepye.service.command.HyePyeCommand;
 import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.respondr.serialize.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Scope;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -22,15 +24,18 @@ import java.util.Map;
  * 
  * @author mmarkarian
  */
+@Named("hyepye.web.getVocabularyCommandExecutor")
 public class GetVocabularyCommandExecutor extends IZCommandExecutor {
 
     private static final Logger log = LoggerFactory.getLogger(GetVocabularyCommandExecutor.class);
 
     public static final String VOCABULARY_MAP_KEY = "vocabulary";
 
-    public GetVocabularyCommandExecutor(Serializer serializer, ValidationHelper validationHelper,
-                                        MessageSource messageSource, Locale locale) {
-        super(serializer, validationHelper, messageSource, locale);
+    @Inject
+    public GetVocabularyCommandExecutor(@Named("hyepye.web.jsonSerializer") Serializer serializer,
+                                        @Named("hyepye.service.validationHelper") ValidationHelper validationHelper,
+                                        @Named("hyepye.web.messageSource") MessageSource messageSource) {
+        super(serializer, validationHelper, messageSource);
     }
 
     /**

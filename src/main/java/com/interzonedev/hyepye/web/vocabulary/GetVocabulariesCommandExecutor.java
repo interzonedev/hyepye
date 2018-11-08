@@ -7,13 +7,16 @@ import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.respondr.serialize.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Scope;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -22,15 +25,18 @@ import java.util.Map;
  * 
  * @author mmarkarian
  */
+@Named("hyepye.web.getVocabulariesCommandExecutor")
 public class GetVocabulariesCommandExecutor extends GetVocabularyCommandExecutor {
 
     private static final Logger log = LoggerFactory.getLogger(GetVocabulariesCommandExecutor.class);
 
     public static final String VOCABULARIES_MAP_KEY = "vocabularies";
 
-    public GetVocabulariesCommandExecutor(Serializer serializer, ValidationHelper validationHelper,
-                                          MessageSource messageSource, Locale locale) {
-        super(serializer, validationHelper, messageSource, locale);
+    @Inject
+    public GetVocabulariesCommandExecutor(@Named("hyepye.web.jsonSerializer") Serializer serializer,
+                                          @Named("hyepye.service.validationHelper") ValidationHelper validationHelper,
+                                          @Named("hyepye.web.messageSource") MessageSource messageSource) {
+        super(serializer, validationHelper, messageSource);
     }
 
     /**
