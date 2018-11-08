@@ -45,11 +45,19 @@ public class VocabularyController extends HyePyeController {
 
     public static final String VOCABULARY_PROPERTIES_MAP_KEY = "vocabularyProperties";
 
+    private final GetVocabularyCommandExecutor getVocabularyCommandExecutor;
+
+    private final GetVocabulariesCommandExecutor getVocabulariesCommandExecutor;
+
     @Inject
     public VocabularyController(@Named("hyepye.web.jsonSerializer") Serializer serializer,
             @Named("hyepye.service.validationHelper") ValidationHelper validationHelper,
-            @Named("hyepye.web.messageSource") MessageSource messageSource) {
+            @Named("hyepye.web.messageSource") MessageSource messageSource,
+            @Named("hyepye.web.getVocabularyCommandExecutor") GetVocabularyCommandExecutor getVocabularyCommandExecutor,
+            @Named("hyepye.web.getVocabulariesCommandExecutor") GetVocabulariesCommandExecutor getVocabulariesCommandExecutor) {
         super(serializer, validationHelper, messageSource);
+        this.getVocabularyCommandExecutor = getVocabularyCommandExecutor;
+        this.getVocabulariesCommandExecutor = getVocabulariesCommandExecutor;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/admin/vocabulary/{id}")
@@ -60,10 +68,6 @@ public class VocabularyController extends HyePyeController {
         // Create the specific command to get the vocabulary.
         GetVocabularyByIdCommand getVocabularyByIdCommand = (GetVocabularyByIdCommand) applicationContext.getBean(
                 "hyepye.service.getVocabularyByIdCommand", id);
-
-        // Create a CommandExecutor instance to handle the successful response from the GetVocabularyByIdCommand.
-        GetVocabularyCommandExecutor getVocabularyCommandExecutor =
-                (GetVocabularyCommandExecutor) applicationContext.getBean("hyepye.web.getVocabularyCommandExecutor");
 
         // Execute the command and get the response.
         ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(getVocabularyByIdCommand,
@@ -115,10 +119,6 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.searchVocabularyCommand", english, englishSearchType, armenian, armenianSearchType,
                 vocabularyType, status, orderBy, ascending, resultsPerPage, requestedPageNumber);
 
-        // Create a CommandExecutor instance to handle the successful response from the SearchVocabularyCommand.
-        GetVocabulariesCommandExecutor getVocabulariesCommandExecutor =
-                (GetVocabulariesCommandExecutor) applicationContext.getBean("hyepye.web.getVocabulariesCommandExecutor");
-
         // Execute the command and get the response.
         ResponseEntity<String> responseEntity = getVocabulariesCommandExecutor.execute(searchVocabularyCommand,
                 getLocale());
@@ -150,10 +150,6 @@ public class VocabularyController extends HyePyeController {
         // Create the specific command to create the vocabulary.
         CreateVocabularyCommand createVocabularyCommand = (CreateVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.createVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
-
-        // Create a CommandExecutor instance to handle the successful response from the CreateVocabularyCommand.
-        GetVocabularyCommandExecutor getVocabularyCommandExecutor =
-                (GetVocabularyCommandExecutor) applicationContext.getBean("hyepye.web.getVocabularyCommandExecutor");
 
         // Execute the command and get the response.
         ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(createVocabularyCommand,
@@ -187,10 +183,6 @@ public class VocabularyController extends HyePyeController {
         // Create the specific command to create the vocabulary.
         UpdateVocabularyCommand updateVocabularyCommand = (UpdateVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.updateVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
-
-        // Create a CommandExecutor instance to handle the successful response from the UpdateVocabularyCommand.
-        GetVocabularyCommandExecutor getVocabularyCommandExecutor =
-                (GetVocabularyCommandExecutor) applicationContext.getBean("hyepye.web.getVocabularyCommandExecutor");
 
         // Execute the command and get the response.
         ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(updateVocabularyCommand,
