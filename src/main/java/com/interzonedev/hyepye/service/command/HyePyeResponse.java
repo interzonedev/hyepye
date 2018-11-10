@@ -7,7 +7,7 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.interzonedev.blundr.ValidationException;
-import com.interzonedev.commandr.IZCommandResponse;
+import com.interzonedev.commandr.DefaultIZCommandResponse;
 import com.interzonedev.hyepye.model.Conjugation;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Verb;
@@ -18,13 +18,9 @@ import com.interzonedev.hyepye.model.Vocabulary;
  * 
  * @author mmarkarian
  */
-public class HyePyeResponse implements IZCommandResponse, Serializable {
+public class HyePyeResponse extends DefaultIZCommandResponse implements Serializable {
 
     private static final long serialVersionUID = 7125535053959188152L;
-
-    private final Exception processingError;
-
-    private final ValidationException validationError;
 
     private final User user;
 
@@ -52,8 +48,7 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
      * @param builder The {@link Builder} that holds the values for the {@link HyePyeResponse} to create.
      */
     private HyePyeResponse(Builder builder) {
-        this.processingError = builder.processingError;
-        this.validationError = builder.validationError;
+        super(builder.validationError, builder.processingError);
         this.user = builder.user;
         if (null == builder.users) {
             this.users = ImmutableList.of();
@@ -100,14 +95,6 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
      */
     public static Builder newBuilder(HyePyeResponse template) {
         return new Builder(template);
-    }
-
-    public Exception getProcessingError() {
-        return processingError;
-    }
-
-    public ValidationException getValidationError() {
-        return validationError;
     }
 
     public User getUser() {
@@ -190,16 +177,6 @@ public class HyePyeResponse implements IZCommandResponse, Serializable {
                 .add("conjugations", getConjugations()).add("verb", getVerb()).add("verbs", getVerbs())
                 .add("vocabulary", getVocabulary()).add("vocabularies", getVocabularies())
                 .add("numberOfPages", getNumberOfPages()).add("returnedPageNumber", getReturnedPageNumber()).toString();
-    }
-
-    @Override
-    public boolean hasValidationError() {
-        return (null != validationError);
-    }
-
-    @Override
-    public boolean hasProcessingError() {
-        return (null != processingError);
     }
 
     /**
