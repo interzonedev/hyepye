@@ -70,8 +70,9 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.getVocabularyByIdCommand", id);
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(getVocabularyByIdCommand,
-                getLocale());
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor
+                .execute(getVocabularyByIdCommand, getLocale())
+                .getResponseEntity();
 
         log.debug("getVocabularyById: End");
 
@@ -120,8 +121,9 @@ public class VocabularyController extends HyePyeController {
                 vocabularyType, status, orderBy, ascending, resultsPerPage, requestedPageNumber);
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabulariesCommandExecutor.execute(searchVocabularyCommand,
-                getLocale());
+        ResponseEntity<String> responseEntity = getVocabulariesCommandExecutor
+                .execute(searchVocabularyCommand, getLocale())
+                .getResponseEntity();
 
         log.debug("searchVocabulary: End");
 
@@ -152,8 +154,9 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.createVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(createVocabularyCommand,
-                getLocale());
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor
+                .execute(createVocabularyCommand, getLocale())
+                .getResponseEntity();
 
         log.debug("createVocabulary: End");
 
@@ -185,8 +188,9 @@ public class VocabularyController extends HyePyeController {
                 "hyepye.service.updateVocabularyCommand", vocabularyIn.build(), getAuthenticatedUser().getId());
 
         // Execute the command and get the response.
-        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor.execute(updateVocabularyCommand,
-                getLocale());
+        ResponseEntity<String> responseEntity = getVocabularyCommandExecutor
+                .execute(updateVocabularyCommand, getLocale())
+                .getResponseEntity();
 
         log.debug("updateVocabulary: End");
 
