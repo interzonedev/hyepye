@@ -39,7 +39,7 @@ public class CreateVocabularyCommandIT extends HyePyeIT {
         log.debug("testCreateVocabularyNullVocabulary: Start");
 
         CreateVocabularyCommand createVocabularyCommand = (CreateVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.createVocabularyCommand", (Vocabulary) null, TEST_USER_ID);
+                "hyepye.service.createVocabularyCommand", null, TEST_USER_ID);
 
         HyePyeResponse hyePyeResponse = createVocabularyCommand.execute();
 

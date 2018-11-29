@@ -58,7 +58,7 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_FULL_WORD, DefinitionSearchType.FULL_WORD,
                 TEST_ARMENIAN_FULL_WORD, DefinitionSearchType.FULL_WORD, VocabularyType.DAY, Status.APPROVED,
-                VocabularyProperty.ENGLISH, true, 5, (Integer) null);
+                VocabularyProperty.ENGLISH, true, 5, null);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -96,7 +96,7 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         log.debug("testSearchVocabularyNullEnglishSearchType: Start");
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_FULL_WORD, (DefinitionSearchType) null,
+                "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_FULL_WORD, null,
                 TEST_ARMENIAN_FULL_WORD, DefinitionSearchType.FULL_WORD, VocabularyType.DAY, Status.APPROVED,
                 VocabularyProperty.ENGLISH, true, 5, 1);
 
@@ -117,7 +117,7 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_FULL_WORD, DefinitionSearchType.FULL_WORD,
-                TEST_ARMENIAN_FULL_WORD, (DefinitionSearchType) null, VocabularyType.DAY, Status.APPROVED,
+                TEST_ARMENIAN_FULL_WORD, null, VocabularyType.DAY, Status.APPROVED,
                 VocabularyProperty.ENGLISH, true, 5, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
@@ -138,7 +138,7 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_FULL_WORD, DefinitionSearchType.FULL_WORD,
                 TEST_ARMENIAN_FULL_WORD, DefinitionSearchType.FULL_WORD, VocabularyType.DAY, Status.APPROVED,
-                (VocabularyProperty) null, true, 5, 1);
+                null, true, 5, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -161,9 +161,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 8L, 4L, 9L, 10L, 7L, 5L, 6L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, DefinitionSearchType.CONTAINS, (String) null,
-                (DefinitionSearchType) null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ENGLISH, true,
-                (Integer) null, 1);
+                "hyepye.service.searchVocabularyCommand", null, DefinitionSearchType.CONTAINS, null,
+                null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ENGLISH, true,
+                null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -192,9 +192,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 8L, 4L, 9L, 10L, 7L, 5L, 6L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", "", DefinitionSearchType.CONTAINS, (String) null,
-                (DefinitionSearchType) null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ENGLISH, true,
-                (Integer) null, 1);
+                "hyepye.service.searchVocabularyCommand", "", DefinitionSearchType.CONTAINS, null,
+                null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ENGLISH, true,
+                null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -224,8 +224,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_CONTAINS, DefinitionSearchType.CONTAINS,
-                (String) null, (DefinitionSearchType) null, VocabularyType.DAY, Status.APPROVED,
-                VocabularyProperty.ENGLISH, true, (Integer) null, 1);
+                null, null, VocabularyType.DAY, Status.APPROVED,
+                VocabularyProperty.ENGLISH, true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -255,8 +255,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_STARTS_WITH, DefinitionSearchType.STARTS_WITH,
-                (String) null, (DefinitionSearchType) null, VocabularyType.NUMBER, Status.APPROVED,
-                VocabularyProperty.ENGLISH, true, (Integer) null, 1);
+                null, null, VocabularyType.NUMBER, Status.APPROVED,
+                VocabularyProperty.ENGLISH, true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -286,8 +286,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_FULL_WORD, DefinitionSearchType.FULL_WORD,
-                (String) null, (DefinitionSearchType) null, VocabularyType.COLOR, Status.APPROVED,
-                VocabularyProperty.ENGLISH, true, (Integer) null, 1);
+                null, null, VocabularyType.COLOR, Status.APPROVED,
+                VocabularyProperty.ENGLISH, true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -316,9 +316,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 12L, 11L, 13L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
+                "hyepye.service.searchVocabularyCommand", null, null, null,
                 DefinitionSearchType.CONTAINS, VocabularyType.NUMBER, Status.APPROVED, VocabularyProperty.ARMENIAN,
-                true, (Integer) null, 1);
+                true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -347,9 +347,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 12L, 11L, 13L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, "",
+                "hyepye.service.searchVocabularyCommand", null, null, "",
                 DefinitionSearchType.CONTAINS, VocabularyType.NUMBER, Status.APPROVED, VocabularyProperty.ARMENIAN,
-                true, (Integer) null, 1);
+                true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -378,9 +378,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 12L, 11L, 13L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null,
+                "hyepye.service.searchVocabularyCommand", null, null,
                 TEST_ARMENIAN_CONTAINS, DefinitionSearchType.CONTAINS, VocabularyType.NUMBER, Status.APPROVED,
-                VocabularyProperty.ARMENIAN, true, (Integer) null, 1);
+                VocabularyProperty.ARMENIAN, true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -409,9 +409,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 12L, 13L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null,
+                "hyepye.service.searchVocabularyCommand", null, null,
                 TEST_ARMENIAN_STARTS_WITH, DefinitionSearchType.STARTS_WITH, VocabularyType.NUMBER, Status.APPROVED,
-                VocabularyProperty.ARMENIAN, true, (Integer) null, 1);
+                VocabularyProperty.ARMENIAN, true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -440,9 +440,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 11L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null,
+                "hyepye.service.searchVocabularyCommand", null, null,
                 TEST_ARMENIAN_FULL_WORD, DefinitionSearchType.FULL_WORD, VocabularyType.NUMBER, Status.APPROVED,
-                VocabularyProperty.ARMENIAN, true, (Integer) null, 1);
+                VocabularyProperty.ARMENIAN, true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -473,7 +473,7 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_FULL_WORD, DefinitionSearchType.FULL_WORD, "կ",
                 DefinitionSearchType.STARTS_WITH, VocabularyType.COLOR, Status.APPROVED, VocabularyProperty.ENGLISH,
-                true, (Integer) null, 1);
+                true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -503,8 +503,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_CONTAINS, DefinitionSearchType.CONTAINS,
-                (String) null, (DefinitionSearchType) null, VocabularyType.NOUN, Status.APPROVED,
-                VocabularyProperty.ENGLISH, true, (Integer) null, 1);
+                null, null, VocabularyType.NOUN, Status.APPROVED,
+                VocabularyProperty.ENGLISH, true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -534,8 +534,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_CONTAINS, DefinitionSearchType.CONTAINS,
-                (String) null, (DefinitionSearchType) null, (VocabularyType) null, Status.APPROVED,
-                VocabularyProperty.ENGLISH, true, (Integer) null, 1);
+                null, null, null, Status.APPROVED,
+                VocabularyProperty.ENGLISH, true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -564,9 +564,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 1L, 14L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
-                (DefinitionSearchType) null, VocabularyType.NOUN, Status.APPROVED, VocabularyProperty.ENGLISH, true,
-                (Integer) null, 1);
+                "hyepye.service.searchVocabularyCommand", null, null, null,
+                null, VocabularyType.NOUN, Status.APPROVED, VocabularyProperty.ENGLISH, true,
+                null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -595,9 +595,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 16L, 1L, 2L, 3L, 14L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
-                (DefinitionSearchType) null, VocabularyType.NOUN, (Status) null, VocabularyProperty.ENGLISH, true,
-                (Integer) null, 1);
+                "hyepye.service.searchVocabularyCommand", null, null, null,
+                null, VocabularyType.NOUN, null, VocabularyProperty.ENGLISH, true,
+                null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -626,9 +626,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 1L, 14L, 3L, 2L, 16L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
-                (DefinitionSearchType) null, VocabularyType.NOUN, (Status) null, VocabularyProperty.STATUS, true,
-                (Integer) null, 1);
+                "hyepye.service.searchVocabularyCommand", null, null, null,
+                null, VocabularyType.NOUN, null, VocabularyProperty.STATUS, true,
+                null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -658,8 +658,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_CONTAINS, DefinitionSearchType.CONTAINS,
-                (String) null, (DefinitionSearchType) null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ID,
-                true, (Integer) null, 1);
+                null, null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ID,
+                true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -689,8 +689,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", TEST_ENGLISH_CONTAINS, DefinitionSearchType.CONTAINS,
-                (String) null, (DefinitionSearchType) null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ID,
-                false, (Integer) null, 1);
+                null, null, VocabularyType.DAY, Status.APPROVED, VocabularyProperty.ID,
+                false, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -720,9 +720,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
                 14L, 15L, 16L, 17L, 18L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
-                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true,
-                (Integer) null, 1);
+                "hyepye.service.searchVocabularyCommand", null, null, null,
+                null, null, null, VocabularyProperty.ID, true,
+                null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -751,8 +751,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 1L, 2L, 3L, 4L, 5L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
-                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true,
+                "hyepye.service.searchVocabularyCommand", null, null, null,
+                null, null, null, VocabularyProperty.ID, true,
                 expectedIds.size(), 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
@@ -783,8 +783,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
                 14L, 15L, 16L, 17L, 18L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
-                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true, 20, 1);
+                "hyepye.service.searchVocabularyCommand", null, null, null,
+                null, null, null, VocabularyProperty.ID, true, 20, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -816,8 +816,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 11L, 12L, 13L, 14L, 15L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
-                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true,
+                "hyepye.service.searchVocabularyCommand", null, null, null,
+                null, null, null, VocabularyProperty.ID, true,
                 resultsPerPage, requestedPageNumber);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
@@ -850,8 +850,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
         List<Long> expectedIds = Arrays.asList(new Long[] { 14L, 15L, 16L, 17L, 18L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
-                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ID, true,
+                "hyepye.service.searchVocabularyCommand", null, null, null,
+                null, null, null, VocabularyProperty.ID, true,
                 resultsPerPage, requestedPageNumber);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
@@ -882,9 +882,9 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
                 15L, 13L, 12L, 11L, 14L });
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.searchVocabularyCommand", (String) null, (DefinitionSearchType) null, (String) null,
-                (DefinitionSearchType) null, (VocabularyType) null, (Status) null, VocabularyProperty.ENGLISH, true,
-                (Integer) null, 1);
+                "hyepye.service.searchVocabularyCommand", null, null, null,
+                null, null, null, VocabularyProperty.ENGLISH, true,
+                null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 
@@ -912,8 +912,8 @@ public class SearchVocabularyCommandIT extends HyePyeIT {
 
         SearchVocabularyCommand searchVocabularyCommand = (SearchVocabularyCommand) applicationContext.getBean(
                 "hyepye.service.searchVocabularyCommand", "this_does_not_exist", DefinitionSearchType.FULL_WORD,
-                (String) null, (DefinitionSearchType) null, (VocabularyType) null, (Status) null,
-                VocabularyProperty.ENGLISH, true, (Integer) null, 1);
+                null, null, null, null,
+                VocabularyProperty.ENGLISH, true, null, 1);
 
         HyePyeResponse hyePyeResponse = searchVocabularyCommand.execute();
 

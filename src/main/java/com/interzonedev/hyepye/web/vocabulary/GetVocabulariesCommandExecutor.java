@@ -7,9 +7,7 @@ import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.respondr.serialize.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Scope;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -55,13 +53,13 @@ public class GetVocabulariesCommandExecutor extends GetVocabularyCommandExecutor
 
         HyePyeResponse hyePyeResponse = (HyePyeResponse) izCommandResponse;
 
-        Map<String, Object> responseStructure = new HashMap<String, Object>();
+        Map<String, Object> responseStructure = new HashMap<>();
 
-        List<Map<String, Object>> vocabularies = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> vocabularies = new ArrayList<>();
 
-        hyePyeResponse.getVocabularies().forEach((Vocabulary vocabulary) -> {
-            vocabularies.add(Collections.unmodifiableMap(getVocabularyProperties(vocabulary)));
-        });
+        hyePyeResponse.getVocabularies().forEach(
+            (Vocabulary vocabulary) -> vocabularies.add(Collections.unmodifiableMap(getVocabularyProperties(vocabulary)))
+        );
 
         responseStructure.put(VOCABULARIES_MAP_KEY, Collections.unmodifiableList(vocabularies));
 

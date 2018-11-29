@@ -69,8 +69,7 @@ public class TestHelper {
     public Date parseDateInDefaultTimeZone(String dateString, String dateFormat) {
         try {
             DateFormat formatter = new SimpleDateFormat(dateFormat);
-            Date date = (Date) formatter.parse(dateString);
-            return date;
+            return formatter.parse(dateString);
         } catch (ParseException pe) {
             String errorMessage = "parseDateInDefaultTimeZone: Error parsing date " + dateString + " into format "
                     + dateFormat;

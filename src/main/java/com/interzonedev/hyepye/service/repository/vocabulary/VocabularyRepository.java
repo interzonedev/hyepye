@@ -26,7 +26,7 @@ public interface VocabularyRepository {
      * 
      * @throws ValidationException Thrown if the specified ID not a positive integer.
      */
-    public Vocabulary getVocabularyById(Long id) throws ValidationException;
+    Vocabulary getVocabularyById(Long id);
 
     /**
      * Searches all {@link Vocabulary} instances against the specified search criteria.
@@ -48,9 +48,9 @@ public interface VocabularyRepository {
      * 
      * @throws ValidationException Thrown if the search parameters are invalid.
      */
-    public List<Vocabulary> searchVocabulary(String english, DefinitionSearchType englishSearchType, String armenian,
+    List<Vocabulary> searchVocabulary(String english, DefinitionSearchType englishSearchType, String armenian,
             DefinitionSearchType armenianSearchType, VocabularyType vocabularyType, Status status,
-            VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) throws ValidationException;
+            VocabularyProperty orderBy, boolean ascending, Long limit, Long offset);
 
     /**
      * Creates a new {@link Vocabulary} by persisting the specified {@link Vocabulary}.
@@ -63,7 +63,7 @@ public interface VocabularyRepository {
      * @throws ValidationException Thrown if the specified {@link User} is invalid or if the specified {@link User} ID
      *             is not a positive integer.
      */
-    public Vocabulary createVocabulary(Vocabulary vocabulary, Long userId) throws ValidationException;
+    Vocabulary createVocabulary(Vocabulary vocabulary, Long userId);
 
     /**
      * Updates the database by persisting the specified {@link Vocabulary}.
@@ -76,7 +76,7 @@ public interface VocabularyRepository {
      * @throws ValidationException Thrown if the specified {@link User} is invalid or if the specified {@link User} ID
      *             is not a positive integer.
      */
-    public Vocabulary updateVocabulary(Vocabulary vocabulary, Long userId) throws ValidationException;
+    Vocabulary updateVocabulary(Vocabulary vocabulary, Long userId);
 
     /**
      * Makes the {@link Vocabulary} with the specified ID inactive.
@@ -88,6 +88,6 @@ public interface VocabularyRepository {
      * 
      * @throws ValidationException Thrown if either the specified ID or {@link User} ID is not a positive integer.
      */
-    public Vocabulary deactivateVocabulary(Long id, Long userId) throws ValidationException;
+    Vocabulary deactivateVocabulary(Long id, Long userId);
 
 }

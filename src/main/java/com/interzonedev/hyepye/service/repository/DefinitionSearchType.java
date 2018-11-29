@@ -11,7 +11,7 @@ public enum DefinitionSearchType {
 
     private final String definitionSearchTypeName;
 
-    private DefinitionSearchType(String definitionSearchTypeName) {
+    DefinitionSearchType(String definitionSearchTypeName) {
         this.definitionSearchTypeName = definitionSearchTypeName;
     }
 

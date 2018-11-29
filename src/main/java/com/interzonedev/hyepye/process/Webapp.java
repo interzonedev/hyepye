@@ -22,10 +22,8 @@ public class Webapp extends HyePyeProcess {
 
         SecureWebServerParams secureWebServerParams = getSecureWebServerParams();
 
-        herokuSupportClient.startWebServer(WebServerType.JETTY, webServerParams, secureWebServerParams, (
-                webServerProperties) -> {
-            getWebServerProperties(webServerProperties);
-        }, null);
+        herokuSupportClient.startWebServer(WebServerType.JETTY, webServerParams, secureWebServerParams,
+                this::getWebServerProperties, null);
 
         log.debug("process: Jetty server shutdown");
     }
@@ -44,9 +42,7 @@ public class Webapp extends HyePyeProcess {
     private WebServerParams getWebServerParams() {
         Integer httpPort = Integer.valueOf(properties.getProperty("http.port"));
 
-        WebServerParams webServerParams = new WebServerParams(httpPort);
-
-        return webServerParams;
+        return new WebServerParams(httpPort);
     }
 
     private SecureWebServerParams getSecureWebServerParams() {

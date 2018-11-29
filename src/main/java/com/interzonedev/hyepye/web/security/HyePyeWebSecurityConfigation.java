@@ -83,7 +83,7 @@ public class HyePyeWebSecurityConfigation extends WebSecurityConfigurerAdapter {
             return;
         }
 
-        Map<String, String> portMappings = new HashMap<String, String>();
+        Map<String, String> portMappings = new HashMap<>();
         portMappings.put(System.getProperty("webserver.port.http"), System.getProperty("webserver.port.https"));
 
         PortMapperImpl portMapper = new PortMapperImpl();

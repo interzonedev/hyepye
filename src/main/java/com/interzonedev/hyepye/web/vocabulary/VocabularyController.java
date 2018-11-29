@@ -33,7 +33,6 @@ import com.interzonedev.hyepye.service.command.vocabulary.UpdateVocabularyComman
 import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
 import com.interzonedev.hyepye.web.HyePyeController;
 import com.interzonedev.respondr.response.HttpResponse;
-import com.interzonedev.respondr.response.ResponseTransformingException;
 import com.interzonedev.respondr.serialize.Serializer;
 
 @Controller("hyepye.web.vocabularyController")
@@ -61,7 +60,7 @@ public class VocabularyController extends HyePyeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/admin/vocabulary/{id}")
-    public ResponseEntity<String> getVocabularyById(@PathVariable("id") Long id) throws ResponseTransformingException {
+    public ResponseEntity<String> getVocabularyById(@PathVariable("id") Long id) {
 
         log.debug("getVocabularyById: Start");
 
@@ -82,7 +81,7 @@ public class VocabularyController extends HyePyeController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/vocabulary/search")
     public ResponseEntity<String> searchVocabulary(@Valid VocabularySearchForm vocabularySearchForm,
-            BindingResult bindingResult) throws ResponseTransformingException {
+            BindingResult bindingResult) {
 
         log.debug("searchVocabulary: Start");
 
@@ -132,8 +131,7 @@ public class VocabularyController extends HyePyeController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/vocabulary")
-    public ResponseEntity<String> createVocabulary(@Valid VocabularyForm vocabularyForm, BindingResult bindingResult)
-            throws ResponseTransformingException {
+    public ResponseEntity<String> createVocabulary(@Valid VocabularyForm vocabularyForm, BindingResult bindingResult) {
 
         log.debug("createVocabulary: Start");
 
@@ -166,7 +164,7 @@ public class VocabularyController extends HyePyeController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/admin/vocabulary/{id}")
     public ResponseEntity<String> updateVocabulary(@PathVariable("id") Long id, @Valid VocabularyForm vocabularyForm,
-            BindingResult bindingResult) throws ResponseTransformingException {
+            BindingResult bindingResult) {
 
         log.debug("updateVocabulary: Start");
 
@@ -199,15 +197,15 @@ public class VocabularyController extends HyePyeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/vocabulary/types")
-    public ResponseEntity<String> getVocabularyTypes() throws ResponseTransformingException {
+    public ResponseEntity<String> getVocabularyTypes() {
 
         log.debug("getVocabularyTypes: Start");
 
-        Map<String, Object> responseStructure = new HashMap<String, Object>();
+        Map<String, Object> responseStructure = new HashMap<>();
 
-        List<Map<String, String>> vocabularyTypes = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> vocabularyTypes = new ArrayList<>();
         for (VocabularyType vocabularyType : VocabularyType.values()) {
-            Map<String, String> vocabularyTypeMap = new HashMap<String, String>();
+            Map<String, String> vocabularyTypeMap = new HashMap<>();
             vocabularyTypeMap.put("value", vocabularyType.getVocabularyTypeName());
             vocabularyTypes.add(vocabularyTypeMap);
         }
@@ -228,15 +226,15 @@ public class VocabularyController extends HyePyeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/vocabulary/properties")
-    public ResponseEntity<String> getVocabularyProperties() throws ResponseTransformingException {
+    public ResponseEntity<String> getVocabularyProperties() {
 
         log.debug("getVocabularyProperties: Start");
 
-        Map<String, Object> responseStructure = new HashMap<String, Object>();
+        Map<String, Object> responseStructure = new HashMap<>();
 
-        List<Map<String, String>> vocabularyProperties = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> vocabularyProperties = new ArrayList<>();
         for (VocabularyProperty vocabularyProperty : VocabularyProperty.values()) {
-            Map<String, String> vocabularyPropertyMap = new HashMap<String, String>();
+            Map<String, String> vocabularyPropertyMap = new HashMap<>();
             vocabularyPropertyMap.put("value", vocabularyProperty.getVocabularyColumnName());
             vocabularyProperties.add(vocabularyPropertyMap);
         }

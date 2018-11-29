@@ -12,7 +12,7 @@ public enum VocabularyProperty {
 
     private final String vocabularyColumnName;
 
-    private VocabularyProperty(String vocabularyColumnName) {
+    VocabularyProperty(String vocabularyColumnName) {
         this.vocabularyColumnName = vocabularyColumnName;
     }
 

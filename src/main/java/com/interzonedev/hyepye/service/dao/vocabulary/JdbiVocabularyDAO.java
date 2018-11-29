@@ -25,7 +25,7 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
     @Override
     @SqlQuery("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created, time_updated, "
             + "created_by, modified_by FROM vocabulary WHERE vocabulary_id = :id")
-    public Vocabulary getVocabularyById(@Bind("id") Long id);
+    Vocabulary getVocabularyById(@Bind("id") Long id);
 
     /*
      * (non-Javadoc)
@@ -35,7 +35,7 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
     @Override
     @SqlQuery("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created, time_updated, "
             + "created_by, modified_by FROM vocabulary WHERE armenian = :armenian")
-    public Vocabulary getVocabularyByArmenian(@Bind("armenian") String armenian);
+    Vocabulary getVocabularyByArmenian(@Bind("armenian") String armenian);
 
     /*
      * (non-Javadoc)
@@ -47,7 +47,7 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
     @SqlUpdate("INSERT INTO vocabulary (armenian, english, vocabulary_type, status, created_by, modified_by) "
             + "VALUES (:armenian, :english, :vocabularyType, :status, :userId, :userId)")
     @GetGeneratedKeys
-    public long createVocabulary(@BindVocabulary Vocabulary vocabulary, @Bind("userId") Long userId);
+    long createVocabulary(@BindVocabulary Vocabulary vocabulary, @Bind("userId") Long userId);
 
     /*
      * (non-Javadoc)
@@ -58,7 +58,7 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
     @Override
     @SqlUpdate("UPDATE vocabulary SET armenian = :armenian, english = :english, vocabulary_type = :vocabularyType, "
             + "status = :status, modified_by = :userId WHERE vocabulary_id = :id")
-    public int updateVocabulary(@BindVocabulary Vocabulary vocabulary, @Bind("userId") Long userId);
+    int updateVocabulary(@BindVocabulary Vocabulary vocabulary, @Bind("userId") Long userId);
 
     /*
      * (non-Javadoc)
@@ -68,6 +68,6 @@ public interface JdbiVocabularyDAO extends VocabularyDAO, Transactional<JdbiVoca
      */
     @Override
     @SqlUpdate("UPDATE vocabulary SET active = FALSE, modified_by = :userId WHERE vocabulary_id = :id")
-    public int deactivateVocabulary(@Bind("id") Long id, @Bind("userId") Long userId);
+    int deactivateVocabulary(@Bind("id") Long id, @Bind("userId") Long userId);
 
 }

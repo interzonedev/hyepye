@@ -86,16 +86,14 @@ public abstract class HyePyeIT extends AbstractIntegrationTest {
 
         HyePyeResponse hyePyeResponse = getUserByIdCommand.execute();
 
-        User testUser = hyePyeResponse.getUser();
-
-        return testUser;
+        return hyePyeResponse.getUser();
 
     }
 
     /**
      * Gets the {@link Vocabulary} with the specified ID.
      * 
-     * @param userId The ID of the {@link Vocabulary} to retrieve.
+     * @param vocabularyId The ID of the {@link Vocabulary} to retrieve.
      * 
      * @return Returns the {@link Vocabulary} with the specified ID if it exists, otherwise returns null.
      */
@@ -106,9 +104,7 @@ public abstract class HyePyeIT extends AbstractIntegrationTest {
 
         HyePyeResponse hyePyeResponse = getVocabularyByIdCommand.execute();
 
-        Vocabulary testVocabulary = hyePyeResponse.getVocabulary();
-
-        return testVocabulary;
+        return hyePyeResponse.getVocabulary();
 
     }
 

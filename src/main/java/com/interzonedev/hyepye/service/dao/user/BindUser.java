@@ -29,11 +29,11 @@ public @interface BindUser {
      * 
      * @author mmarkarian
      */
-    public static class UserBinderFactory implements BinderFactory {
+    class UserBinderFactory implements BinderFactory {
 
         /**
-         * Creates a {@link Binder<BindUser, User>} that transforms the properties of a {@link User} to specific SQL
-         * query fields values.
+         * Creates a {@link Binder} that transforms the properties of a {@link User} to specific SQL query fields
+         * values.
          */
         @Override
         public Binder<BindUser, User> build(Annotation annotation) {

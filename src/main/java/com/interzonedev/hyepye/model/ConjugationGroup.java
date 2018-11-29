@@ -11,7 +11,7 @@ public enum ConjugationGroup {
 
     private final String conjugationGroupName;
 
-    private ConjugationGroup(String conjugationGroupName) {
+    ConjugationGroup(String conjugationGroupName) {
         this.conjugationGroupName = conjugationGroupName;
     }
 

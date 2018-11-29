@@ -17,7 +17,7 @@ public interface UserRepository {
      * 
      * @return Returns a {@link List} of all {@link User}s.
      */
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
 
     /**
      * Gets the {@link User} with the specified ID.
@@ -28,7 +28,7 @@ public interface UserRepository {
      * 
      * @throws ValidationException Thrown if the specified ID not a positive integer.
      */
-    public User getUserById(Long id) throws ValidationException;
+    User getUserById(Long id);
 
     /**
      * Gets the {@link User} with the specified name.
@@ -39,7 +39,7 @@ public interface UserRepository {
      * 
      * @throws ValidationException Thrown if the specified name is not set.
      */
-    public User getUserByName(String name) throws ValidationException;
+    User getUserByName(String name);
 
     /**
      * Creates a new {@link User} by persisting the specified {@link User}.
@@ -50,7 +50,7 @@ public interface UserRepository {
      * 
      * @throws ValidationException Thrown if the specified {@link User} is invalid.
      */
-    public User createUser(User user) throws ValidationException;
+    User createUser(User user);
 
     /**
      * Updates the database by persisting the specified {@link User}.
@@ -61,7 +61,7 @@ public interface UserRepository {
      * 
      * @throws ValidationException Thrown if the specified {@link User} is invalid.
      */
-    public User updateUser(User user) throws ValidationException;
+    User updateUser(User user);
 
     /**
      * Makes the {@link User} with the specified ID inactive.
@@ -72,6 +72,6 @@ public interface UserRepository {
      * 
      * @throws ValidationException Thrown if the specified ID not a positive integer.
      */
-    public User deactivateUser(Long id) throws ValidationException;
+    User deactivateUser(Long id);
 
 }

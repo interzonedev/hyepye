@@ -40,7 +40,7 @@ public class CreateUserCommandIT extends HyePyeIT {
         log.debug("testCreateUserNullUser: Start");
 
         CreateUserCommand createUserCommand = (CreateUserCommand) applicationContext.getBean(
-                "hyepye.service.createUserCommand", (User) null, TEST_PLAINTEXT_PASSWORD);
+                "hyepye.service.createUserCommand", null, TEST_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = createUserCommand.execute();
 

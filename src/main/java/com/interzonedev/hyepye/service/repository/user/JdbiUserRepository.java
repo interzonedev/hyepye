@@ -1,24 +1,19 @@
 package com.interzonedev.hyepye.service.repository.user;
 
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.TransactionCallback;
-import org.skife.jdbi.v2.TransactionStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
-
 import com.google.common.base.Strings;
 import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.blundr.ValidationHelper;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.service.dao.user.JdbiUserDAO;
+import org.skife.jdbi.v2.DBI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.List;
 
 /**
  * JDBI specific API for retrieving and persisting {@link User}s.
@@ -69,7 +64,7 @@ public class JdbiUserRepository implements UserRepository {
      * @see com.interzonedev.hyepye.service.repository.UserRepository#getUserById(java.lang.Long)
      */
     @Override
-    public User getUserById(Long id) throws ValidationException {
+    public User getUserById(Long id) {
 
         log.debug("getUserById: id = " + id);
 
@@ -91,7 +86,7 @@ public class JdbiUserRepository implements UserRepository {
      * @see com.interzonedev.hyepye.service.repository.UserRepository#getUserByName(java.lang.String)
      */
     @Override
-    public User getUserByName(String name) throws ValidationException {
+    public User getUserByName(String name) {
 
         log.debug("getUserByName: name = " + name);
 
@@ -113,28 +108,20 @@ public class JdbiUserRepository implements UserRepository {
      * @see com.interzonedev.hyepye.service.repository.UserRepository#createUser(com.interzonedev.hyepye.model.User)
      */
     @Override
-    public User createUser(User user) throws ValidationException {
+    public User createUser(User user) {
 
         log.debug("createUser: Start - user = " + user);
 
         validateUser(user, true);
 
-        User userOut = dbi.inTransaction(new TransactionCallback<User>() {
+        User userOut = dbi.inTransaction((handle, transactionStatus) -> {
+            JdbiUserDAO userDAO = handle.attach(JdbiUserDAO.class);
 
-            @Override
-            public User inTransaction(Handle handle, TransactionStatus status) throws Exception {
+            validateDuplicateUsers(user, userDAO);
 
-                JdbiUserDAO userDAO = handle.attach(JdbiUserDAO.class);
+            long id = userDAO.createUser(user);
 
-                validateDuplicateUsers(user, userDAO);
-
-                long id = userDAO.createUser(user);
-
-                User createdUser = userDAO.getUserById(id);
-
-                return createdUser;
-            }
-
+            return userDAO.getUserById(id);
         });
 
         log.debug("createUser: Returning - userOut  = " + userOut);
@@ -149,33 +136,26 @@ public class JdbiUserRepository implements UserRepository {
      * @see com.interzonedev.hyepye.service.repository.UserRepository#updateUser(com.interzonedev.hyepye.model.User)
      */
     @Override
-    public User updateUser(User user) throws ValidationException {
+    public User updateUser(User user) {
 
         log.debug("updateUser: Start - user = " + user);
 
         validateUser(user, false);
 
-        User userOut = dbi.inTransaction(new TransactionCallback<User>() {
+        User userOut = dbi.inTransaction((handle, transactionStatus) -> {
+            JdbiUserDAO userDAO = handle.attach(JdbiUserDAO.class);
 
-            @Override
-            public User inTransaction(Handle handle, TransactionStatus status) throws Exception {
+            validateDuplicateUsers(user, userDAO);
 
-                JdbiUserDAO userDAO = handle.attach(JdbiUserDAO.class);
+            int numUpdatedRows = userDAO.updateUser(user);
 
-                validateDuplicateUsers(user, userDAO);
+            User updatedUser = null;
 
-                int numUpdatedRows = userDAO.updateUser(user);
-
-                User updatedUser = null;
-
-                if (1 == numUpdatedRows) {
-                    updatedUser = userDAO.getUserById(user.getId());
-                }
-
-                return updatedUser;
-
+            if (1 == numUpdatedRows) {
+                updatedUser = userDAO.getUserById(user.getId());
             }
 
+            return updatedUser;
         });
 
         log.debug("updateUser: Returning - userOut  = " + userOut);
@@ -190,7 +170,7 @@ public class JdbiUserRepository implements UserRepository {
      * @see com.interzonedev.hyepye.service.repository.UserRepository#deactivateUser(java.lang.Long)
      */
     @Override
-    public User deactivateUser(Long id) throws ValidationException {
+    public User deactivateUser(Long id) {
 
         log.debug("deactivateUser: id = " + id);
 
@@ -198,30 +178,23 @@ public class JdbiUserRepository implements UserRepository {
             throw new ValidationException(User.MODEL_NAME, "The user id must be a positive integer");
         }
 
-        User userOut = dbi.inTransaction(new TransactionCallback<User>() {
+        User userOut = dbi.inTransaction((handle, transactionStatus) -> {
+            JdbiUserDAO userDAO = handle.attach(JdbiUserDAO.class);
 
-            @Override
-            public User inTransaction(Handle handle, TransactionStatus status) throws Exception {
-
-                JdbiUserDAO userDAO = handle.attach(JdbiUserDAO.class);
-
-                User userToDeactivate = userDAO.getUserById(id);
-                if (null == userToDeactivate) {
-                    throw new ValidationException(User.MODEL_NAME, "The user to delete doesn't exist");
-                }
-
-                int numUpdatedRows = userDAO.deactivateUser(id);
-
-                User deactivatedUser = null;
-
-                if (1 == numUpdatedRows) {
-                    deactivatedUser = userDAO.getUserById(id);
-                }
-
-                return deactivatedUser;
-
+            User userToDeactivate = userDAO.getUserById(id);
+            if (null == userToDeactivate) {
+                throw new ValidationException(User.MODEL_NAME, "The user to delete doesn't exist");
             }
 
+            int numUpdatedRows = userDAO.deactivateUser(id);
+
+            User deactivatedUser = null;
+
+            if (1 == numUpdatedRows) {
+                deactivatedUser = userDAO.getUserById(id);
+            }
+
+            return deactivatedUser;
         });
 
         log.debug("deactivateUser: Returning - userOut  = " + userOut);
@@ -234,10 +207,10 @@ public class JdbiUserRepository implements UserRepository {
      * 
      * @param user The {@link User} to validate.
      * @param creating Whether or not the specified {@link User} is being created.
-     * 
-     * @throws ValidationException Thrown if the specified {@link User} is invalid.
+     *
+     * @throws if the specified {@link User} is invalid.
      */
-    private void validateUser(User user, boolean creating) throws ValidationException {
+    private void validateUser(User user, boolean creating) {
 
         if (null == user) {
             throw new ValidationException(User.MODEL_NAME, "The user must be set");
@@ -257,11 +230,10 @@ public class JdbiUserRepository implements UserRepository {
      * @param user The {@link User} to validate.
      * @param userDAO The {@link JdbiUserDAO} instance attached to the currently active transaction on the hp_user
      *            table.
-     * 
-     * @throws ValidationException Thrown if the specified {@link User} violates any uniqueness constraints of the
-     *             hp_user table.
+     *
+     * @throws if the specified {@link User} violates any uniqueness constraints of the hp_user table.
      */
-    private void validateDuplicateUsers(User user, JdbiUserDAO userDAO) throws ValidationException {
+    private void validateDuplicateUsers(User user, JdbiUserDAO userDAO) {
 
         User userWithSameUsername = userDAO.getUserByName(user.getUsername());
         if (null != userWithSameUsername) {

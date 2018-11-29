@@ -27,7 +27,7 @@ public class HyePyeUserDetails extends org.springframework.security.core.userdet
     }
 
     private static Collection<? extends GrantedAuthority> getAuthoritiesFromUser(User user) {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
         return authorities;
     }

@@ -16,7 +16,7 @@ public interface UserDAO {
      * 
      * @return Returns a {@link List} of all {@link User}s.
      */
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
 
     /**
      * Gets the {@link User} with the specified ID.
@@ -25,7 +25,7 @@ public interface UserDAO {
      * 
      * @return Returns the {@link User} with the specified ID.
      */
-    public User getUserById(Long id);
+    User getUserById(Long id);
 
     /**
      * Gets the {@link User} with the specified name.
@@ -34,7 +34,7 @@ public interface UserDAO {
      * 
      * @return Returns the {@link User} with the specified name.
      */
-    public User getUserByName(String name);
+    User getUserByName(String name);
 
     /**
      * Gets the {@link User} with the specified email.
@@ -43,7 +43,7 @@ public interface UserDAO {
      * 
      * @return Returns the {@link User} with the specified email.
      */
-    public User getUserByEmail(String email);
+    User getUserByEmail(String email);
 
     /**
      * Creates a new {@link User} by persisting the specified {@link User}.
@@ -52,7 +52,7 @@ public interface UserDAO {
      * 
      * @return Returns the ID of the newly created {@link User}.
      */
-    public long createUser(User user);
+    long createUser(User user);
 
     /**
      * Updates the database by persisting the specified {@link User}.
@@ -61,7 +61,7 @@ public interface UserDAO {
      * 
      * @return Returns the number of updated rows.
      */
-    public int updateUser(User user);
+    int updateUser(User user);
 
     /**
      * Makes the {@link User} with the specified ID inactive.
@@ -70,6 +70,6 @@ public interface UserDAO {
      * 
      * @return Returns the number of updated rows.
      */
-    public int deactivateUser(Long id);
+    int deactivateUser(Long id);
 
 }

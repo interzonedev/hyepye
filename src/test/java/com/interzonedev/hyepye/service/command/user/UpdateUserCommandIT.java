@@ -42,7 +42,7 @@ public class UpdateUserCommandIT extends HyePyeIT {
         log.debug("testUpdateUserUpdatingPasswordNullUser: Start");
 
         UpdateUserCommand updateUserCommand = (UpdateUserCommand) applicationContext.getBean(
-                "hyepye.service.updateUserCommand", (User) null, TEST_CURRENT_PLAINTEXT_PASSWORD,
+                "hyepye.service.updateUserCommand", null, TEST_CURRENT_PLAINTEXT_PASSWORD,
                 TEST_NEW_PLAINTEXT_PASSWORD);
 
         HyePyeResponse hyePyeResponse = updateUserCommand.execute();

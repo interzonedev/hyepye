@@ -8,9 +8,7 @@ import com.interzonedev.hyepye.service.command.HyePyeResponse;
 import com.interzonedev.respondr.serialize.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Scope;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -53,7 +51,7 @@ public class GetVocabularyCommandExecutor extends IZCommandExecutor {
 
         HyePyeResponse hyePyeResponse = (HyePyeResponse) izCommandResponse;
 
-        Map<String, Object> responseStructure = new HashMap<String, Object>();
+        Map<String, Object> responseStructure = new HashMap<>();
 
         Vocabulary vocabulary = hyePyeResponse.getVocabulary();
         if (null != vocabulary) {
@@ -74,7 +72,7 @@ public class GetVocabularyCommandExecutor extends IZCommandExecutor {
      * @return Returns a {@link Map} containing a minimal set of properties from the specified {@link Vocabulary}.
      */
     protected Map<String, Object> getVocabularyProperties(Vocabulary vocabulary) {
-        Map<String, Object> vocabularyProperties = new HashMap<String, Object>();
+        Map<String, Object> vocabularyProperties = new HashMap<>();
 
         vocabularyProperties.put("id", vocabulary.getId());
         vocabularyProperties.put("armenian", vocabulary.getArmenian());

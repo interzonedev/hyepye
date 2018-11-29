@@ -119,11 +119,11 @@ public abstract class HyePyeController {
 
         log.debug("getDefinitionSearchTypes: Start");
 
-        Map<String, Object> responseStructure = new HashMap<String, Object>();
+        Map<String, Object> responseStructure = new HashMap<>();
 
-        List<Map<String, String>> definitionSearchTypes = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> definitionSearchTypes = new ArrayList<>();
         for (DefinitionSearchType definitionSearchType : DefinitionSearchType.values()) {
-            Map<String, String> definitionSearchTypeMap = new HashMap<String, String>();
+            Map<String, String> definitionSearchTypeMap = new HashMap<>();
             definitionSearchTypeMap.put("value", definitionSearchType.getDefinitionSearchTypeName());
             definitionSearchTypes.add(definitionSearchTypeMap);
         }
@@ -148,11 +148,11 @@ public abstract class HyePyeController {
 
         log.debug("getStatuses: Start");
 
-        Map<String, Object> responseStructure = new HashMap<String, Object>();
+        Map<String, Object> responseStructure = new HashMap<>();
 
-        List<Map<String, String>> statuses = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> statuses = new ArrayList<>();
         for (Status status : Status.values()) {
-            Map<String, String> statusMap = new HashMap<String, String>();
+            Map<String, String> statusMap = new HashMap<>();
             statusMap.put("value", status.getStatusName());
             statuses.add(statusMap);
         }

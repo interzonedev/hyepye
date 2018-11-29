@@ -78,8 +78,7 @@ public class HyePyeSecurityFilter implements Filter {
 
     private String getRedirectUrl(HttpServletRequest httpRequest) throws URISyntaxException {
         URI redirectURI = new URI("https", httpRequest.getServerName(), httpRequest.getRequestURI(), null);
-        String redirectURL = redirectURI.toString();
-        return redirectURL;
+        return redirectURI.toString();
     }
 
 }

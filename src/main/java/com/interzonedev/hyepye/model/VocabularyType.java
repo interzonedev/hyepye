@@ -12,7 +12,7 @@ public enum VocabularyType {
 
     private final String vocabularyTypeName;
 
-    private VocabularyType(String vocabularyTypeName) {
+    VocabularyType(String vocabularyTypeName) {
         this.vocabularyTypeName = vocabularyTypeName;
     }
 

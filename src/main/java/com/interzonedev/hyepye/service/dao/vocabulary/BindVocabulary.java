@@ -29,11 +29,11 @@ public @interface BindVocabulary {
      * 
      * @author mmarkarian
      */
-    public static class VocabularyBinderFactory implements BinderFactory {
+    class VocabularyBinderFactory implements BinderFactory {
 
         /**
-         * Creates a {@link Binder<BindVocabulary, Vocabulary>} that transforms the properties of a {@link Vocabulary}
-         * to specific SQL query fields values.
+         * Creates a {@link Binder} that transforms the properties of a {@link Vocabulary} to specific SQL query fields
+         * values.
          */
         @Override
         public Binder<BindVocabulary, Vocabulary> build(Annotation annotation) {

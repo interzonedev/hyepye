@@ -40,7 +40,7 @@ public class UpdateVocabularyCommandIT extends HyePyeIT {
         log.debug("testUpdateVocabularyNullVocabulary: Start");
 
         UpdateVocabularyCommand updateVocabularyCommand = (UpdateVocabularyCommand) applicationContext.getBean(
-                "hyepye.service.updateVocabularyCommand", (Vocabulary) null, TEST_USER_ID);
+                "hyepye.service.updateVocabularyCommand", null, TEST_USER_ID);
 
         HyePyeResponse hyePyeResponse = updateVocabularyCommand.execute();
 

@@ -17,7 +17,7 @@ public interface VocabularyDAO {
      * 
      * @return Returns the {@link Vocabulary} with the specified ID.
      */
-    public Vocabulary getVocabularyById(Long id);
+    Vocabulary getVocabularyById(Long id);
 
     /**
      * Gets the {@link Vocabulary} with the specified Armenian definition.
@@ -26,7 +26,7 @@ public interface VocabularyDAO {
      * 
      * @return Returns the {@link Vocabulary} with the specified Armenian definition.
      */
-    public Vocabulary getVocabularyByArmenian(String armenian);
+    Vocabulary getVocabularyByArmenian(String armenian);
 
     /**
      * Creates a new {@link Vocabulary} by persisting the specified {@link Vocabulary}.
@@ -36,7 +36,7 @@ public interface VocabularyDAO {
      * 
      * @return Returns the ID of the newly created {@link Vocabulary}.
      */
-    public long createVocabulary(Vocabulary vocabulary, Long userId);
+    long createVocabulary(Vocabulary vocabulary, Long userId);
 
     /**
      * Updates the database by persisting the specified {@link Vocabulary}.
@@ -46,7 +46,7 @@ public interface VocabularyDAO {
      * 
      * @return Returns the number of updated rows.
      */
-    public int updateVocabulary(Vocabulary vocabulary, Long userId);
+    int updateVocabulary(Vocabulary vocabulary, Long userId);
 
     /**
      * Makes the {@link Vocabulary} with the specified ID inactive.
@@ -56,6 +56,6 @@ public interface VocabularyDAO {
      * 
      * @return Returns the number of updated rows.
      */
-    public int deactivateVocabulary(Long id, Long userId);
+    int deactivateVocabulary(Long id, Long userId);
 
 }

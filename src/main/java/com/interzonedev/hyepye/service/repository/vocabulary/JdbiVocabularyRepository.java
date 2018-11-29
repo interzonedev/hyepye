@@ -1,21 +1,5 @@
 package com.interzonedev.hyepye.service.repository.vocabulary;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.Query;
-import org.skife.jdbi.v2.TransactionCallback;
-import org.skife.jdbi.v2.TransactionStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
-
 import com.google.common.base.Strings;
 import com.interzonedev.blundr.ValidationException;
 import com.interzonedev.blundr.ValidationHelper;
@@ -27,6 +11,17 @@ import com.interzonedev.hyepye.model.VocabularyType;
 import com.interzonedev.hyepye.service.dao.vocabulary.JdbiVocabularyDAO;
 import com.interzonedev.hyepye.service.dao.vocabulary.VocabularyMapper;
 import com.interzonedev.hyepye.service.repository.DefinitionSearchType;
+import org.skife.jdbi.v2.DBI;
+import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.List;
 
 /**
  * JDBI specific API for retrieving and persisting {@link Vocabulary} instances.
@@ -61,7 +56,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * @see com.interzonedev.hyepye.service.repository.vocabulary.VocabularyRepository#getVocabularyById(java.lang.Long)
      */
     @Override
-    public Vocabulary getVocabularyById(Long id) throws ValidationException {
+    public Vocabulary getVocabularyById(Long id) {
 
         log.debug("getVocabularyById: id = " + id);
 
@@ -90,7 +85,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
     @Override
     public List<Vocabulary> searchVocabulary(String english, DefinitionSearchType englishSearchType, String armenian,
             DefinitionSearchType armenianSearchType, VocabularyType vocabularyType, Status status,
-            VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) throws ValidationException {
+            VocabularyProperty orderBy, boolean ascending, Long limit, Long offset) {
 
         log.debug("searchVocabulary: Start");
 
@@ -129,8 +124,8 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
                 || (null != status);
         boolean addedWhereClause = false;
 
-        List<Vocabulary> vocabularies = new ArrayList<Vocabulary>();
-        try (Handle handle = dbi.open();) {
+        List<Vocabulary> vocabularies;
+        try (Handle handle = dbi.open()) {
             StringBuilder queryString = new StringBuilder();
             queryString.append("SELECT vocabulary_id, armenian, english, vocabulary_type, status, time_created,");
             queryString.append(" time_updated, created_by, modified_by");
@@ -195,29 +190,20 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * hyepye.model.Vocabulary, java.lang.Long)
      */
     @Override
-    public Vocabulary createVocabulary(Vocabulary vocabulary, Long userId) throws ValidationException {
+    public Vocabulary createVocabulary(Vocabulary vocabulary, Long userId) {
 
         log.debug("createVocabulary: Start - vocabulary = " + vocabulary);
 
         validateVocabulary(vocabulary, userId, true);
 
-        Vocabulary vocabularyOut = dbi.inTransaction(new TransactionCallback<Vocabulary>() {
+        Vocabulary vocabularyOut = dbi.inTransaction((handle, transactionStatus) -> {
+            JdbiVocabularyDAO vocabularyDAO = handle.attach(JdbiVocabularyDAO.class);
 
-            @Override
-            public Vocabulary inTransaction(Handle handle, TransactionStatus status) throws Exception {
+            validateDuplicateVocabularies(vocabulary, vocabularyDAO);
 
-                JdbiVocabularyDAO vocabularyDAO = handle.attach(JdbiVocabularyDAO.class);
+            long id = vocabularyDAO.createVocabulary(vocabulary, userId);
 
-                validateDuplicateVocabularies(vocabulary, vocabularyDAO);
-
-                long id = vocabularyDAO.createVocabulary(vocabulary, userId);
-
-                Vocabulary createdVocabulary = vocabularyDAO.getVocabularyById(id);
-
-                return createdVocabulary;
-
-            }
-
+            return vocabularyDAO.getVocabularyById(id);
         });
 
         log.debug("createVocabulary: Returning - vocabularyOut  = " + vocabularyOut);
@@ -234,33 +220,26 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * hyepye.model.Vocabulary, java.lang.Long)
      */
     @Override
-    public Vocabulary updateVocabulary(Vocabulary vocabulary, Long userId) throws ValidationException {
+    public Vocabulary updateVocabulary(Vocabulary vocabulary, Long userId) {
 
         log.debug("updateVocabulary: Start - vocabulary = " + vocabulary);
 
         validateVocabulary(vocabulary, userId, false);
 
-        Vocabulary vocabularyOut = dbi.inTransaction(new TransactionCallback<Vocabulary>() {
+        Vocabulary vocabularyOut = dbi.inTransaction((handle, transactionStatus) -> {
+            JdbiVocabularyDAO vocabularyDAO = handle.attach(JdbiVocabularyDAO.class);
 
-            @Override
-            public Vocabulary inTransaction(Handle handle, TransactionStatus status) throws Exception {
+            validateDuplicateVocabularies(vocabulary, vocabularyDAO);
 
-                JdbiVocabularyDAO vocabularyDAO = handle.attach(JdbiVocabularyDAO.class);
+            int numUpdatedRows = vocabularyDAO.updateVocabulary(vocabulary, userId);
 
-                validateDuplicateVocabularies(vocabulary, vocabularyDAO);
+            Vocabulary updatedVocabulary = null;
 
-                int numUpdatedRows = vocabularyDAO.updateVocabulary(vocabulary, userId);
-
-                Vocabulary updatedVocabulary = null;
-
-                if (1 == numUpdatedRows) {
-                    updatedVocabulary = vocabularyDAO.getVocabularyById(vocabulary.getId());
-                }
-
-                return updatedVocabulary;
-
+            if (1 == numUpdatedRows) {
+                updatedVocabulary = vocabularyDAO.getVocabularyById(vocabulary.getId());
             }
 
+            return updatedVocabulary;
         });
 
         log.debug("updateVocabulary: Returning - vocabularyOut  = " + vocabularyOut);
@@ -277,7 +256,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * java.lang.Long)
      */
     @Override
-    public Vocabulary deactivateVocabulary(Long id, Long userId) throws ValidationException {
+    public Vocabulary deactivateVocabulary(Long id, Long userId) {
 
         log.debug("deactivateVocabulary: id = " + id);
 
@@ -285,30 +264,23 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
             throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary id must be a positive integer");
         }
 
-        Vocabulary vocabularyOut = dbi.inTransaction(new TransactionCallback<Vocabulary>() {
+        Vocabulary vocabularyOut = dbi.inTransaction((handle, transactionStatus) -> {
+            JdbiVocabularyDAO vocabularyDAO = handle.attach(JdbiVocabularyDAO.class);
 
-            @Override
-            public Vocabulary inTransaction(Handle handle, TransactionStatus status) throws Exception {
-
-                JdbiVocabularyDAO vocabularyDAO = handle.attach(JdbiVocabularyDAO.class);
-
-                Vocabulary vocabularyToDeactivate = vocabularyDAO.getVocabularyById(id);
-                if (null == vocabularyToDeactivate) {
-                    throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary to delete doesn't exist");
-                }
-
-                int numUpdatedRows = vocabularyDAO.deactivateVocabulary(id, userId);
-
-                Vocabulary deactivatedVocabulary = null;
-
-                if (1 == numUpdatedRows) {
-                    deactivatedVocabulary = vocabularyDAO.getVocabularyById(id);
-                }
-
-                return deactivatedVocabulary;
-
+            Vocabulary vocabularyToDeactivate = vocabularyDAO.getVocabularyById(id);
+            if (null == vocabularyToDeactivate) {
+                throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary to delete doesn't exist");
             }
 
+            int numUpdatedRows = vocabularyDAO.deactivateVocabulary(id, userId);
+
+            Vocabulary deactivatedVocabulary = null;
+
+            if (1 == numUpdatedRows) {
+                deactivatedVocabulary = vocabularyDAO.getVocabularyById(id);
+            }
+
+            return deactivatedVocabulary;
         });
 
         log.debug("deactivateVocabulary: Returning - vocabularyOut  = " + vocabularyOut);
@@ -326,7 +298,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * 
      * @throws ValidationException Thrown if the specified {@link Vocabulary} or {@link User} ID is invalid.
      */
-    private void validateVocabulary(Vocabulary vocabulary, Long userId, boolean creating) throws ValidationException {
+    private void validateVocabulary(Vocabulary vocabulary, Long userId, boolean creating) {
 
         if (null == vocabulary) {
             throw new ValidationException(Vocabulary.MODEL_NAME, "The vocabulary must be set");
@@ -356,7 +328,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      *             vocabulary table.
      */
     private void validateDuplicateVocabularies(Vocabulary vocabulary, JdbiVocabularyDAO vocabularyDAO)
-            throws ValidationException {
+            {
 
         Vocabulary vocabularyWithSameArmenian = vocabularyDAO.getVocabularyByArmenian(vocabulary.getArmenian());
         if ((null != vocabularyWithSameArmenian) && !vocabularyWithSameArmenian.getId().equals(vocabulary.getId())) {
@@ -383,7 +355,7 @@ public class JdbiVocabularyRepository implements VocabularyRepository {
      * @throws ValidationException Thrown if the specifed {@link DefinitionSearchType} is not supported.
      */
     private String getWhereClauseForSearchTerm(DefinitionSearchType definitionSearchType, String searchTerm)
-            throws ValidationException {
+            {
 
         StringBuilder queryStringFragment = new StringBuilder();
 

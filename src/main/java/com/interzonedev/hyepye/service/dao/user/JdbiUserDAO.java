@@ -27,7 +27,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
     @Override
     @SqlQuery("SELECT hp_user_id, username, password_hash, email, first_name, last_name, role, active, "
             + "time_created, time_updated FROM hp_user")
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
 
     /*
      * (non-Javadoc)
@@ -37,7 +37,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
     @Override
     @SqlQuery("SELECT hp_user_id, username, password_hash, email, first_name, last_name, role, active, "
             + "time_created, time_updated FROM hp_user WHERE hp_user_id = :id")
-    public User getUserById(@Bind("id") Long id);
+    User getUserById(@Bind("id") Long id);
 
     /*
      * (non-Javadoc)
@@ -47,7 +47,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
     @Override
     @SqlQuery("SELECT hp_user_id, username, password_hash, email, first_name, last_name, role, active, "
             + "time_created, time_updated FROM hp_user WHERE username = :name")
-    public User getUserByName(@Bind("name") String name);
+    User getUserByName(@Bind("name") String name);
 
     /*
      * (non-Javadoc)
@@ -57,7 +57,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
     @Override
     @SqlQuery("SELECT hp_user_id, username, password_hash, email, first_name, last_name, role, active, "
             + "time_created, time_updated FROM hp_user WHERE email = :email")
-    public User getUserByEmail(@Bind("email") String email);
+    User getUserByEmail(@Bind("email") String email);
 
     /*
      * (non-Javadoc)
@@ -68,7 +68,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
     @SqlUpdate("INSERT INTO hp_user (username, password_hash, email, first_name, last_name, role, active) "
             + "VALUES (:username, :passwordHash, :email, :firstName, :lastName, :role, :active)")
     @GetGeneratedKeys
-    public long createUser(@BindUser User user);
+    long createUser(@BindUser User user);
 
     /*
      * (non-Javadoc)
@@ -79,7 +79,7 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
     @SqlUpdate("UPDATE hp_user SET username = :username, password_hash = :passwordHash, email = :email, "
             + "first_name = :firstName, last_name = :lastName, role = :role, active = :active "
             + "WHERE hp_user_id = :id")
-    public int updateUser(@BindUser User user);
+    int updateUser(@BindUser User user);
 
     /*
      * (non-Javadoc)
@@ -88,6 +88,6 @@ public interface JdbiUserDAO extends UserDAO, Transactional<JdbiUserDAO> {
      */
     @Override
     @SqlUpdate("UPDATE hp_user SET active = FALSE WHERE hp_user_id = :id")
-    public int deactivateUser(@Bind("id") Long id);
+    int deactivateUser(@Bind("id") Long id);
 
 }
