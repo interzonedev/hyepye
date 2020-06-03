@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.interzonedev</groupId>
         <artifactId>interzonedev-parent</artifactId>
-        <version>2.5.0</version>
+        <version>2.6.1</version>
     </parent>
 
     <artifactId>hyepye</artifactId>
@@ -21,21 +21,21 @@
     <inceptionYear>2014</inceptionYear>
 
     <properties>
-        <spring.version>5.1.3.RELEASE</spring.version>
-        <spring.security.version>5.1.2.RELEASE</spring.security.version>
+        <spring.version>5.2.6.RELEASE</spring.version>
+        <spring.security.version>5.3.2.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.interzonedev</groupId>
             <artifactId>heroku-support</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>com.interzonedev</groupId>
             <artifactId>commandr</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.2</version>
         </dependency>
 
         <dependency>
@@ -47,13 +47,13 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>27.0-jre</version>
+            <version>29.0-jre</version>
         </dependency>
 
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.11</version>
+            <version>1.14</version>
         </dependency>
 
         <dependency>
@@ -62,20 +62,20 @@
             <version>2.0.1.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.13.Final</version>
+            <version>6.1.5.Final</version>
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.5</version>
+            <version>42.2.12</version>
         </dependency>
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
-            <version>0.9.5.2</version>
+            <version>0.9.5.5</version>
         </dependency>
         <dependency>
             <groupId>org.jdbi</groupId>
@@ -92,7 +92,7 @@
         <dependency>
             <groupId>com.interzonedev</groupId>
             <artifactId>metrikos</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
         </dependency>
 
         <dependency>
@@ -102,9 +102,9 @@
         </dependency>
 
         <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>1.2.5</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -192,7 +192,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appassembler-maven-plugin</artifactId>
-                <version>2.0.0</version>
+                <version>2.1.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
