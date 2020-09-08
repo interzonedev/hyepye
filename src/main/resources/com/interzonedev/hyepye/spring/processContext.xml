@@ -6,7 +6,7 @@
 
     <import resource="dataSourceContext.xml" />
 
-    <bean id="hyepye.service.migrationServiceFlyway" class="com.interzonedev.herokusupport.data.migration.flyway.MigrationServiceFlyway">
+    <bean id="hyepye.service.flywayConfiguration" class="org.flywaydb.core.api.configuration.ClassicConfiguration">
         <property name="dataSource" ref="hyepye.service.dataSource" />
         <property name="locations">
             <array>
@@ -15,4 +15,10 @@
         </property>
         <property name="sqlMigrationPrefix" value="M_" />
     </bean>
+
+    <bean id="hyepye.service.migrationServiceFlyway"
+          class="com.interzonedev.herokusupport.data.migration.flyway.MigrationServiceFlyway">
+        <constructor-arg index="0" ref="hyepye.service.flywayConfiguration"/>
+    </bean>
+
 </beans>
