@@ -1,4 +1,4 @@
 #!/bin/sh
 
 export DATABASE_URL=postgres://hyepyeuser:hyepyepass@localhost/hyepye_test
-sh target/bin/webapp
+sh target/bin/application
