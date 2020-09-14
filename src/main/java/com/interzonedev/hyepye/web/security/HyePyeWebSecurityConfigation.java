@@ -8,7 +8,9 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -23,9 +25,16 @@ import com.interzonedev.herokusupport.environment.Environment;
 
 @Configuration("hyepye.web.webSecurityConfigation")
 @EnableWebSecurity
+@PropertySource("classpath:com/interzonedev/hyepye/webserver/local-webserver.properties")
 public class HyePyeWebSecurityConfigation extends WebSecurityConfigurerAdapter {
 
     private static final Logger log = LoggerFactory.getLogger(HyePyeWebSecurityConfigation.class);
+
+    @Value( "${http.port}" )
+    private String httpPort;
+
+    @Value( "${https.port}" )
+    private String httpsPort;
 
     @Inject
     @Named("hyepye.service.passwordEncoder")
@@ -84,7 +93,8 @@ public class HyePyeWebSecurityConfigation extends WebSecurityConfigurerAdapter {
         }
 
         Map<String, String> portMappings = new HashMap<>();
-        portMappings.put(System.getProperty("webserver.port.http"), System.getProperty("webserver.port.https"));
+        //portMappings.put(System.getProperty("webserver.port.http"), System.getProperty("webserver.port.https"));
+        portMappings.put(httpPort, httpsPort);
 
         PortMapperImpl portMapper = new PortMapperImpl();
         portMapper.setPortMappings(portMappings);
@@ -98,7 +108,7 @@ public class HyePyeWebSecurityConfigation extends WebSecurityConfigurerAdapter {
             return;
         }
 
-        http.requiresChannel().antMatchers("/loginForm", "/login").requiresSecure();
+        //http.requiresChannel().antMatchers("/loginForm", "/login").requiresSecure();
         http.requiresChannel().anyRequest().requiresInsecure();
 
     }

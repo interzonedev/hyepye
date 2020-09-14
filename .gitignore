@@ -1,10 +1,12 @@
-target/
+.idea/
+*.iml
 .classpath
 .project
 .settings/
-.springBeans
 *.jpage
-.idea/
-*.iml
+target/
+build/
+out/
+.gradle/
+tomcat/
 datamodel/
-
