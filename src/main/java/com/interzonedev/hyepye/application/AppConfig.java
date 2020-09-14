@@ -13,6 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
         excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {EnableWebSecurity.class})})
 
 */
-@ComponentScan(basePackages = {"com.interzonedev.hyepye.web"})
+@ComponentScan(basePackages = {"com.interzonedev.hyepye.service", "com.interzonedev.hyepye.web"})
 public class AppConfig {
 }

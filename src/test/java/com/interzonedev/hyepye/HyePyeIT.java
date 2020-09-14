@@ -4,11 +4,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
 
+import com.interzonedev.hyepye.application.Application;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.validation.BindingResult;
-
+import org.springframework.boot.test.context.ConfigFileApplicationContextInitializer;
 import com.interzonedev.hyepye.model.User;
 import com.interzonedev.hyepye.model.Vocabulary;
 import com.interzonedev.hyepye.service.TestHelper;
@@ -24,7 +28,12 @@ import com.interzonedev.zankou.dataset.dbunit.DbUnitDataSetTester;
  * 
  * @author mmarkarian
  */
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Application.class)
+@TestPropertySource(properties = {"DATABASE_URL=postgres://hyepyeuser:hyepyepass@localhost/hyepye_test"})
+//@ContextConfiguration(initializers = ConfigFileApplicationContextInitializer.class)
+//@ContextConfiguration(locations = { "classpath:com/interzonedev/hyepye/spring/applicationContext-test.xml" }, initializers = ConfigFileApplicationContextInitializer.class)
 @ContextConfiguration(locations = { "classpath:com/interzonedev/hyepye/spring/applicationContext-test.xml" })
+@ActiveProfiles("test")
 public abstract class HyePyeIT extends AbstractIntegrationTest {
 
     /**

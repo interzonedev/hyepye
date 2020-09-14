@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <import resource="dataSourceContext.xml" />
+    <import resource="classpath:com/interzonedev/metrikos/applicationContext-metrikos.xml" />
 
-    <import resource="serviceContext.xml" />
+    <bean id="hyepye.service.dbi" class="org.skife.jdbi.v2.DBI">
+        <constructor-arg ref="hyepye.service.dataSource" />
+        <property name="timingCollector" ref="com.interzonedev.metrikos.jdbiTimingCollector" />
+    </bean>
+
+    <bean id="hyepye.service.jsr303Validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+    <bean id="hyepye.service.validationHelper" class="com.interzonedev.blundr.ValidationHelper" />
+
+    <bean id="hyepye.service.passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg value="12" />
+    </bean>
+
+    <bean id="hyepye.service.jdbcHealthCheck" class="com.interzonedev.metrikos.JDBCHealthCheck">
+        <constructor-arg index="0" ref="com.interzonedev.metrikos.healthCheckRegistry" />
+        <constructor-arg index="1" value="HyePye" />
+        <constructor-arg index="2">
+            <util:constant static-field="com.interzonedev.metrikos.DBType.POSTGRESQL" />
+        </constructor-arg>
+        <constructor-arg index="3" ref="hyepye.service.dataSource" />
+        <constructor-arg index="4" value="hyepye.service.dataSource" />
+    </bean>
+
+    <bean id="hyepye.service.jmxReporterBean" class="com.interzonedev.metrikos.JmxReporterBean">
+        <constructor-arg ref="com.interzonedev.metrikos.metricRegistry" />
+    </bean>
 
 </beans>
