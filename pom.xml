@@ -21,7 +21,7 @@
     <inceptionYear>2014</inceptionYear>
 
     <properties>
-        <spring.version>5.2.6.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <spring.security.version>5.3.2.RELEASE</spring.security.version>
     </properties>
 
